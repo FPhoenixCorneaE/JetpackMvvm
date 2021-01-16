@@ -1,0 +1,5 @@
+<resources>
+    <string name="multiple_status_empty_view_hint">暂无数据\n点击空白处刷新</string>
+    <string name="multiple_status_error_view_hint">加载失败\n点击空白处刷新</string>
+    <string name="multiple_status_no_network_view_hint">网络开小差了\n点击重试</string>
+</resources>
