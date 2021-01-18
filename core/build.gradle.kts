@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.android.extensions")
-    id("com.github.dcendents.android-maven")
+    id(Deps.PluginIds.library)
+    kotlin(Deps.PluginIds.kotlinAndroid)
+    kotlin(Deps.PluginIds.kotlinExtensions)
+    id(Deps.PluginIds.androidMaven)
 }
 group = "com.github.FPhoenixCorneaE"
 
@@ -84,23 +84,28 @@ dependencies {
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------
 
-//// 指定编码
+// 指定编码
 //tasks.withType(JavaCompile::class) {
 //    options.encoding = "UTF-8"
 //}
 //// 打包源码
 //task("sourcesJar", Jar::class) {
-//    sourceSets {
-//        val main by getting
-//        from((main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).srcDirs)
-//        classifier = "sources"
+//    if (project.hasProperty("kotlin")) {
+//        sourceSets {
+//            val main by getting
+//            from((main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).srcDirs)
+//        }
 //    }
+//    classifier = "sources"
 //}
 //task("javadoc", Javadoc::class) {
 //    isFailOnError = false
-//    sourceSets {
-//        val main by getting
-//        source = (main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).sourceFiles
+//    if (project.hasProperty("android")) {
+//        sourceSets {
+//            val main by getting
+//            source =
+//                (main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).sourceFiles
+//        }
 //    }
 //    classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
 //    classpath += configurations.compile
