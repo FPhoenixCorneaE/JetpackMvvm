@@ -61,6 +61,7 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepared = true
         createMultiStatusLayoutManager()
+        initToolbar()
         initParam()
         initView()
         initListener()

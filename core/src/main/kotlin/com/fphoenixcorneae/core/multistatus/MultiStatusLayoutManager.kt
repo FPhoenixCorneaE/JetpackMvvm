@@ -281,12 +281,12 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
         loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onPause")
-        showContentView()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
         loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onStop")
+        showContentView()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

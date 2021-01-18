@@ -37,6 +37,7 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
         mContext = this
         setContentView(getLayoutId())
         createMultiStatusLayoutManager()
+        initToolbar()
         initParam()
         initView()
         initListener()

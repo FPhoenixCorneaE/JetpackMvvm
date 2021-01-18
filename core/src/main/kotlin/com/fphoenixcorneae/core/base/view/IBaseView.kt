@@ -21,6 +21,11 @@ interface IBaseView {
     fun createMultiStatusLayoutManager() {}
 
     /**
+     * 初始化标题栏
+     */
+    fun initToolbar() {}
+
+    /**
      * 初始化界面传递参数
      */
     fun initParam() {}
