@@ -85,40 +85,29 @@ dependencies {
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------
 
 // 指定编码
-//tasks.withType(JavaCompile::class) {
-//    options.encoding = "UTF-8"
-//}
-//// 打包源码
-//task("sourcesJar", Jar::class) {
-//    if (project.hasProperty("kotlin")) {
-//        sourceSets {
-//            val main by getting
-//            from((main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).srcDirs)
-//        }
-//    }
-//    classifier = "sources"
-//}
-//task("javadoc", Javadoc::class) {
-//    isFailOnError = false
-//    if (project.hasProperty("android")) {
-//        sourceSets {
-//            val main by getting
-//            source =
-//                (main.java as com.android.build.gradle.api.AndroidSourceDirectorySet).sourceFiles
-//        }
-//    }
-//    classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//// 制作文档(Javadoc)
-//task("javadocJar", Jar::class) {
-//    classifier = "javadoc"
-//    val javadoc = tasks.getByName("javadoc") as Javadoc
-//    from(javadoc.destinationDir)
-//}
-//artifacts {
-//    val sourcesJar = tasks.getByName("sourcesJar")
-//    val javadocJar = tasks.getByName("javadocJar")
-//    archives(sourcesJar)
-//    archives(javadocJar)
-//}
+tasks.withType(JavaCompile::class) {
+    options.encoding = "UTF-8"
+}
+// 打包源码
+task("sourcesJar", Jar::class) {
+    from("src/main/kotlin")
+    classifier = "sources"
+}
+task("javadoc", Javadoc::class) {
+    isFailOnError = false
+    source = fileTree(mapOf("dir" to "src/main/kotlin", "include" to listOf("*.*")))
+    classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
+    classpath += configurations.compile
+}
+// 制作文档(Javadoc)
+task("javadocJar", Jar::class) {
+    classifier = "javadoc"
+    val javadoc = tasks.getByName("javadoc") as Javadoc
+    from(javadoc.destinationDir)
+}
+artifacts {
+    val sourcesJar = tasks.getByName("sourcesJar")
+    val javadocJar = tasks.getByName("javadocJar")
+    archives(sourcesJar)
+    archives(javadocJar)
+}
