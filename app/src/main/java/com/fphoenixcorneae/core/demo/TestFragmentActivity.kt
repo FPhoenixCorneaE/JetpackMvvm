@@ -10,6 +10,10 @@ class TestFragmentActivity : AbstractBaseActivity() {
         return R.layout.activity_test_fragment
     }
 
+    override fun initToolbar() {
+        mToolbar?.centerTextView?.text = "FragmentActivity"
+    }
+
     override fun initListener() {
         rbFirst.setOnClickListener {
             supportFragmentManager.beginTransaction()

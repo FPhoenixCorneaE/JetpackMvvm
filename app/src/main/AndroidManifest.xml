@@ -16,8 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestFragmentActivity" />
-        <activity android:name=".TestListActivity" />
+        <activity
+            android:name=".TestFragmentActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".TestListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
-
 </manifest>

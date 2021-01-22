@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="core_color_statusBar_0xdddddd">#dddddd</color>
+    <color name="core_color_toolbar_0xffffff">#ffffff</color>
     <color name="core_color_bg_0xf5f5f5">#f5f5f5</color>
+    <color name="core_color_title_0x222222">#222222</color>
 </resources>

@@ -2,13 +2,20 @@ package com.fphoenixcorneae.core.base.activity
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
+import com.fphoenixcorneae.core.CoreConstants
+import com.fphoenixcorneae.core.R
 import com.fphoenixcorneae.core.base.view.IBaseView
 import com.fphoenixcorneae.core.multistatus.MultiStatusLayoutManager
+import com.fphoenixcorneae.dsl.layout.LinearLayout
 import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.ext.view.setTintColor
+import com.fphoenixcorneae.titlebar.CommonTitleBar
 
 /**
  * @desc：Activity 基类
@@ -32,6 +39,9 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
     /** 多状态布局管理器 */
     private var mMultiStatusLayoutManager: MultiStatusLayoutManager? = null
 
+    /** 标题栏 */
+    protected var mToolbar: CommonTitleBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
@@ -45,17 +55,55 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
         initData(savedInstanceState)
     }
 
+    override fun setContentView(layoutResID: Int) {
+        val contentView = LinearLayout {
+            layoutParams = android.widget.LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            orientation = android.widget.LinearLayout.VERTICAL
+            createToolbar()?.let { toolbar ->
+                // 添加标题栏
+                addView(toolbar)
+            }
+            layoutInflater.inflate(layoutResID, this, false)?.let { content ->
+                // 添加内容
+                addView(content)
+            }
+        }
+        super.setContentView(contentView)
+    }
+
+    override fun createToolbar(): View? {
+        mToolbar = CommonTitleBar(this).apply {
+            layoutParams = CoreConstants.Toolbar.LAYOUT_PARAMS
+            leftType = CoreConstants.Toolbar.LEFT_TYPE
+            leftImageButton?.setTintColor(CoreConstants.Toolbar.LEFT_IMAGE_TINT_COLOR)
+            centerType = CoreConstants.Toolbar.CENTER_TYPE
+            centerTextView?.apply {
+                setTextColor(CoreConstants.Toolbar.CENTER_TEXT_COLOR)
+                textSize = CoreConstants.Toolbar.CENTER_TEXT_SIZE
+                paint.isFakeBoldText = CoreConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
+            }
+            showBottomLine = CoreConstants.Toolbar.SHOW_BOTTOM_LINE
+            titleBarHeight = CoreConstants.Toolbar.TITLE_BAR_HEIGHT
+            titleBarColor = CoreConstants.Toolbar.TITLE_BAR_COLOR
+            statusBarColor = CoreConstants.Toolbar.STATUS_BAR_COLOR
+        }
+        return mToolbar
+    }
+
     override fun createMultiStatusLayoutManager() {
         mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
-            .addNoNetWorkClickListener(View.OnClickListener {
+            .addNoNetWorkClickListener {
                 onNoNetWorkClick()
-            })
-            .addErrorClickListener(View.OnClickListener {
+            }
+            .addErrorClickListener {
                 onErrorClick()
-            })
-            .addEmptyClickListener(View.OnClickListener {
+            }
+            .addEmptyClickListener {
                 onEmptyClick()
-            })
+            }
             .register(this)
     }
 

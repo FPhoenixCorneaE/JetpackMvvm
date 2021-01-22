@@ -1,6 +1,7 @@
 package com.fphoenixcorneae.core.base.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
 
 /**
@@ -19,6 +20,13 @@ interface IBaseView {
      * 构造多状态布局管理器
      */
     fun createMultiStatusLayoutManager() {}
+
+    /**
+     * 构造标题栏
+     */
+    fun createToolbar(): View? {
+        return null
+    }
 
     /**
      * 初始化标题栏

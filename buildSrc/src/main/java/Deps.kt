@@ -11,11 +11,12 @@ object Deps {
     const val applicationId = "com.fphoenixcorneae.core.demo"
 
     object FPhoenixCorneaE {
-        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.4"
+        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.6"
+        const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.4"
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.0.1"
+        const val gradle = "com.android.tools.build:gradle:4.1.1"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
         const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }

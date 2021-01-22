@@ -79,7 +79,8 @@ dependencies {
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.lifecycleRuntimeKtx)
-    implementation(Deps.FPhoenixCorneaE.commonUtil)
+    api(Deps.FPhoenixCorneaE.commonUtil)
+    api(Deps.FPhoenixCorneaE.commonTitlebar)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------
