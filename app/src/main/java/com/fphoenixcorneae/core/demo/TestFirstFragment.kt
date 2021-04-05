@@ -14,7 +14,7 @@ class TestFirstFragment : AbstractBaseFragment() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        showLoading()
+        showLoading("")
         //测试普通对象
         mHandler.postDelayed({
             showContent()

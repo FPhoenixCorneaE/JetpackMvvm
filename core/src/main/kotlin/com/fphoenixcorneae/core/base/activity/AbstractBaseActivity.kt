@@ -3,12 +3,10 @@ package com.fphoenixcorneae.core.base.activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import com.fphoenixcorneae.core.CoreConstants
-import com.fphoenixcorneae.core.R
 import com.fphoenixcorneae.core.base.view.IBaseView
 import com.fphoenixcorneae.core.multistatus.MultiStatusLayoutManager
 import com.fphoenixcorneae.dsl.layout.LinearLayout
@@ -45,14 +43,19 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
-        setContentView(getLayoutId())
+        setContentView()
         createMultiStatusLayoutManager()
         initToolbar()
         initParam()
         initView()
         initListener()
+        initViewModel()
         initViewObservable()
         initData(savedInstanceState)
+    }
+
+    override fun setContentView() {
+        setContentView(getLayoutId())
     }
 
     override fun setContentView(layoutResID: Int) {
@@ -107,7 +110,7 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
             .register(this)
     }
 
-    override fun showLoading() {
+    override fun showLoading(loadingMsg: String) {
         mMultiStatusLayoutManager?.showLoadingView()
     }
 
@@ -136,17 +139,17 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
     }
 
     override fun onNoNetWorkClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 
     override fun onErrorClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 
     override fun onEmptyClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 }

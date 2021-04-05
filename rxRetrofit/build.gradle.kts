@@ -1,16 +1,9 @@
 plugins {
     id(Deps.PluginIds.library)
     kotlin(Deps.PluginIds.kotlinAndroid)
-    kotlin(Deps.PluginIds.kotlinKapt)
     id(Deps.PluginIds.androidMaven)
 }
 group = "com.github.FPhoenixCorneaE"
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
-}
 
 android {
     compileSdkVersion(Deps.Versions.compileSdkVersion)
@@ -34,8 +27,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
         getByName(Deps.BuildType.Debug) {
@@ -46,8 +39,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -73,35 +66,19 @@ android {
     lintOptions {
         isAbortOnError = false
     }
-
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
 }
 
 dependencies {
-    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(Deps.Retrofit2.retrofit)
+    implementation(Deps.Retrofit2.converterGson)
+    implementation(Deps.OkHttp3.loggingInterceptor)
+    implementation(Deps.persistentCookieJar)
     compileOnly(Deps.Kotlin.stdLibJdk7)
+    compileOnly(Deps.Kotlin.coroutines)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
-    compileOnly(Deps.Koin.scope)
-    compileOnly(Deps.Koin.viewModel)
-    compileOnly(Deps.Koin.fragment)
-    compileOnly(Deps.Koin.ext)
-    compileOnly(Deps.ARouter.api)
-    kapt(Deps.ARouter.compiler)
-    api(Deps.AndroidX.lifecycleRuntimeKtx)
-    api(Deps.AndroidX.lifecycleCommonJava8)
-    api(Deps.AndroidX.lifecycleLiveDataKtx)
-    api(Deps.AndroidX.lifecycleViewModelKtx)
-    api(Deps.AndroidX.lifecycleExtensions)
-    api(Deps.FPhoenixCorneaE.commonUtil)
-    api(Deps.FPhoenixCorneaE.commonTitlebar)
-    api(Deps.baseRecyclerViewAdapterHelper) {
-        exclude(group = "org.jetbrains.kotlin")
-    }
-    api(Deps.Kotlin.reflect)
+    compileOnly(Deps.FPhoenixCorneaE.commonUtil)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------

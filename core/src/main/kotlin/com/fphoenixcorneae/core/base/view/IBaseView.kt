@@ -11,6 +11,11 @@ import androidx.annotation.LayoutRes
 interface IBaseView {
 
     /**
+     * 设置内容视图
+     */
+    fun setContentView()
+
+    /**
      * 获取内容布局id
      */
     @LayoutRes
@@ -54,6 +59,11 @@ interface IBaseView {
     fun initViewObservable() {}
 
     /**
+     * 初始化 ViewModel
+     */
+    fun initViewModel() {}
+
+    /**
      * 初始化数据
      */
     fun initData(savedInstanceState: Bundle?) {}
@@ -61,7 +71,7 @@ interface IBaseView {
     /**
      * 显示加载中视图
      */
-    fun showLoading() {}
+    fun showLoading(loadingMsg: String) {}
 
     /**
      * 显示数据内容视图

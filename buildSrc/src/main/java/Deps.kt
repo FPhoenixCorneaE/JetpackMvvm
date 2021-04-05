@@ -16,7 +16,7 @@ object Deps {
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.1.1"
+        const val gradle = "com.android.tools.build:gradle:4.1.3"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
         const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }
@@ -26,17 +26,18 @@ object Deps {
         const val library = "com.android.library"
         const val kotlinAndroid = "android"
         const val kotlinExtensions = "android.extensions"
+        const val kotlinKapt = "kapt"
         const val androidMaven = "com.github.dcendents.android-maven"
     }
 
     object Versions {
         const val compileSdkVersion = 30
-        const val buildToolsVersion = "30.0.2"
-        const val minSdkVersion = 24
+        const val buildToolsVersion = "30.0.3"
+        const val minSdkVersion = 21
         const val targetSdkVersion = 30
         const val versionName = "1.0.0"
         const val versionCode = 100
-        const val kotlinVersion = "1.4.0"
+        const val kotlinVersion = "1.4.30"
     }
 
     object BuildType {
@@ -46,6 +47,10 @@ object Deps {
 
     object Kotlin {
         const val stdLibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
+
+        // 协程
+        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6"
+        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
     }
 
     object AndroidX {
@@ -59,8 +64,10 @@ object Deps {
         const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0-beta01"
         const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+        const val lifecycleCommonJava8 = "androidx.lifecycle:lifecycle-common-java8:2.2.0"
         const val lifecycleLiveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
         const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+        const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
         const val cardView = "androidx.cardview:cardview:1.0.0"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         const val startup = "androidx.startup:startup-runtime:1.0.0"
@@ -77,8 +84,21 @@ object Deps {
         const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
     }
 
+    object RxJava2 {
+        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.0"
+        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
+        const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.2.0"
+    }
+
     object OkHttp3 {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.4.0"
+    }
+
+    object Koin {
+        const val scope = "org.koin:koin-androidx-scope:2.2.2"
+        const val viewModel = "org.koin:koin-androidx-viewmodel:2.2.2"
+        const val fragment = "org.koin:koin-androidx-fragment:2.2.2"
+        const val ext = "org.koin:koin-androidx-ext:2.2.2"
     }
 
     object ARouter {
@@ -116,10 +136,17 @@ object Deps {
         const val nativeCrashReport = "com.tencent.bugly:nativecrashreport:3.7.47"
     }
 
+    /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
-        "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46"
+        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
 
-    // 提供从js调用Java代码和从java调用js代码的安全便捷方法。
+    /** Cookies 自动持久化 */
+    const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
+
+    /** 优雅地处理加载中，重试，无数据等 */
+    const val loadSir = "com.kingja.loadsir:loadsir:1.3.8"
+
+    /** 提供从js调用Java代码和从java调用js代码的安全便捷方法。 */
     const val jsbridge = "com.github.lzyzsd:jsbridge:1.0.4"
 
     const val aliCloudHotfix = "com.aliyun.ams:alicloud-android-hotfix:3.2.15"

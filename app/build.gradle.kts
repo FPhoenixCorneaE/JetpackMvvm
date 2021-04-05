@@ -1,7 +1,6 @@
 plugins {
     id(Deps.PluginIds.application)
     kotlin(Deps.PluginIds.kotlinAndroid)
-    kotlin(Deps.PluginIds.kotlinExtensions)
 }
 
 android {
@@ -52,8 +51,9 @@ android {
         isAbortOnError = false
     }
 
-    androidExtensions {
-        isExperimental = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 
     packagingOptions {
@@ -104,7 +104,6 @@ dependencies {
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.constraintLayout)
     implementation(Deps.AndroidX.recyclerView)
-    implementation(Deps.AndroidX.lifecycleRuntimeKtx)
     implementation(project(mapOf("path" to ":core")))
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitExt)

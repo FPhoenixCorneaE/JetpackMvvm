@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import com.fphoenixcorneae.core.CoreConstants
 import com.fphoenixcorneae.core.base.view.IBaseView
 import com.fphoenixcorneae.core.multistatus.MultiStatusLayoutManager
@@ -29,7 +30,7 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
     protected var hasLoadedData = false
 
     /** Fragment 根视图 */
-    private var mRootView: View? = null
+    protected var mRootView: View? = null
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -46,20 +47,20 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // 加载布局
-        mRootView = getContentView()
+        setContentView()
         return mRootView
     }
 
-    private fun getContentView(): View? {
-        return LinearLayout {
+    override fun setContentView() {
+        mRootView = LinearLayout {
             layoutParams = android.widget.LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
             )
             orientation = android.widget.LinearLayout.VERTICAL
             createToolbar()?.let { toolbar ->
@@ -115,26 +116,26 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
 
     override fun createMultiStatusLayoutManager() {
         mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
-            .addNoNetWorkClickListener {
-                onNoNetWorkClick()
-            }
-            .addErrorClickListener {
-                onErrorClick()
-            }
-            .addEmptyClickListener {
-                onEmptyClick()
-            }
-            .register(this)
+                .addNoNetWorkClickListener {
+                    onNoNetWorkClick()
+                }
+                .addErrorClickListener {
+                    onErrorClick()
+                }
+                .addEmptyClickListener {
+                    onEmptyClick()
+                }
+                .register(this)
     }
 
     private fun lazyLoadDataIfPrepared() {
-        if (userVisibleHint && isViewPrepared && !hasLoadedData) {
+        if (lifecycle.currentState == Lifecycle.State.STARTED && userVisibleHint && isViewPrepared && !hasLoadedData) {
             hasLoadedData = true
             initData(null)
         }
     }
 
-    override fun showLoading() {
+    override fun showLoading(loadingMsg: String) {
         mMultiStatusLayoutManager?.showLoadingView()
     }
 
@@ -163,17 +164,17 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
     }
 
     override fun onNoNetWorkClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 
     override fun onErrorClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 
     override fun onEmptyClick() {
-        showLoading()
+        showLoading("")
         initData(null)
     }
 }

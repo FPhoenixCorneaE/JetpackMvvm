@@ -15,7 +15,7 @@ class MainActivity : AbstractBaseActivity() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        showLoading()
+        showLoading("")
         mHandler.postDelayed({
             showContent()
         }, 2000)
@@ -33,7 +33,7 @@ class MainActivity : AbstractBaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.loading_status_id -> showLoading()
+            R.id.loading_status_id -> showLoading("")
             R.id.no_network_id -> showNoNetwork()
             R.id.error_view_id -> showError()
             R.id.empty_view_id -> showEmpty()

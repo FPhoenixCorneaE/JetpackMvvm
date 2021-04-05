@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.core.base.activity.AbstractBaseActivity
-import kotlinx.android.synthetic.main.activity_test_list.*
+import com.fphoenixcorneae.core.base.activity.AbstractBaseVmDbActivity
+import com.fphoenixcorneae.core.base.viewmodel.BaseViewModel
+import com.fphoenixcorneae.core.demo.databinding.ActivityTestListBinding
 
-class TestListActivity : AbstractBaseActivity() {
+class TestListActivity : AbstractBaseVmDbActivity<BaseViewModel,ActivityTestListBinding>() {
 
     var list: ArrayList<String>? = null
 
     override fun initData(savedInstanceState: Bundle?) {
-        showLoading()
+        showLoading("")
         Handler(Looper.getMainLooper()).postDelayed({
             showContent()
             setData()
@@ -28,16 +29,15 @@ class TestListActivity : AbstractBaseActivity() {
         list?.add("test2")
         list?.add("test3")
         list?.add("test4")
-        rvRecycler.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        mDataBinding.rvRecycler.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup,
                 viewType: Int
             ): RecyclerView.ViewHolder {
-                val adapter = object : RecyclerView.ViewHolder(
+                return object : RecyclerView.ViewHolder(
                     LayoutInflater.from(this@TestListActivity)
                         .inflate(android.R.layout.test_list_item, null)
                 ) {}
-                return adapter
             }
 
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
