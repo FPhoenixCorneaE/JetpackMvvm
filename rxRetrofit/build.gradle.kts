@@ -70,10 +70,11 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Deps.Retrofit2.retrofit)
-    implementation(Deps.Retrofit2.converterGson)
-    implementation(Deps.OkHttp3.loggingInterceptor)
-    implementation(Deps.persistentCookieJar)
+    api(Deps.Retrofit2.retrofit)
+    api(Deps.Retrofit2.converterGson)
+    api(Deps.Retrofit2.urlManager)
+    api(Deps.OkHttp3.loggingInterceptor)
+    api(Deps.persistentCookieJar)
     compileOnly(Deps.Kotlin.stdLibJdk7)
     compileOnly(Deps.Kotlin.coroutines)
     compileOnly(Deps.AndroidX.coreKtx)

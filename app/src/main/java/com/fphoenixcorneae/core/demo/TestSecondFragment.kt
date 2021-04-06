@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.fphoenixcorneae.core.base.fragment.AbstractBaseFragment
+import com.fphoenixcorneae.core.demo.databinding.FragmentTestSecondBinding
 
-class TestSecondFragment : AbstractBaseFragment() {
+class TestSecondFragment : AbstractBaseFragment<FragmentTestSecondBinding>(R.layout.fragment_test_second) {
 
     private val mHandler = Handler(Looper.getMainLooper())
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_test_second
-    }
 
     override fun initData(savedInstanceState: Bundle?) {
         showLoading("")

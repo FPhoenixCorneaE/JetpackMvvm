@@ -3,14 +3,20 @@ package com.fphoenixcorneae.core.demo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.core.base.fragment.AbstractBaseFragment
+import com.fphoenixcorneae.core.demo.databinding.FragmentTestFirstBinding
 
-class TestFirstFragment : AbstractBaseFragment() {
+class TestFirstFragment : AbstractBaseFragment<FragmentTestFirstBinding>(R.layout.fragment_test_first) {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_test_first
+    override fun initViewBinding(): ViewBinding {
+        return FragmentTestFirstBinding.inflate(layoutInflater)
+    }
+
+    override fun initView() {
+        mViewBinding.tvText.text = "Test First Fragment"
     }
 
     override fun initData(savedInstanceState: Bundle?) {

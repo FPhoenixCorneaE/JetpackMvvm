@@ -2,7 +2,7 @@ package com.fphoenixcorneae.core.base.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.LayoutRes
+import androidx.viewbinding.ViewBinding
 
 /**
  * @desc：视图基类 接口
@@ -11,15 +11,11 @@ import androidx.annotation.LayoutRes
 interface IBaseView {
 
     /**
-     * 设置内容视图
+     * 初始化视图绑定
      */
-    fun setContentView()
-
-    /**
-     * 获取内容布局id
-     */
-    @LayoutRes
-    fun getLayoutId(): Int
+    fun initViewBinding(): ViewBinding? {
+        return null
+    }
 
     /**
      * 构造多状态布局管理器

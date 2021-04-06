@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
+import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.core.CoreConstants
 import com.fphoenixcorneae.core.base.view.IBaseView
+import com.fphoenixcorneae.core.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.core.multistatus.MultiStatusLayoutManager
+import com.fphoenixcorneae.core.network.NetWorkState
+import com.fphoenixcorneae.core.network.NetworkStateManager
 import com.fphoenixcorneae.dsl.layout.LinearLayout
 import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.ext.toast
@@ -21,7 +26,7 @@ import com.fphoenixcorneae.titlebar.CommonTitleBar
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
-abstract class AbstractBaseFragment : Fragment(), IBaseView {
+abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID: Int) : Fragment(layoutResID), IBaseView {
 
     /** 视图是否加载完毕 */
     protected var isViewPrepared = false
@@ -31,6 +36,10 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
 
     /** Fragment 根视图 */
     protected var mRootView: View? = null
+
+    /** 绑定视图 */
+    private var viewBinding: ViewBinding? = null
+    protected val mViewBinding get() = viewBinding!! as VB
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -56,7 +65,8 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
         return mRootView
     }
 
-    override fun setContentView() {
+    private fun setContentView() {
+        viewBinding = initViewBinding()
         mRootView = LinearLayout {
             layoutParams = android.widget.LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -67,9 +77,16 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
                 // 添加标题栏
                 addView(toolbar)
             }
-            layoutInflater.inflate(getLayoutId(), this, false)?.let { content ->
-                // 添加内容
-                addView(content)
+            // 添加内容
+            if (viewBinding == null) {
+                layoutInflater.inflate(layoutResID, this, false)?.let { content ->
+                    addView(content)
+                }
+            } else {
+                addView(mViewBinding!!.root, android.widget.LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                ))
             }
         }
     }
@@ -90,6 +107,7 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
         initView()
         initListener()
         initViewObservable()
+        addNetworkStateObserver()
         lazyLoadDataIfPrepared()
     }
 
@@ -129,10 +147,39 @@ abstract class AbstractBaseFragment : Fragment(), IBaseView {
     }
 
     private fun lazyLoadDataIfPrepared() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && userVisibleHint && isViewPrepared && !hasLoadedData) {
+        if (userVisibleHint && isViewPrepared && !hasLoadedData) {
             hasLoadedData = true
             initData(null)
         }
+    }
+
+    protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
+        viewModels.forEach { viewModel ->
+            // 显示弹窗
+            viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
+                showLoading(it)
+            })
+            // 关闭弹窗
+            viewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
+                showContent()
+            })
+        }
+    }
+
+    private fun addNetworkStateObserver() {
+        NetworkStateManager.networkState.observe(viewLifecycleOwner, {
+            onNetworkStateChanged(it)
+        })
+    }
+
+    /**
+     * 网络变化监听 子类重写
+     */
+    open fun onNetworkStateChanged(it: NetWorkState) {}
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 
     override fun showLoading(loadingMsg: String) {

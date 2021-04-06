@@ -7,11 +7,17 @@ import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.core.base.activity.AbstractBaseActivity
+import com.fphoenixcorneae.core.demo.databinding.ActivityMainBinding
 
-class MainActivity : AbstractBaseActivity() {
+class MainActivity : AbstractBaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mHandler = Handler(Looper.getMainLooper())
+
+    override fun initViewBinding(): ViewBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
@@ -46,10 +52,6 @@ class MainActivity : AbstractBaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
     }
 
     override fun onErrorClick() {

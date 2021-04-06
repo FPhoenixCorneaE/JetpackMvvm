@@ -82,6 +82,8 @@ object Deps {
     object Retrofit2 {
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
+        // 动态替换 BaseUrl 库：https://github.com/JessYanCoding/RetrofitUrlManager
+        const val urlManager = "me.jessyan:retrofit-url-manager:1.4.0"
     }
 
     object RxJava2 {

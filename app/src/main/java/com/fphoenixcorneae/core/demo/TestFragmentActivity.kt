@@ -1,15 +1,15 @@
 package com.fphoenixcorneae.core.demo
 
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
-import com.fphoenixcorneae.core.base.activity.AbstractBaseVmDbActivity
+import androidx.viewbinding.ViewBinding
+import com.fphoenixcorneae.core.base.activity.AbstractBaseActivity
 import com.fphoenixcorneae.core.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.core.demo.databinding.ActivityTestFragmentBinding
 
-class TestFragmentActivity : AbstractBaseVmDbActivity<BaseViewModel, ActivityTestFragmentBinding>() {
+class TestFragmentActivity : AbstractBaseActivity<ActivityTestFragmentBinding>(R.layout.activity_test_fragment) {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_test_fragment
+    override fun initViewBinding(): ViewBinding {
+        return ActivityTestFragmentBinding.inflate(layoutInflater)
     }
 
     override fun initToolbar() {
@@ -17,7 +17,7 @@ class TestFragmentActivity : AbstractBaseVmDbActivity<BaseViewModel, ActivityTes
     }
 
     override fun initListener() {
-        mDataBinding.apply {
+        mViewBinding.apply {
             rbFirst.setOnClickListener {
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, TestFirstFragment.newInstance())

@@ -3,12 +3,17 @@ package com.fphoenixcorneae.core.base.activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
+import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.core.CoreConstants
 import com.fphoenixcorneae.core.base.view.IBaseView
+import com.fphoenixcorneae.core.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.core.multistatus.MultiStatusLayoutManager
+import com.fphoenixcorneae.core.network.NetWorkState
+import com.fphoenixcorneae.core.network.NetworkStateManager
 import com.fphoenixcorneae.dsl.layout.LinearLayout
 import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.ext.toast
@@ -19,13 +24,13 @@ import com.fphoenixcorneae.titlebar.CommonTitleBar
  * @desc：Activity 基类
  * @date：2021/1/15 21:07
  */
-abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
+abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: Int) : AppCompatActivity(layoutResID), IBaseView {
 
     companion object {
 
         // 开启这个 flag 后，你就可以正常使用 Selector 这样的 DrawableContainers 了。
         // 同时，你还开启了类似 android:drawableLeft 这样的 compound drawable 的使用权限，
-        // 以及 RadioButton 的使用权限，以及 ImageView’s src 属性。
+        // 以及 RadioButton 的使用权限，以及 ImageView's src 属性。
         init {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         }
@@ -33,6 +38,10 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
+
+    /** 绑定视图 */
+    private var viewBinding: ViewBinding? = null
+    protected val mViewBinding get() = viewBinding!! as VB
 
     /** 多状态布局管理器 */
     private var mMultiStatusLayoutManager: MultiStatusLayoutManager? = null
@@ -43,7 +52,9 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
-        setContentView()
+        viewBinding = initViewBinding()?.apply {
+            setContentView(root)
+        }
         createMultiStatusLayoutManager()
         initToolbar()
         initParam()
@@ -51,28 +62,26 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
         initListener()
         initViewModel()
         initViewObservable()
+        addNetworkStateObserver()
         initData(savedInstanceState)
     }
 
-    override fun setContentView() {
-        setContentView(getLayoutId())
-    }
-
-    override fun setContentView(layoutResID: Int) {
+    override fun setContentView(view: View?) {
         val contentView = LinearLayout {
             layoutParams = android.widget.LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
             )
             orientation = android.widget.LinearLayout.VERTICAL
             createToolbar()?.let { toolbar ->
                 // 添加标题栏
                 addView(toolbar)
             }
-            layoutInflater.inflate(layoutResID, this, false)?.let { content ->
-                // 添加内容
-                addView(content)
-            }
+            // 添加内容
+            addView(view, android.widget.LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ))
         }
         super.setContentView(contentView)
     }
@@ -98,16 +107,45 @@ abstract class AbstractBaseActivity : AppCompatActivity(), IBaseView {
 
     override fun createMultiStatusLayoutManager() {
         mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
-            .addNoNetWorkClickListener {
-                onNoNetWorkClick()
-            }
-            .addErrorClickListener {
-                onErrorClick()
-            }
-            .addEmptyClickListener {
-                onEmptyClick()
-            }
-            .register(this)
+                .addNoNetWorkClickListener {
+                    onNoNetWorkClick()
+                }
+                .addErrorClickListener {
+                    onErrorClick()
+                }
+                .addEmptyClickListener {
+                    onEmptyClick()
+                }
+                .register(this)
+    }
+
+    protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
+        viewModels.forEach { viewModel ->
+            // 显示弹窗
+            viewModel.loadingChange.showDialog.observe(this, {
+                showLoading(it)
+            })
+            // 关闭弹窗
+            viewModel.loadingChange.dismissDialog.observe(this, {
+                showContent()
+            })
+        }
+    }
+
+    private fun addNetworkStateObserver() {
+        NetworkStateManager.networkState.observe(this, {
+            onNetworkStateChanged(it)
+        })
+    }
+
+    /**
+     * 网络变化监听 子类重写
+     */
+    open fun onNetworkStateChanged(it: NetWorkState) {}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewBinding = null
     }
 
     override fun showLoading(loadingMsg: String) {

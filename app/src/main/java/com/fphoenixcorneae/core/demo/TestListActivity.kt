@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.core.base.activity.AbstractBaseVmDbActivity
-import com.fphoenixcorneae.core.base.viewmodel.BaseViewModel
+import androidx.viewbinding.ViewBinding
+import com.fphoenixcorneae.core.base.activity.AbstractBaseActivity
 import com.fphoenixcorneae.core.demo.databinding.ActivityTestListBinding
 
-class TestListActivity : AbstractBaseVmDbActivity<BaseViewModel,ActivityTestListBinding>() {
+class TestListActivity : AbstractBaseActivity<ActivityTestListBinding>(R.layout.activity_test_list) {
 
     var list: ArrayList<String>? = null
+
+    override fun initViewBinding(): ViewBinding {
+        return ActivityTestListBinding.inflate(layoutInflater)
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
         showLoading("")
@@ -29,14 +33,14 @@ class TestListActivity : AbstractBaseVmDbActivity<BaseViewModel,ActivityTestList
         list?.add("test2")
         list?.add("test3")
         list?.add("test4")
-        mDataBinding.rvRecycler.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        mViewBinding.rvRecycler.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
+                    parent: ViewGroup,
+                    viewType: Int
             ): RecyclerView.ViewHolder {
                 return object : RecyclerView.ViewHolder(
-                    LayoutInflater.from(this@TestListActivity)
-                        .inflate(android.R.layout.test_list_item, null)
+                        LayoutInflater.from(this@TestListActivity)
+                                .inflate(android.R.layout.test_list_item, null)
                 ) {}
             }
 
@@ -48,9 +52,5 @@ class TestListActivity : AbstractBaseVmDbActivity<BaseViewModel,ActivityTestList
                 return list!!.size
             }
         }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_test_list
     }
 }

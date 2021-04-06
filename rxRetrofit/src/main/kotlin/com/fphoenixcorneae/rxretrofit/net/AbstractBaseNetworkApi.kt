@@ -9,6 +9,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,11 +28,11 @@ abstract class AbstractBaseNetworkApi {
      */
     fun <T> getApi(serviceClass: Class<T>, baseUrl: String): T {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpClient)
-            .setRetrofitBuilder()
-            .build()
-            .create(serviceClass)
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .setRetrofitBuilder()
+                .build()
+                .create(serviceClass)
     }
 
     /**
@@ -73,9 +74,11 @@ abstract class AbstractBaseNetworkApi {
      */
     private val okHttpClient: OkHttpClient
         get() {
-            return OkHttpClient.Builder()
-                .setHttpClientBuilder()
-                .build()
+            return RetrofitUrlManager
+                    .getInstance()
+                    .with(OkHttpClient.Builder())
+                    .setHttpClientBuilder()
+                    .build()
         }
 
     /**
