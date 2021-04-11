@@ -82,6 +82,7 @@ object Deps {
     object Retrofit2 {
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
+
         // 动态替换 BaseUrl 库：https://github.com/JessYanCoding/RetrofitUrlManager
         const val urlManager = "me.jessyan:retrofit-url-manager:1.4.0"
     }
@@ -113,6 +114,16 @@ object Deps {
         const val navUi = "androidx.navigation:navigation-ui-ktx:2.3.0"
     }
 
+    object Coil {
+        const val coil = "io.coil-kt:coil:1.1.1"
+        const val coilGif = "io.coil-kt:coil-gif:1.1.1"
+        const val coilSvg = "io.coil-kt:coil-svg:1.1.1"
+        const val coilVideo = "io.coil-kt:coil-video:1.1.1"
+        const val transformations = "com.github.Commit451.coil-transformations:transformations:1.0.0"
+        const val transformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
+        const val transformationsFaceDetection = "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
+    }
+
     object Glide {
         const val glide = "com.github.bumptech.glide:glide:4.11.0"
         const val okHttp3Integration = "com.github.bumptech.glide:okhttp3-integration:4.11.0"
@@ -140,7 +151,9 @@ object Deps {
 
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
-        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+            "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+
+    val unpeekLiveData = "com.kunminx.archi:unpeek-livedata:4.4.1-beta1"
 
     /** Cookies 自动持久化 */
     const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"

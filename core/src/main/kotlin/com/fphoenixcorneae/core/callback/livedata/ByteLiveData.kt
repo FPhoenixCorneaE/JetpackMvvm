@@ -9,6 +9,6 @@ import androidx.lifecycle.MutableLiveData
 class ByteLiveData(value: Byte = 0) : MutableLiveData<Byte>(value) {
 
     override fun getValue(): Byte {
-        return super.getValue()!!
+        return super.getValue() ?: 0
     }
 }

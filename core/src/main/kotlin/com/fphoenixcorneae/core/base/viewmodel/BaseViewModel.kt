@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.core.base.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.fphoenixcorneae.core.state.SingleLiveEvent
+import com.fphoenixcorneae.core.callback.livedata.EventLiveData
 
 /**
  * @desc：ViewModel 的基类
@@ -17,10 +17,10 @@ open class BaseViewModel() : ViewModel() {
      */
     inner class UiLoadingChange {
         // 显示加载框
-        val showDialog by lazy { SingleLiveEvent<String>() }
+        val showDialog by lazy { EventLiveData<String>() }
 
         // 隐藏
-        val dismissDialog by lazy { SingleLiveEvent<Void>() }
+        val dismissDialog by lazy { EventLiveData<Boolean>() }
     }
 }
 

@@ -9,6 +9,6 @@ import androidx.lifecycle.MutableLiveData
 class StringLiveData(value: String = "") : MutableLiveData<String>(value) {
 
     override fun getValue(): String {
-        return super.getValue()!!
+        return super.getValue() ?: ""
     }
 }

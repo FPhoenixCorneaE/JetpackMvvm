@@ -85,10 +85,6 @@ dependencies {
     compileOnly(Deps.Kotlin.stdLibJdk7)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
-    compileOnly(Deps.Koin.scope)
-    compileOnly(Deps.Koin.viewModel)
-    compileOnly(Deps.Koin.fragment)
-    compileOnly(Deps.Koin.ext)
     compileOnly(Deps.ARouter.api)
     kapt(Deps.ARouter.compiler)
     api(Deps.AndroidX.lifecycleRuntimeKtx)
@@ -96,12 +92,20 @@ dependencies {
     api(Deps.AndroidX.lifecycleLiveDataKtx)
     api(Deps.AndroidX.lifecycleViewModelKtx)
     api(Deps.AndroidX.lifecycleExtensions)
+    api(Deps.unpeekLiveData)
     api(Deps.FPhoenixCorneaE.commonUtil)
     api(Deps.FPhoenixCorneaE.commonTitlebar)
     api(Deps.baseRecyclerViewAdapterHelper) {
         exclude(group = "org.jetbrains.kotlin")
     }
     api(Deps.Kotlin.reflect)
+    api(Deps.Coil.coil)
+    api(Deps.Coil.coilGif)
+    api(Deps.Coil.coilSvg)
+    api(Deps.Coil.coilVideo)
+    api(Deps.Coil.transformations)
+    api(Deps.Coil.transformationsGpu)
+    api(Deps.Coil.transformationsFaceDetection)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------

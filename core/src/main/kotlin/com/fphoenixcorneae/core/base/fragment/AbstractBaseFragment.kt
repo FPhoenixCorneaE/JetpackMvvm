@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.core.CoreConstants
 import com.fphoenixcorneae.core.base.view.IBaseView
@@ -21,6 +20,7 @@ import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.ext.view.setTintColor
 import com.fphoenixcorneae.titlebar.CommonTitleBar
+import com.fphoenixcorneae.util.ContextUtil
 
 /**
  * @desc：Fragment 基类
@@ -83,7 +83,7 @@ abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID
                     addView(content)
                 }
             } else {
-                addView(mViewBinding!!.root, android.widget.LinearLayout.LayoutParams(
+                addView(mViewBinding.root, android.widget.LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                 ))
@@ -107,7 +107,6 @@ abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID
         initView()
         initListener()
         initViewObservable()
-        addNetworkStateObserver()
         lazyLoadDataIfPrepared()
     }
 
@@ -148,28 +147,46 @@ abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID
 
     private fun lazyLoadDataIfPrepared() {
         if (userVisibleHint && isViewPrepared && !hasLoadedData) {
+            // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
+            ContextUtil.runOnUiThreadDelayed({
+                initData(null)
+                // 在Fragment中，只有懒加载过了才能开启网络变化监听
+                addNetworkStateObserver()
+            }, lazyLoadTime())
             hasLoadedData = true
-            initData(null)
         }
     }
 
     protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
-            viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, {
+            viewModel.loadingChange.showDialog.observeInFragment(this) {
                 showLoading(it)
-            })
+            }
             // 关闭弹窗
-            viewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, {
+            viewModel.loadingChange.dismissDialog.observeInFragment(this) {
                 showContent()
-            })
+            }
         }
     }
 
     private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observe(viewLifecycleOwner, {
-            onNetworkStateChanged(it)
-        })
+        NetworkStateManager.networkState.observeInFragment(this) {
+            // 视图加载完毕时调用方法，防止数据第一次监听错误
+            if (hasLoadedData) {
+                onNetworkStateChanged(it)
+            }
+        }
+    }
+
+    /**
+     * 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿  bug
+     * 这里传入你想要延迟的时间，延迟时间可以设置比转场动画时间长一点 单位： 毫秒
+     * 不传默认 300毫秒
+     * @return Long
+     */
+    open fun lazyLoadTime(): Long {
+        return 300
     }
 
     /**

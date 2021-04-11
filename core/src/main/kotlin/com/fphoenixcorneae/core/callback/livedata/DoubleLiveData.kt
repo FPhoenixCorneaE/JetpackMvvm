@@ -9,6 +9,6 @@ import androidx.lifecycle.MutableLiveData
 class DoubleLiveData(var value: Double = 0.0) : MutableLiveData<Double>(value) {
 
     override fun getValue(): Double {
-        return super.getValue()!!
+        return super.getValue() ?: 0.0
     }
 }

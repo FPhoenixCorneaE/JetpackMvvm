@@ -9,6 +9,6 @@ import androidx.lifecycle.MutableLiveData
 class BooleanLiveData(value: Boolean = false) : MutableLiveData<Boolean>(value) {
 
     override fun getValue(): Boolean {
-        return super.getValue()!!
+        return super.getValue() ?: false
     }
 }

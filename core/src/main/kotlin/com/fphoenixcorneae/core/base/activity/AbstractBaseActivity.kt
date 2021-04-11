@@ -122,20 +122,20 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
     protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
-            viewModel.loadingChange.showDialog.observe(this, {
+            viewModel.loadingChange.showDialog.observeInActivity(this) {
                 showLoading(it)
-            })
+            }
             // 关闭弹窗
-            viewModel.loadingChange.dismissDialog.observe(this, {
+            viewModel.loadingChange.dismissDialog.observeInActivity(this) {
                 showContent()
-            })
+            }
         }
     }
 
     private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observe(this, {
+        NetworkStateManager.networkState.observeInActivity(this) {
             onNetworkStateChanged(it)
-        })
+        }
     }
 
     /**
