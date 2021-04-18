@@ -1,6 +1,8 @@
 package com.fphoenixcorneae.core.demo
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +19,13 @@ class MainActivity : AbstractBaseActivity<ActivityMainBinding>(R.layout.activity
 
     override fun initViewBinding(): ViewBinding {
         return ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    override fun initView() {
+        mViewBinding.apply {
+            imgUrl = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
+            filterColor = Color.parseColor("#50ff0000")
+        }
     }
 
     override fun initData(savedInstanceState: Bundle?) {

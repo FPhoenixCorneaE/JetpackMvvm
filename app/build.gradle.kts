@@ -103,6 +103,7 @@ dependencies {
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.constraintLayout)
+    implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.recyclerView)
     implementation(project(mapOf("path" to ":core")))
     testImplementation(Deps.Test.junit)

@@ -6,10 +6,13 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.databinding.BindingAdapter
 import coil.loadAny
+import coil.size.ViewSizeResolver
 import coil.transform.*
+import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
 import com.fphoenixcorneae.ext.isNonNull
 
@@ -34,6 +37,7 @@ fun setSelected(view: View, selected: Boolean) {
     "topRightRadius",
     "bottomLeftRadius",
     "bottomRightRadius",
+    "filterColor",
 ], requireAll = false)
 fun setSrc(
         target: ImageView,
@@ -47,10 +51,13 @@ fun setSrc(
         @Px topLeftRadius: Float = 0f,
         @Px topRightRadius: Float = 0f,
         @Px bottomLeftRadius: Float = 0f,
-        @Px bottomRightRadius: Float = 0f
+        @Px bottomRightRadius: Float = 0f,
+        @ColorInt filterColor: Int = 0
 ) {
     target.loadAny(data = imgUrl) {
-        crossfade(true)
+        crossfade(200)
+        // 可选的，但是设置 ViewSizeResolver 可以通过限制预加载的大小来节省内存
+        size(ViewSizeResolver(target))
         if (placeholderDrawable.isNonNull()) {
             placeholder(placeholderDrawable)
         } else {
@@ -70,10 +77,16 @@ fun setSrc(
                     bottomRight = bottomRightRadius
             ))
         }
-        if (isBlur) {
-            transformations.add(BlurTransformation(target.context, 20f))
-        } else if (isGrayscale) {
-            transformations.add(GrayscaleTransformation())
+        when {
+            isBlur -> {
+                transformations.add(BlurTransformation(target.context, 20f))
+            }
+            isGrayscale -> {
+                transformations.add(GrayscaleTransformation())
+            }
+            filterColor != 0 -> {
+                transformations.add(ColorFilterTransformation(filterColor))
+            }
         }
         transformations(transformations)
     }

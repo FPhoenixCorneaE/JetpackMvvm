@@ -115,10 +115,10 @@ object Deps {
     }
 
     object Coil {
-        const val coil = "io.coil-kt:coil:1.1.1"
-        const val coilGif = "io.coil-kt:coil-gif:1.1.1"
-        const val coilSvg = "io.coil-kt:coil-svg:1.1.1"
-        const val coilVideo = "io.coil-kt:coil-video:1.1.1"
+        const val coil = "io.coil-kt:coil:1.2.0"
+        const val coilGif = "io.coil-kt:coil-gif:1.2.0"
+        const val coilSvg = "io.coil-kt:coil-svg:1.2.0"
+        const val coilVideo = "io.coil-kt:coil-video:1.2.0"
         const val transformations = "com.github.Commit451.coil-transformations:transformations:1.0.0"
         const val transformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
         const val transformationsFaceDetection = "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
