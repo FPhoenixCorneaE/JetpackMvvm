@@ -1,8 +1,8 @@
-package com.fphoenixcorneae.rxretrofit.net.model
+package com.fphoenixcorneae.rxretrofit.model
 
 import androidx.lifecycle.MutableLiveData
-import com.fphoenixcorneae.rxretrofit.net.exception.ApiException
-import com.fphoenixcorneae.rxretrofit.net.exception.ExceptionHandle
+import com.fphoenixcorneae.rxretrofit.exception.ApiException
+import com.fphoenixcorneae.rxretrofit.exception.ExceptionHandle
 
 /**
  * @desc：自定义结果集封装类

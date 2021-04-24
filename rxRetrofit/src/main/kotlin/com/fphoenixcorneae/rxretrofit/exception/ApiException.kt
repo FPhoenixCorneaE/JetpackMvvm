@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.exception
+package com.fphoenixcorneae.rxretrofit.exception
 
 /**
  * @desc：自定义错误信息异常

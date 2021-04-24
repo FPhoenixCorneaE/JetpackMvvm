@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.factory
+package com.fphoenixcorneae.rxretrofit.factory
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.*

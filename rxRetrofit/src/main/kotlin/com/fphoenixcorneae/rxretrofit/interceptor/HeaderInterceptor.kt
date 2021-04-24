@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.interceptor
+package com.fphoenixcorneae.rxretrofit.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Request

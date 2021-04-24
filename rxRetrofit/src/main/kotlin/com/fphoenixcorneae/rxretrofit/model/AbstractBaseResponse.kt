@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.model
+package com.fphoenixcorneae.rxretrofit.model
 
 /**
  * @desc：服务器返回数据的基类

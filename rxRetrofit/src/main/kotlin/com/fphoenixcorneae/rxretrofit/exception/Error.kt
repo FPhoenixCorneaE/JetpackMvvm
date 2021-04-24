@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.exception
+package com.fphoenixcorneae.rxretrofit.exception
 
 /**
  * @desc：错误枚举类

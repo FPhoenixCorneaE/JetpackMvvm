@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.exception
+package com.fphoenixcorneae.rxretrofit.exception
 
 import com.fphoenixcorneae.ext.loggerE
 import com.google.gson.JsonParseException

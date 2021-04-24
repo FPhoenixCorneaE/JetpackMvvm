@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.rxretrofit.net.interceptor
+package com.fphoenixcorneae.rxretrofit.interceptor
 
 import com.fphoenixcorneae.util.NetworkUtil
 import okhttp3.CacheControl
