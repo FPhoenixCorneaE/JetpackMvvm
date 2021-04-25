@@ -1,6 +1,6 @@
 package com.fphoenixcorneae.core.network
 
-import com.fphoenixcorneae.core.callback.livedata.EventLiveData
+import com.fphoenixcorneae.core.livedata.EventLiveData
 
 /**
  * @desc：网络变化管理者

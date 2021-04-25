@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.core.base.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.fphoenixcorneae.core.callback.livedata.EventLiveData
+import com.fphoenixcorneae.core.livedata.EventLiveData
 
 /**
  * @desc：ViewModel 的基类

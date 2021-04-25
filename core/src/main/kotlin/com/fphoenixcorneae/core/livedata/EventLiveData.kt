@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.core.callback.livedata
+package com.fphoenixcorneae.core.livedata
 
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
