@@ -17,7 +17,7 @@ class MainActivity : AbstractBaseActivity<ActivityMainBinding>(R.layout.activity
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun initViewBinding(): ViewBinding {
+    override fun initViewBinding(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
     }
 

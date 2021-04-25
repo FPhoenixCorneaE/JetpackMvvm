@@ -8,7 +8,7 @@ import com.fphoenixcorneae.core.demo.databinding.ActivityTestFragmentBinding
 
 class TestFragmentActivity : AbstractBaseActivity<ActivityTestFragmentBinding>(R.layout.activity_test_fragment) {
 
-    override fun initViewBinding(): ViewBinding {
+    override fun initViewBinding(): ActivityTestFragmentBinding {
         return ActivityTestFragmentBinding.inflate(layoutInflater)
     }
 

@@ -37,8 +37,8 @@ abstract class AbstractBaseDialog<VB : ViewBinding> : DialogFragment() {
     lateinit var mActivity: AppCompatActivity
 
     /** 绑定视图 */
-    private var viewBinding: ViewBinding? = null
-    protected val mViewBinding get() = viewBinding!! as VB
+    private var viewBinding: VB? = null
+    protected val mViewBinding get() = viewBinding!!
 
 
     override fun onAttach(context: Context) {
@@ -160,7 +160,7 @@ abstract class AbstractBaseDialog<VB : ViewBinding> : DialogFragment() {
     /**
      * 初始化 ViewBinding 操作
      */
-    abstract fun initViewBinding(): ViewBinding
+    abstract fun initViewBinding(): VB
 
     /**
      * 初始化view

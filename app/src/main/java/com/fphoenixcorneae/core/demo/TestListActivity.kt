@@ -15,7 +15,7 @@ class TestListActivity : AbstractBaseActivity<ActivityTestListBinding>(R.layout.
 
     var list: ArrayList<String>? = null
 
-    override fun initViewBinding(): ViewBinding {
+    override fun initViewBinding(): ActivityTestListBinding {
         return ActivityTestListBinding.inflate(layoutInflater)
     }
 

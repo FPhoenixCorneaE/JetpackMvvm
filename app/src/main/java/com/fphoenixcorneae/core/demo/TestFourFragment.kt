@@ -29,4 +29,8 @@ class TestFourFragment : AbstractBaseFragment<FragmentTestFourBinding>(R.layout.
             return fragment
         }
     }
+
+    override fun initViewBinding(): FragmentTestFourBinding {
+        return FragmentTestFourBinding.inflate(layoutInflater)
+    }
 }

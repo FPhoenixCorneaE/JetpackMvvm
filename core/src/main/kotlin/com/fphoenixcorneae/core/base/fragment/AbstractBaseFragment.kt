@@ -26,7 +26,7 @@ import com.fphoenixcorneae.util.ContextUtil
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
-abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID: Int) : Fragment(layoutResID), IBaseView {
+abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID: Int) : Fragment(layoutResID), IBaseView<VB> {
 
     /** 视图是否加载完毕 */
     protected var isViewPrepared = false

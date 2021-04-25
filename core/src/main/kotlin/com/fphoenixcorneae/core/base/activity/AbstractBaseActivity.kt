@@ -24,7 +24,7 @@ import com.fphoenixcorneae.titlebar.CommonTitleBar
  * @desc：Activity 基类
  * @date：2021/1/15 21:07
  */
-abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: Int) : AppCompatActivity(layoutResID), IBaseView {
+abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: Int) : AppCompatActivity(layoutResID), IBaseView<VB> {
 
     companion object {
 
@@ -40,8 +40,8 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
     protected lateinit var mContext: FragmentActivity
 
     /** 绑定视图 */
-    private var viewBinding: ViewBinding? = null
-    protected val mViewBinding get() = viewBinding!! as VB
+    private var viewBinding: VB? = null
+    protected val mViewBinding get() = viewBinding!!
 
     /** 多状态布局管理器 */
     private var mMultiStatusLayoutManager: MultiStatusLayoutManager? = null
@@ -52,7 +52,7 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
-        viewBinding = initViewBinding()?.apply {
+        viewBinding = initViewBinding().apply {
             setContentView(root)
         }
         createMultiStatusLayoutManager()
@@ -69,8 +69,8 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
     override fun setContentView(view: View?) {
         val contentView = LinearLayout {
             layoutParams = android.widget.LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
             )
             orientation = android.widget.LinearLayout.VERTICAL
             createToolbar()?.let { toolbar ->
@@ -78,10 +78,12 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
                 addView(toolbar)
             }
             // 添加内容
-            addView(view, android.widget.LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            ))
+            addView(
+                view, android.widget.LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            )
         }
         super.setContentView(contentView)
     }
@@ -107,16 +109,16 @@ abstract class AbstractBaseActivity<VB : ViewBinding>(@LayoutRes layoutResID: In
 
     override fun createMultiStatusLayoutManager() {
         mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
-                .addNoNetWorkClickListener {
-                    onNoNetWorkClick()
-                }
-                .addErrorClickListener {
-                    onErrorClick()
-                }
-                .addEmptyClickListener {
-                    onEmptyClick()
-                }
-                .register(this)
+            .addNoNetWorkClickListener {
+                onNoNetWorkClick()
+            }
+            .addErrorClickListener {
+                onErrorClick()
+            }
+            .addEmptyClickListener {
+                onEmptyClick()
+            }
+            .register(this)
     }
 
     protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {

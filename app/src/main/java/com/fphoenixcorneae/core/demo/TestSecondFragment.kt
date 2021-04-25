@@ -29,4 +29,8 @@ class TestSecondFragment : AbstractBaseFragment<FragmentTestSecondBinding>(R.lay
             return fragment
         }
     }
+
+    override fun initViewBinding(): FragmentTestSecondBinding {
+        return FragmentTestSecondBinding.inflate(layoutInflater)
+    }
 }

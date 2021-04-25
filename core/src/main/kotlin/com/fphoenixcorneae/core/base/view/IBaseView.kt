@@ -8,14 +8,12 @@ import androidx.viewbinding.ViewBinding
  * @desc：视图基类 接口
  * @date：2021/1/15 17:54
  */
-interface IBaseView {
+interface IBaseView<VB : ViewBinding> {
 
     /**
      * 初始化视图绑定
      */
-    fun initViewBinding(): ViewBinding? {
-        return null
-    }
+    fun initViewBinding(): VB
 
     /**
      * 构造多状态布局管理器

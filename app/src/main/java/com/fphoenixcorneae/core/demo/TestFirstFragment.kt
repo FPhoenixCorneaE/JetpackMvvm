@@ -11,7 +11,7 @@ class TestFirstFragment : AbstractBaseFragment<FragmentTestFirstBinding>(R.layou
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun initViewBinding(): ViewBinding {
+    override fun initViewBinding(): FragmentTestFirstBinding {
         return FragmentTestFirstBinding.inflate(layoutInflater)
     }
 

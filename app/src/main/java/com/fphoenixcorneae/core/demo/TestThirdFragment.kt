@@ -29,4 +29,8 @@ class TestThirdFragment : AbstractBaseFragment<FragmentTestThirdBinding>(R.layou
             return fragment
         }
     }
+
+    override fun initViewBinding(): FragmentTestThirdBinding {
+        return FragmentTestThirdBinding.inflate(layoutInflater)
+    }
 }
