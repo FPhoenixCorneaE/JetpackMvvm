@@ -59,7 +59,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner, ImageLoaderFact
                 .componentRegistry {
                     // Gif: GifDecoder 支持所有 API 级别，但速度较慢，ImageDecoderDecoder 的加载速度快，但仅在 API 28 及更高版本可用
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        add(ImageDecoderDecoder())
+                        add(ImageDecoderDecoder(applicationContext))
                     } else {
                         add(GifDecoder())
                     }
