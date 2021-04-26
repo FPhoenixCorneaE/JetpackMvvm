@@ -38,8 +38,8 @@ abstract class AbstractBaseFragment<VB : ViewBinding>(@LayoutRes val layoutResID
     protected var mRootView: View? = null
 
     /** 绑定视图 */
-    private var viewBinding: ViewBinding? = null
-    protected val mViewBinding get() = viewBinding!! as VB
+    private var viewBinding: VB? = null
+    protected val mViewBinding get() = viewBinding!!
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
