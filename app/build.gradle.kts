@@ -1,6 +1,7 @@
 plugins {
     id(Deps.PluginIds.application)
     kotlin(Deps.PluginIds.kotlinAndroid)
+    id(Deps.PluginIds.kotlinParcelize)
 }
 
 android {
@@ -71,7 +72,7 @@ android.applicationVariants.all {
             if (buildType == Deps.BuildType.Debug) {
                 this.outputFileName =
                     "${project.name}_V${android.defaultConfig.versionName}_${buildType}_${Deps.getSystemTime()}.apk"
-            } else if (buildType == "release") {
+            } else if (buildType == Deps.BuildType.Release) {
                 this.outputFileName =
                     "${project.name}_V${android.defaultConfig.versionName}_${buildType}_${Deps.getSystemTime()}.apk"
             }
@@ -99,7 +100,7 @@ fun listSubFile(): ArrayList<String> {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Deps.Kotlin.stdLibJdk7)
+    implementation(Deps.Kotlin.stdLib)
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.constraintLayout)

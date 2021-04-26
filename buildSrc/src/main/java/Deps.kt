@@ -26,6 +26,7 @@ object Deps {
         const val library = "com.android.library"
         const val kotlinAndroid = "android"
         const val kotlinExtensions = "android.extensions"
+        const val kotlinParcelize = "kotlin-parcelize"
         const val kotlinKapt = "kapt"
         const val androidMaven = "com.github.dcendents.android-maven"
     }
@@ -37,7 +38,7 @@ object Deps {
         const val targetSdkVersion = 30
         const val versionName = "1.0.0"
         const val versionCode = 100
-        const val kotlinVersion = "1.4.30"
+        const val kotlinVersion = "1.4.32"
     }
 
     object BuildType {
@@ -46,10 +47,11 @@ object Deps {
     }
 
     object Kotlin {
-        const val stdLibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
+        const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
 
         // 协程
-        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6"
+        const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+        const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
     }
 
@@ -74,7 +76,7 @@ object Deps {
     }
 
     object Test {
-        const val junit = "junit:junit:4.12";
+        const val junit = "junit:junit:4.12"
         const val junitExt = "androidx.test.ext:junit:1.1.2"
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
     }
