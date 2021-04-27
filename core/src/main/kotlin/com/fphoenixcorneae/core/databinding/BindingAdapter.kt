@@ -25,34 +25,37 @@ fun setSelected(view: View, selected: Boolean) {
     view.isSelected = selected
 }
 
-@BindingAdapter(value = [
-    "imgUrl",
-    "placeholderResId",
-    "placeholderDrawable",
-    "centerCrop",
-    "isCircle",
-    "isBlur",
-    "isGrayscale",
-    "topLeftRadius",
-    "topRightRadius",
-    "bottomLeftRadius",
-    "bottomRightRadius",
-    "filterColor",
-], requireAll = false)
+@BindingAdapter(
+    value = [
+        "imgUrl",
+        "placeholderResId",
+        "placeholderDrawable",
+        "centerCrop",
+        "isCircle",
+        "isBlur",
+        "isGrayscale",
+        "topLeftRadius",
+        "topRightRadius",
+        "bottomLeftRadius",
+        "bottomRightRadius",
+        "filterColor",
+    ],
+    requireAll = false
+)
 fun setSrc(
-        target: ImageView,
-        imgUrl: Any?,
-        placeholderResId: Int = 0,
-        placeholderDrawable: Drawable? = null,
-        centerCrop: Boolean = true,
-        isCircle: Boolean = false,
-        isBlur: Boolean = false,
-        isGrayscale: Boolean = false,
-        @Px topLeftRadius: Float = 0f,
-        @Px topRightRadius: Float = 0f,
-        @Px bottomLeftRadius: Float = 0f,
-        @Px bottomRightRadius: Float = 0f,
-        @ColorInt filterColor: Int = 0
+    target: ImageView,
+    imgUrl: Any?,
+    placeholderResId: Int = 0,
+    placeholderDrawable: Drawable? = null,
+    centerCrop: Boolean = true,
+    isCircle: Boolean = false,
+    isBlur: Boolean = false,
+    isGrayscale: Boolean = false,
+    @Px topLeftRadius: Float = 0f,
+    @Px topRightRadius: Float = 0f,
+    @Px bottomLeftRadius: Float = 0f,
+    @Px bottomRightRadius: Float = 0f,
+    @ColorInt filterColor: Int = 0
 ) {
     target.loadAny(data = imgUrl) {
         crossfade(200)
@@ -70,12 +73,14 @@ fun setSrc(
         if (isCircle) {
             transformations.add(CircleCropTransformation())
         } else {
-            transformations.add(RoundedCornersTransformation(
+            transformations.add(
+                RoundedCornersTransformation(
                     topLeft = topLeftRadius,
                     topRight = topRightRadius,
                     bottomLeft = bottomLeftRadius,
                     bottomRight = bottomRightRadius
-            ))
+                )
+            )
         }
         when {
             isBlur -> {
