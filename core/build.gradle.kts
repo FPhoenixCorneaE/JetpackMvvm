@@ -82,7 +82,7 @@ android {
 
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    compileOnly(Deps.Kotlin.stdLibJdk7)
+    compileOnly(Deps.Kotlin.stdLib)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
     compileOnly(Deps.ARouter.api)
