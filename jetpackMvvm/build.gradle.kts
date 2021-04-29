@@ -1,6 +1,7 @@
 plugins {
     id(Deps.PluginIds.library)
     kotlin(Deps.PluginIds.kotlinAndroid)
+    kotlin(Deps.PluginIds.kotlinKapt)
     id(Deps.PluginIds.androidMaven)
 }
 group = "com.github.FPhoenixCorneaE"
@@ -27,8 +28,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
         getByName(Deps.BuildType.Debug) {
@@ -39,8 +40,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -66,6 +67,11 @@ android {
     lintOptions {
         isAbortOnError = false
     }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -73,14 +79,26 @@ dependencies {
     compileOnly(Deps.Kotlin.stdLib)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
-    compileOnly(Deps.Coroutines.core)
-    compileOnly(Deps.Coroutines.android)
-    compileOnly(Deps.FPhoenixCorneaE.commonUtil)
-    api(Deps.Retrofit2.retrofit)
-    api(Deps.Retrofit2.converterGson)
-    api(Deps.Retrofit2.urlManager)
-    api(Deps.OkHttp3.loggingInterceptor)
-    api(Deps.OkHttp3.persistentCookieJar)
+    api(Deps.Lifecycle.runtimeKtx)
+    api(Deps.Lifecycle.liveDataKtx)
+    api(Deps.Lifecycle.viewModelKtx)
+    api(Deps.Lifecycle.extensions)
+    api(Deps.Navigation.runtimeKtx)
+    api(Deps.Navigation.fragmentKtx)
+    api(Deps.Navigation.uiKtx)
+    api(Deps.FPhoenixCorneaE.commonUtil)
+    api(Deps.FPhoenixCorneaE.commonTitlebar)
+    api(Deps.unpeekLiveData)
+    api(Deps.baseRecyclerViewAdapterHelper) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    api(Deps.Coil.coil)
+    api(Deps.Coil.gif)
+    api(Deps.Coil.svg)
+    api(Deps.Coil.video)
+    api(Deps.Coil.transformations)
+    api(Deps.Coil.transformationsGpu)
+    api(Deps.Coil.transformationsFaceDetection)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------

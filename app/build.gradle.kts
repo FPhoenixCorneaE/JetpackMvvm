@@ -57,8 +57,8 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
         viewBinding = true
+        dataBinding = true
     }
 
     packagingOptions {
@@ -110,7 +110,7 @@ dependencies {
     implementation(Deps.AndroidX.constraintLayout)
     implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.recyclerView)
-    implementation(project(mapOf("path" to ":core")))
+    implementation(project(mapOf("path" to ":jetpackMvvm")))
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitExt)
     androidTestImplementation(Deps.Test.espresso)

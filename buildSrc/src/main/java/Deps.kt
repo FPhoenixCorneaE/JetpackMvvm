@@ -25,7 +25,6 @@ object Deps {
         const val application = "com.android.application"
         const val library = "com.android.library"
         const val kotlinAndroid = "android"
-        const val kotlinExtensions = "android.extensions"
         const val kotlinParcelize = "kotlin-parcelize"
         const val kotlinKapt = "kapt"
         const val androidMaven = "com.github.dcendents.android-maven"
@@ -48,11 +47,14 @@ object Deps {
 
     object Kotlin {
         const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
+    }
 
-        // 协程
-        const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
-        const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
+    /**
+     * 协程
+     */
+    object Coroutines{
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+        const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
     }
 
     object AndroidX {
@@ -65,14 +67,22 @@ object Deps {
         const val coreKtx = "androidx.core:core-ktx:1.3.1"
         const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0-beta01"
-        const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-        const val lifecycleCommonJava8 = "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-        const val lifecycleLiveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-        const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-        const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
         const val cardView = "androidx.cardview:cardview:1.0.0"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         const val startup = "androidx.startup:startup-runtime:1.0.0"
+    }
+
+    object Lifecycle {
+        const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+        const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+        const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+        const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    }
+
+    object Navigation {
+        const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:2.3.1"
+        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.0"
+        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.0"
     }
 
     object Test {
@@ -84,7 +94,6 @@ object Deps {
     object Retrofit2 {
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
-
         // 动态替换 BaseUrl 库：https://github.com/JessYanCoding/RetrofitUrlManager
         const val urlManager = "me.jessyan:retrofit-url-manager:1.4.0"
     }
@@ -97,13 +106,8 @@ object Deps {
 
     object OkHttp3 {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.4.0"
-    }
-
-    object Koin {
-        const val scope = "org.koin:koin-androidx-scope:2.2.2"
-        const val viewModel = "org.koin:koin-androidx-viewmodel:2.2.2"
-        const val fragment = "org.koin:koin-androidx-fragment:2.2.2"
-        const val ext = "org.koin:koin-androidx-ext:2.2.2"
+        /** Cookies 自动持久化 */
+        const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     }
 
     object ARouter {
@@ -111,25 +115,14 @@ object Deps {
         const val compiler = "com.alibaba:arouter-compiler:1.2.2"
     }
 
-    object Navigation {
-        const val navFragment = "androidx.navigation:navigation-fragment-ktx:2.3.0"
-        const val navUi = "androidx.navigation:navigation-ui-ktx:2.3.0"
-    }
-
     object Coil {
         const val coil = "io.coil-kt:coil:1.2.0"
-        const val coilGif = "io.coil-kt:coil-gif:1.2.0"
-        const val coilSvg = "io.coil-kt:coil-svg:1.2.0"
-        const val coilVideo = "io.coil-kt:coil-video:1.2.0"
+        const val gif = "io.coil-kt:coil-gif:1.2.0"
+        const val svg = "io.coil-kt:coil-svg:1.2.0"
+        const val video = "io.coil-kt:coil-video:1.2.0"
         const val transformations = "com.github.Commit451.coil-transformations:transformations:1.0.0"
         const val transformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
         const val transformationsFaceDetection = "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
-    }
-
-    object Glide {
-        const val glide = "com.github.bumptech.glide:glide:4.11.0"
-        const val okHttp3Integration = "com.github.bumptech.glide:okhttp3-integration:4.11.0"
-        const val compiler = "com.github.bumptech.glide:compiler:4.11.0"
     }
 
     object DoraemonKit {
@@ -153,12 +146,9 @@ object Deps {
 
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
-            "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
 
     val unpeekLiveData = "com.kunminx.archi:unpeek-livedata:4.4.1-beta1"
-
-    /** Cookies 自动持久化 */
-    const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
 
     /** 优雅地处理加载中，重试，无数据等 */
     const val loadSir = "com.kingja.loadsir:loadsir:1.3.8"
@@ -168,7 +158,7 @@ object Deps {
 
     const val aliCloudHotfix = "com.aliyun.ams:alicloud-android-hotfix:3.2.15"
 
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
 
 
     /**
