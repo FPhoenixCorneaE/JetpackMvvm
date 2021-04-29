@@ -2,13 +2,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * @desc：所有依赖库按照规范写在这里，用到的地方，通过Deps引用即可。在添加依赖之前，请检查该文件中是否已存在相
+ * @desc：所有依赖库按照规范写在这里，用到的地方，通过 Deps 引用即可。在添加依赖之前，请检查该文件中是否已存在相
  *        同的依赖，如若已经添加相同依赖，则无需再重复添加，请注意。
  * @date：2021/1/16 19:08
  */
 object Deps {
 
-    const val applicationId = "com.fphoenixcorneae.core.demo"
+    const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
 
     object FPhoenixCorneaE {
         const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.6"

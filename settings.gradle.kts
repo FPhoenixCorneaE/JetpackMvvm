@@ -1,4 +1,4 @@
 include(":rxRetrofit")
 include(":jetpackMvvm")
 include(":app")
-rootProject.name = "Core"
+rootProject.name = "JetpackMvvm"

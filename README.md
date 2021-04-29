@@ -1,5 +1,5 @@
-# Core
-核心代码，包括多状态布局管理、等等。
+# JetpackMvvm 架构
+封装了 Base 组件、EventLiveData、多状态布局管理、Navigation、网络变化监听等等。
 
 ### 多状态布局管理：MultiStatusLayoutManager
 ```kotlin

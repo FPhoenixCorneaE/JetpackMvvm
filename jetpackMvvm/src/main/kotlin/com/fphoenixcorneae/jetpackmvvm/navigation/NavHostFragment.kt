@@ -190,16 +190,13 @@ class NavHostFragment : Fragment(), NavHost {
      */
     @Deprecated("Use {@link #onCreateNavController(NavController)}")
     protected fun createFragmentNavigator(): Navigator<out FragmentNavigator.Destination> {
-        return FragmentNavigator(
-            requireContext(), childFragmentManager,
-            containerId
-        )
+        return FragmentNavigator(requireContext(), childFragmentManager, containerId)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val containerView = FragmentContainerView(inflater.context)
         // When added via XML, this has no effect (since this FragmentContainerView is given the ID
         // automatically), but this ensures that the View exists as part of this Fragment's View
@@ -217,7 +214,7 @@ class NavHostFragment : Fragment(), NavHost {
      * @return a valid ID to be used to contain child fragments
      */
     private val containerId: Int
-        private get() {
+        get() {
             val id = id
             return if (id != 0 && id != View.NO_ID) {
                 id
@@ -325,12 +322,6 @@ class NavHostFragment : Fragment(), NavHost {
          *
          * @param graphResId           resource id of the navigation graph to inflate
          * @param startDestinationArgs arguments to send to the start destination of the graph
-         * @return a new NavHostFragment instance
-         */
-        /**
-         * Create a new NavHostFragment instance with an inflated [NavGraph] resource.
-         *
-         * @param graphResId resource id of the navigation graph to inflate
          * @return a new NavHostFragment instance
          */
         @JvmOverloads

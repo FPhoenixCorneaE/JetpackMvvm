@@ -49,7 +49,7 @@ import java.util.*
 class FragmentNavigator(
     private val mContext: Context, private val mFragmentManager: FragmentManager,
     private val mContainerId: Int
-) : Navigator<FragmentNavigator.Destination>() {
+) : Navigator<Destination>() {
     private val mBackStack = ArrayDeque<Int>()
 
     /**
@@ -92,7 +92,7 @@ class FragmentNavigator(
 
     /**
      * Instantiates the Fragment via the FragmentManager's
-     * [FragmentFactory].
+     * [androidx.fragment.app.FragmentFactory].
      *
      *
      * Note that this method is **not** responsible for calling
@@ -107,7 +107,7 @@ class FragmentNavigator(
     @Deprecated(
         """Set a custom {@link FragmentFactory} via
       {@link FragmentManager#setFragmentFactory(FragmentFactory)} to control
-      instantiation of Fragments."""
+      instantiation of Fragments.""", ReplaceWith("fragmentManager.fragmentFactory.instantiate(context.classLoader, className)")
     )
     fun instantiateFragment(
         context: Context,
@@ -342,7 +342,7 @@ class FragmentNavigator(
     /**
      * Extras that can be passed to FragmentNavigator to enable Fragment specific behavior
      */
-    class Extras internal constructor(sharedElements: Map<View?, String?>?) : Navigator.Extras {
+    class Extras internal constructor(sharedElements: Map<View?, String?>) : Navigator.Extras {
         private val mSharedElements = LinkedHashMap<View?, String?>()
 
         /**
@@ -403,7 +403,7 @@ class FragmentNavigator(
         }
 
         init {
-            mSharedElements.putAll(sharedElements!!)
+            mSharedElements.putAll(sharedElements)
         }
     }
 
