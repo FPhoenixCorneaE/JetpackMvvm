@@ -52,7 +52,7 @@ object Deps {
     /**
      * 协程
      */
-    object Coroutines{
+    object Coroutines {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
     }
@@ -69,7 +69,6 @@ object Deps {
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0-beta01"
         const val cardView = "androidx.cardview:cardview:1.0.0"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-        const val startup = "androidx.startup:startup-runtime:1.0.0"
     }
 
     object Lifecycle {
@@ -85,6 +84,10 @@ object Deps {
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.0"
     }
 
+    object Startup {
+        const val runtime = "androidx.startup:startup-runtime:1.0.0"
+    }
+
     object Test {
         const val junit = "junit:junit:4.12"
         const val junitExt = "androidx.test.ext:junit:1.1.2"
@@ -94,6 +97,7 @@ object Deps {
     object Retrofit2 {
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
+
         // 动态替换 BaseUrl 库：https://github.com/JessYanCoding/RetrofitUrlManager
         const val urlManager = "me.jessyan:retrofit-url-manager:1.4.0"
     }
@@ -106,6 +110,7 @@ object Deps {
 
     object OkHttp3 {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.4.0"
+
         /** Cookies 自动持久化 */
         const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     }
@@ -144,11 +149,15 @@ object Deps {
         const val nativeCrashReport = "com.tencent.bugly:nativecrashreport:3.7.47"
     }
 
+    object DataStore {
+        val mmkv = "com.tencent:mmkv-static:1.2.7"
+    }
+
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
         "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
 
-    val unpeekLiveData = "com.kunminx.archi:unpeek-livedata:4.4.1-beta1"
+    const val unpeekLiveData = "com.kunminx.archi:unpeek-livedata:4.4.1-beta1"
 
     /** 优雅地处理加载中，重试，无数据等 */
     const val loadSir = "com.kingja.loadsir:loadsir:1.3.8"

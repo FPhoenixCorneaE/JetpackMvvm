@@ -53,6 +53,7 @@ android {
     }
 
     lintOptions {
+        isCheckReleaseBuilds = false
         isAbortOnError = false
     }
 
@@ -92,10 +93,8 @@ fun listSubFile(): ArrayList<String> {
     val files = file(resFolder).listFiles()
     val folders = ArrayList<String>()
     // 遍历路径
-    files?.let {
-        it.forEach { file ->
-            folders.add(file.absolutePath)
-        }
+    files?.forEach { file ->
+        folders.add(file.absolutePath)
     }
     // 资源整合
     folders.add(file(resFolder).parentFile.absolutePath)

@@ -16,6 +16,7 @@ import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateReceiver
  * @date：2021/04/29 13:38
  */
 class JMContentProvider : ContentProvider() {
+
     companion object {
         lateinit var appContext: Application
     }

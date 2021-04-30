@@ -28,8 +28,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
         getByName(Deps.BuildType.Debug) {
@@ -40,8 +40,8 @@ android {
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -65,6 +65,7 @@ android {
     }
 
     lintOptions {
+        isCheckReleaseBuilds = false
         isAbortOnError = false
     }
 
@@ -76,22 +77,33 @@ android {
 
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    // kotlin
     compileOnly(Deps.Kotlin.stdLib)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
+    // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
-    api(Deps.Lifecycle.liveDataKtx)
-    api(Deps.Lifecycle.viewModelKtx)
     api(Deps.Lifecycle.extensions)
+    // liveData
+    api(Deps.Lifecycle.liveDataKtx)
+    api(Deps.unpeekLiveData)
+    // viewModel
+    api(Deps.Lifecycle.viewModelKtx)
+    // navigation
     api(Deps.Navigation.runtimeKtx)
     api(Deps.Navigation.fragmentKtx)
     api(Deps.Navigation.uiKtx)
+    // startup
+    api(Deps.Startup.runtime)
+    // 通用工具类
     api(Deps.FPhoenixCorneaE.commonUtil)
+    // 标题栏
     api(Deps.FPhoenixCorneaE.commonTitlebar)
-    api(Deps.unpeekLiveData)
+    // RecyclerViewAdapter
     api(Deps.baseRecyclerViewAdapterHelper) {
         exclude(group = "org.jetbrains.kotlin")
     }
+    // coil 图片加载
     api(Deps.Coil.coil)
     api(Deps.Coil.gif)
     api(Deps.Coil.svg)
@@ -99,6 +111,8 @@ dependencies {
     api(Deps.Coil.transformations)
     api(Deps.Coil.transformationsGpu)
     api(Deps.Coil.transformationsFaceDetection)
+    // 数据存储
+    api(Deps.DataStore.mmkv)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------
