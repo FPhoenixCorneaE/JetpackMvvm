@@ -16,7 +16,7 @@ class JMInitializer : Initializer<Unit> {
     override fun create(context: Context) {
         GlobalScope.launch(Dispatchers.IO) {
             // MMKV 初始化
-            MMKV.initialize(appContext)
+            MMKV.initialize(context)
         }
     }
 

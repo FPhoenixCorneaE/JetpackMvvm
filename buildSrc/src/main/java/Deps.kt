@@ -11,7 +11,7 @@ object Deps {
     const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
 
     object FPhoenixCorneaE {
-        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.6"
+        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.7"
         const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.4"
     }
 
@@ -80,8 +80,8 @@ object Deps {
 
     object Navigation {
         const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:2.3.1"
-        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.0"
-        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.0"
+        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.1"
+        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.1"
     }
 
     object Startup {

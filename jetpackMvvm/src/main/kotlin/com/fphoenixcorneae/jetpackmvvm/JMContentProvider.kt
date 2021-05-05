@@ -1,6 +1,5 @@
 package com.fphoenixcorneae.jetpackmvvm
 
-import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.IntentFilter
@@ -17,13 +16,8 @@ import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateReceiver
  */
 class JMContentProvider : ContentProvider() {
 
-    companion object {
-        lateinit var appContext: Application
-    }
-
     override fun onCreate(): Boolean {
-        appContext = context?.applicationContext as Application
-        appContext.registerReceiver(NetworkStateReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        context?.registerReceiver(NetworkStateReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver)
         return true
     }
