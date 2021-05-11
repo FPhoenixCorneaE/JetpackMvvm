@@ -73,6 +73,12 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    configurations.all {
+        resolutionStrategy {
+            force(Deps.Kotlin.stdLib)
+        }
+    }
 }
 
 dependencies {
@@ -86,7 +92,6 @@ dependencies {
     api(Deps.Lifecycle.extensions)
     // liveData
     api(Deps.Lifecycle.liveDataKtx)
-    api(Deps.unpeekLiveData)
     // viewModel
     api(Deps.Lifecycle.viewModelKtx)
     // navigation
@@ -113,6 +118,8 @@ dependencies {
     api(Deps.Coil.transformationsFaceDetection)
     // 数据存储
     api(Deps.DataStore.mmkv)
+    // logger
+    api("com.orhanobut:logger:2.2.0")
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------

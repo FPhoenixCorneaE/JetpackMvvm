@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.multistatus.MultiStatusLayoutManager
 import com.fphoenixcorneae.jetpackmvvm.network.NetWorkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
@@ -121,23 +122,23 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
-            viewModel.loadingChange.showDialog.observeInFragment(this) {
+            viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, EventObserver {
                 showLoading(it)
-            }
+            })
             // 关闭弹窗
-            viewModel.loadingChange.dismissDialog.observeInFragment(this) {
+            viewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, EventObserver {
                 showContent()
-            }
+            })
         }
     }
 
     private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observeInFragment(this) {
+        NetworkStateManager.networkState.observe(viewLifecycleOwner, EventObserver {
             // 视图加载完毕时调用方法，防止数据第一次监听错误
             if (hasLoadedData) {
                 onNetworkStateChanged(it)
             }
-        }
+        })
     }
 
     override fun onDestroyView() {

@@ -10,11 +10,6 @@
             android:value="2.4" />
 
         <provider
-            android:name="com.fphoenixcorneae.jetpackmvvm.JMContentProvider"
-            android:authorities="${applicationId}.ContentProvider"
-            android:exported="false" />
-
-        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"

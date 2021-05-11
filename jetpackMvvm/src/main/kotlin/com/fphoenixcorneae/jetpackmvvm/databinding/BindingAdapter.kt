@@ -14,7 +14,7 @@ import coil.size.ViewSizeResolver
 import coil.transform.*
 import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
-import com.fphoenixcorneae.ext.isNonNull
+import com.fphoenixcorneae.ext.isNotNull
 
 /**
  * @desc：@BindingAdapter 自定义属性
@@ -61,7 +61,7 @@ fun setSrc(
         crossfade(200)
         // 可选的，但是设置 ViewSizeResolver 可以通过限制预加载的大小来节省内存
         size(ViewSizeResolver(target))
-        if (placeholderDrawable.isNonNull()) {
+        if (placeholderDrawable.isNotNull()) {
             placeholder(placeholderDrawable)
         } else {
             placeholder(placeholderResId)

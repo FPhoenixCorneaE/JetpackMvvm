@@ -17,6 +17,7 @@ import com.fphoenixcorneae.dsl.layout.LinearLayout
 import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.ext.view.setTintColor
+import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 
 /**
@@ -123,20 +124,20 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
     protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
-            viewModel.loadingChange.showDialog.observeInActivity(this) {
+            viewModel.loadingChange.showDialog.observe(this, EventObserver {
                 showLoading(it)
-            }
+            })
             // 关闭弹窗
-            viewModel.loadingChange.dismissDialog.observeInActivity(this) {
+            viewModel.loadingChange.dismissDialog.observe(this, EventObserver {
                 showContent()
-            }
+            })
         }
     }
 
     private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observeInActivity(this) {
+        NetworkStateManager.networkState.observe(this, EventObserver {
             onNetworkStateChanged(it)
-        }
+        })
     }
 
     /**

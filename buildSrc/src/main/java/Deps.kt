@@ -16,7 +16,7 @@ object Deps {
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.1.3"
+        const val gradle = "com.android.tools.build:gradle:4.2.0"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
         const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }
@@ -37,7 +37,7 @@ object Deps {
         const val targetSdkVersion = 30
         const val versionName = "1.0.0"
         const val versionCode = 100
-        const val kotlinVersion = "1.4.32"
+        const val kotlinVersion = "1.5.0"
     }
 
     object BuildType {
@@ -150,14 +150,12 @@ object Deps {
     }
 
     object DataStore {
-        val mmkv = "com.tencent:mmkv-static:1.2.7"
+        val mmkv = "com.tencent:mmkv-static:1.2.8"
     }
 
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
         "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
-
-    const val unpeekLiveData = "com.kunminx.archi:unpeek-livedata:4.4.1-beta1"
 
     /** 优雅地处理加载中，重试，无数据等 */
     const val loadSir = "com.kingja.loadsir:loadsir:1.3.8"

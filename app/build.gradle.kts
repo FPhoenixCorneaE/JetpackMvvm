@@ -65,6 +65,12 @@ android {
     packagingOptions {
         exclude("META-INF/proguard/coroutines.pro")
     }
+
+    configurations.all {
+        resolutionStrategy {
+            force(Deps.Kotlin.stdLib)
+        }
+    }
 }
 
 // 输出文件

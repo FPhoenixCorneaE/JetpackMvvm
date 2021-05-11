@@ -1,7 +1,8 @@
 package com.fphoenixcorneae.jetpackmvvm.base.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fphoenixcorneae.jetpackmvvm.livedata.EventLiveData
+import com.fphoenixcorneae.jetpackmvvm.livedata.Event
 
 /**
  * @desc：ViewModel 的基类
@@ -17,10 +18,10 @@ open class BaseViewModel() : ViewModel() {
      */
     inner class UiLoadingChange {
         // 显示加载框
-        val showDialog by lazy { EventLiveData<String>() }
+        val showDialog by lazy { MutableLiveData<Event<String>>() }
 
         // 隐藏
-        val dismissDialog by lazy { EventLiveData<Boolean>() }
+        val dismissDialog by lazy { MutableLiveData<Event<Boolean>>() }
     }
 }
 
