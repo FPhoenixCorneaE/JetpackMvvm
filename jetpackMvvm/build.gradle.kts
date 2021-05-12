@@ -77,6 +77,7 @@ android {
     configurations.all {
         resolutionStrategy {
             force(Deps.Kotlin.stdLib)
+            force(Deps.AndroidX.appcompat)
         }
     }
 }
@@ -103,7 +104,9 @@ dependencies {
     // 通用工具类
     api(Deps.FPhoenixCorneaE.commonUtil)
     // 标题栏
-    api(Deps.FPhoenixCorneaE.commonTitlebar)
+    api(Deps.FPhoenixCorneaE.commonTitlebar) {
+        exclude(group = "com.github.FPhoenixCorneaE", module = "CommonUtil")
+    }
     // RecyclerViewAdapter
     api(Deps.baseRecyclerViewAdapterHelper) {
         exclude(group = "org.jetbrains.kotlin")
@@ -119,7 +122,7 @@ dependencies {
     // 数据存储
     api(Deps.DataStore.mmkv)
     // logger
-    api("com.orhanobut:logger:2.2.0")
+    api(Deps.Log.logger)
 }
 
 // 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------

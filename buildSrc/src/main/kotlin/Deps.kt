@@ -11,8 +11,8 @@ object Deps {
     const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
 
     object FPhoenixCorneaE {
-        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.7"
-        const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.4"
+        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.9"
+        const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.5"
     }
 
     object GradlePlugin {
@@ -127,7 +127,8 @@ object Deps {
         const val video = "io.coil-kt:coil-video:1.2.0"
         const val transformations = "com.github.Commit451.coil-transformations:transformations:1.0.0"
         const val transformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
-        const val transformationsFaceDetection = "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
+        const val transformationsFaceDetection =
+            "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
     }
 
     object DoraemonKit {
@@ -150,7 +151,11 @@ object Deps {
     }
 
     object DataStore {
-        val mmkv = "com.tencent:mmkv-static:1.2.8"
+        const val mmkv = "com.tencent:mmkv-static:1.2.8"
+    }
+
+    object Log {
+        const val logger = "com.orhanobut:logger:2.2.0"
     }
 
     /** Powerful and flexible RecyclerAdapter */
