@@ -90,6 +90,7 @@ dependencies {
     compileOnly(Deps.AndroidX.appcompat)
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
+    api(Deps.Lifecycle.commonJava8)
     api(Deps.Lifecycle.extensions)
     // liveData
     api(Deps.Lifecycle.liveDataKtx)

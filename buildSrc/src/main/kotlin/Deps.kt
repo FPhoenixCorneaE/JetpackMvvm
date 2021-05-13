@@ -64,17 +64,18 @@ object Deps {
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
         const val material = "com.google.android.material:material:1.2.1"
         const val flexBox = "com.google.android:flexbox:2.0.1"
-        const val coreKtx = "androidx.core:core-ktx:1.3.1"
-        const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0-beta01"
+        const val coreKtx = "androidx.core:core-ktx:1.3.2"
+        const val activityKtx = "androidx.activity:activity-ktx:1.2.2"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.3"
         const val cardView = "androidx.cardview:cardview:1.0.0"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     }
 
     object Lifecycle {
-        const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-        const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-        const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+        const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+        const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:2.3.1"
+        const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+        const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
         const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
     }
 
@@ -89,7 +90,7 @@ object Deps {
     }
 
     object Test {
-        const val junit = "junit:junit:4.12"
+        const val junit = "junit:junit:4.13.2"
         const val junitExt = "androidx.test.ext:junit:1.1.2"
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
     }
