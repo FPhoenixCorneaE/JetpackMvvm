@@ -124,14 +124,16 @@ dependencies {
 
 // MavenPublication 配置-------------------------------------------------------------
 
-publishing {
-    publications {
-        // Creates a Maven publication called "release".
-        create<MavenPublication>(Deps.BuildType.Release) {
-            from(components[Deps.BuildType.Release])
-            groupId = "com.github.FPhoenixCorneaE"
-            artifactId = project.name
-            version = project.version.toString()
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>(Deps.BuildType.Release) {
+                from(components[Deps.BuildType.Release])
+                groupId = "com.github.FPhoenixCorneaE"
+                artifactId = project.name
+                version = project.version.toString()
+            }
         }
     }
 }
