@@ -16,7 +16,7 @@ object Deps {
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.2.0"
+        const val gradle = "com.android.tools.build:gradle:4.2.1"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
         const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }
@@ -80,9 +80,10 @@ object Deps {
     }
 
     object Navigation {
-        const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:2.3.1"
-        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.1"
-        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.1"
+        const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:2.3.5"
+        const val commonKtx = "androidx.navigation:navigation-common-ktx:2.3.5"
+        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.5"
+        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.5"
     }
 
     object Startup {

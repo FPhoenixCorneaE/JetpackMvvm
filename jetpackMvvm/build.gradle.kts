@@ -23,8 +23,6 @@ android {
         getByName(Deps.BuildType.Release) {
             // 执行proguard混淆
             isMinifyEnabled = false
-            // Zipalign优化
-            isZipAlignEnabled = true
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
@@ -35,8 +33,6 @@ android {
         getByName(Deps.BuildType.Debug) {
             // 执行proguard混淆
             isMinifyEnabled = false
-            // Zipalign优化
-            isZipAlignEnabled = true
             // 移除无用的resource文件
             isShrinkResources = false
             proguardFiles(
@@ -98,6 +94,7 @@ dependencies {
     api(Deps.Lifecycle.viewModelKtx)
     // navigation
     api(Deps.Navigation.runtimeKtx)
+    api(Deps.Navigation.commonKtx)
     api(Deps.Navigation.fragmentKtx)
     api(Deps.Navigation.uiKtx)
     // startup
