@@ -13,6 +13,7 @@ object Deps {
     object FPhoenixCorneaE {
         const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.9"
         const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.5"
+        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.0"
     }
 
     object GradlePlugin {

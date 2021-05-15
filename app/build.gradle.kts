@@ -116,6 +116,7 @@ dependencies {
     implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.recyclerView)
     implementation(project(mapOf("path" to ":jetpackMvvm")))
+//    implementation(Deps.FPhoenixCorneaE.jetpackMvvm)
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitExt)
     androidTestImplementation(Deps.Test.espresso)
