@@ -18,7 +18,6 @@ object Deps {
     object GradlePlugin {
         const val gradle = "com.android.tools.build:gradle:4.2.1"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
-        const val androidMaven = "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }
 
     object PluginIds {
@@ -27,7 +26,7 @@ object Deps {
         const val kotlinAndroid = "android"
         const val kotlinParcelize = "kotlin-parcelize"
         const val kotlinKapt = "kapt"
-        const val androidMaven = "com.github.dcendents.android-maven"
+        const val mavenPublish = "org.gradle.maven-publish"
     }
 
     object Versions {

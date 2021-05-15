@@ -2,9 +2,8 @@ plugins {
     id(Deps.PluginIds.library)
     kotlin(Deps.PluginIds.kotlinAndroid)
     kotlin(Deps.PluginIds.kotlinKapt)
-    id(Deps.PluginIds.androidMaven)
+    id(Deps.PluginIds.mavenPublish)
 }
-group = "com.github.FPhoenixCorneaE"
 
 android {
     compileSdkVersion(Deps.Versions.compileSdkVersion)
@@ -123,32 +122,16 @@ dependencies {
     api(Deps.Log.logger)
 }
 
-// 添加以下配置，否则上传后的jar包看不到注释-------------------------------------------------------------
+// MavenPublication 配置-------------------------------------------------------------
 
-// 指定编码
-tasks.withType(JavaCompile::class) {
-    options.encoding = "UTF-8"
-}
-// 打包源码
-task("sourcesJar", Jar::class) {
-    from("src/main/kotlin")
-    classifier = "sources"
-}
-task("javadoc", Javadoc::class) {
-    isFailOnError = false
-    source = fileTree(mapOf("dir" to "src/main/kotlin", "include" to listOf("*.*")))
-    classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
-    classpath += configurations.compile
-}
-// 制作文档(Javadoc)
-task("javadocJar", Jar::class) {
-    classifier = "javadoc"
-    val javadoc = tasks.getByName("javadoc") as Javadoc
-    from(javadoc.destinationDir)
-}
-artifacts {
-    val sourcesJar = tasks.getByName("sourcesJar")
-    val javadocJar = tasks.getByName("javadocJar")
-    archives(sourcesJar)
-    archives(javadocJar)
+publishing {
+    publications {
+        // Creates a Maven publication called "release".
+        create<MavenPublication>(Deps.BuildType.Release) {
+            from(components[Deps.BuildType.Release])
+            groupId = "com.github.FPhoenixCorneaE"
+            artifactId = project.name
+            version = project.version.toString()
+        }
+    }
 }
