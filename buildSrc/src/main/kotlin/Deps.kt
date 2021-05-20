@@ -133,16 +133,6 @@ object Deps {
             "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
     }
 
-    object DoraemonKit {
-        const val debug = "com.didichuxing.doraemonkit:doraemonkit:3.2.0"
-        const val release = "com.didichuxing.doraemonkit:doraemonkit-no-op:3.2.0"
-    }
-
-    object Pandora {
-        const val debug = "com.github.whataa:pandora:androidx_v2.1.0"
-        const val release = "com.github.yuanhoujun:pandora-no-op:v2.0.4"
-    }
-
     object Detekt {
         const val formatting = "io.gitlab.arturbosch.detekt:detekt-formatting:1.14.0"
     }
