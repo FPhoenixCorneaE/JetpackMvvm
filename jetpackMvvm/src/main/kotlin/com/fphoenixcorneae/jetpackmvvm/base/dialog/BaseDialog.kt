@@ -113,9 +113,11 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         if (userVisibleHint && isViewPrepared && !hasLoadedData) {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
             ContextUtil.runOnUiThreadDelayed({
-                initData(null)
-                // 在Fragment中，只有懒加载过了才能开启网络变化监听
-                addNetworkStateObserver()
+                view?.let {
+                    initData(null)
+                    // 在Fragment中，只有懒加载过了才能开启网络变化监听
+                    addNetworkStateObserver()
+                }
             }, lazyLoadTime())
             hasLoadedData = true
         }

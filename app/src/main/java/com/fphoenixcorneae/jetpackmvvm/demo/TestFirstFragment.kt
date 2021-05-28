@@ -3,8 +3,10 @@ package com.fphoenixcorneae.jetpackmvvm.demo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import com.fphoenixcorneae.jetpackmvvm.base.fragment.BaseFragment
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.FragmentTestFirstBinding
+import com.fphoenixcorneae.toolbar.CommonToolbar
 
 class TestFirstFragment : BaseFragment<FragmentTestFirstBinding>() {
 
