@@ -15,12 +15,12 @@ class TestFirstFragment : BaseFragment<FragmentTestFirstBinding>() {
     }
 
     override fun initView() {
+        showLoading("")
         mViewBinding.tvText.text = "Test First Fragment"
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        showLoading("")
-        //测试普通对象
+        // 测试普通对象
         mHandler.postDelayed({
             showContent()
         }, 2000)

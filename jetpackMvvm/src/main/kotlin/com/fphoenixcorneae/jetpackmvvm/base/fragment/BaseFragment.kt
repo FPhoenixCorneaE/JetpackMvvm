@@ -20,7 +20,7 @@ import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
-import com.fphoenixcorneae.titlebar.CommonTitleBar
+import com.fphoenixcorneae.toolbar.CommonToolbar
 import com.fphoenixcorneae.util.ContextUtil
 
 /**
@@ -46,7 +46,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     private var mStatusLayoutManager: StatusLayoutManager? = null
 
     /** 标题栏 */
-    protected var mToolbar: CommonTitleBar? = null
+    protected var mToolbar: CommonToolbar? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +56,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // 加载布局
         return setContentView()
@@ -104,7 +104,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     }
 
     override fun initToolbar(): View? {
-        mToolbar = CommonTitleBar(mContext).apply {
+        mToolbar = CommonToolbar(mContext).apply {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             leftType = JmConstants.Toolbar.LEFT_TYPE
             leftImageButton?.setTintColor(JmConstants.Toolbar.LEFT_IMAGE_TINT_COLOR)
@@ -115,11 +115,16 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
                 paint.isFakeBoldText = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
             }
             showBottomLine = JmConstants.Toolbar.SHOW_BOTTOM_LINE
-            titleBarHeight = JmConstants.Toolbar.TITLE_BAR_HEIGHT
-            titleBarColor = JmConstants.Toolbar.TITLE_BAR_COLOR
+            toolbarHeight = JmConstants.Toolbar.TOOLBAR_HEIGHT
+            toolbarColor = JmConstants.Toolbar.TOOLBAR_COLOR
             statusBarColor = JmConstants.Toolbar.STATUS_BAR_COLOR
             // 不填充状态栏
             showStatusBar(false)
+            onToolbarClickListener = { v: View, action: Int, extra: String? ->
+                if (action == CommonToolbar.TYPE_LEFT_IMAGE_BUTTON) {
+                    mContext.onBackPressed()
+                }
+            }
         }
         return mToolbar
     }

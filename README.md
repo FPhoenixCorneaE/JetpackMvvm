@@ -9,7 +9,8 @@
 ```groovy
 allprojects {
 	repositories {
-		...
+        google()
+        mavenCentral()
 		maven { url 'https://jitpack.io' }
 	}
 }
@@ -18,7 +19,8 @@ allprojects {
 ```kotlin
 allprojects {
 	repositories {
-		...
+        google()
+        mavenCentral()
 		maven { setUrl("https://jitpack.io") }
 	}
 }
@@ -29,50 +31,50 @@ allprojects {
 **groovy**
 ```groovy
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.0")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.1")
 }
 ```
 **kotlin**
 ```kotlin
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.0")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.1")
 }
 ```
 
-### 多状态布局管理：MultiStatusLayoutManager
+### 多状态布局管理：StatusLayoutManager
 ```kotlin
-    override fun createMultiStatusLayoutManager() {
-        mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
-            .addNoNetWorkClickListener(View.OnClickListener {
+    override fun initUiState() {
+        mStatusLayoutManager = StatusLayoutManager.Builder()
+            .addNoNetWorkClickListener {
                 onNoNetWorkClick()
-            })
-            .addErrorClickListener(View.OnClickListener {
+            }
+            .addErrorClickListener {
                 onErrorClick()
-            })
-            .addEmptyClickListener(View.OnClickListener {
+            }
+            .addEmptyClickListener {
                 onEmptyClick()
-            })
-            .register(this)
+            }
+            .register(viewBinding!!.root)
     }
     
-    override fun showLoading() {
-        mMultiStatusLayoutManager?.showLoadingView()
+    override fun showLoading(loadingMsg: String?) {
+        mStatusLayoutManager?.showLoadingView(loadingMsg)
     }
 
     override fun showContent() {
-        mMultiStatusLayoutManager?.showContentView()
+        mStatusLayoutManager?.showContentView()
     }
 
-    override fun showEmpty() {
-        mMultiStatusLayoutManager?.showEmptyView()
+    override fun showEmpty(emptyMsg: String?) {
+        mStatusLayoutManager?.showEmptyView(emptyMsg)
     }
 
-    override fun showNoNetwork() {
-        mMultiStatusLayoutManager?.showNoNetWorkView()
+    override fun showNoNetwork(noNetworkMsg: String?) {
+        mStatusLayoutManager?.showNoNetWorkView(noNetworkMsg)
     }
 
-    override fun showError() {
-        mMultiStatusLayoutManager?.showErrorView()
+    override fun showError(errorMsg: String?) {
+        mStatusLayoutManager?.showErrorView(errorMsg)
     }
 ```
 

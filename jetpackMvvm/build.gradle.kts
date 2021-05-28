@@ -102,7 +102,7 @@ dependencies {
     // 通用工具类
     api(Deps.FPhoenixCorneaE.commonUtil)
     // 标题栏
-    api(Deps.FPhoenixCorneaE.commonTitlebar) {
+    api(Deps.FPhoenixCorneaE.CommonToolbar) {
         exclude(group = "com.github.FPhoenixCorneaE", module = "CommonUtil")
     }
     // RecyclerViewAdapter
