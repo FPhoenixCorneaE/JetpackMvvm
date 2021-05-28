@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/no_network_view"
+    android:id="@+id/no_network_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/jm_color_bg_0xf5f5f5">
@@ -20,16 +20,16 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/iv_network_error"
+            android:id="@+id/no_network_image"
             android:layout_width="180dp"
             android:layout_height="120dp"
             android:contentDescription="@null"
-            android:src="@mipmap/jm_ic_network_error" />
+            android:src="@mipmap/jm_ic_no_network" />
 
         <TextView
-            android:id="@+id/no_network_view_tv"
+            android:id="@+id/no_network_text"
             style="@style/MultipleStatusView.Content"
             android:layout_marginTop="12dp"
-            android:text="@string/multiple_status_no_network_view_hint" />
+            android:text="@string/jm_string_status_no_network_text" />
     </LinearLayout>
 </RelativeLayout>

@@ -10,38 +10,38 @@ class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
         return ActivityTestFragmentBinding.inflate(layoutInflater)
     }
 
-    override fun initToolbar() {
-        mToolbar?.centerTextView?.text = "FragmentActivity"
-    }
-
     override fun initListener() {
         mViewBinding.apply {
             rbFirst.setOnClickListener {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, TestFirstFragment.newInstance())
-                        .commit()
+                    .replace(R.id.frame, TestFirstFragment.newInstance())
+                    .commit()
             }
             rbSecond.setOnClickListener {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, TestSecondFragment.newInstance())
-                        .commit()
+                    .replace(R.id.frame, TestSecondFragment.newInstance())
+                    .commit()
             }
             rbThird.setOnClickListener {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, TestThirdFragment.newInstance())
-                        .commit()
+                    .replace(R.id.frame, TestThirdFragment.newInstance())
+                    .commit()
             }
             rbFour.setOnClickListener {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, TestFourFragment.newInstance())
-                        .commit()
+                    .replace(R.id.frame, TestFourFragment.newInstance())
+                    .commit()
             }
         }
     }
 
+    override fun initView() {
+        mToolbar?.centerTextView?.text = "FragmentActivity"
+    }
+
     override fun initData(savedInstanceState: Bundle?) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.frame, TestFirstFragment.newInstance())
-                .commit()
+            .replace(R.id.frame, TestFirstFragment.newInstance())
+            .commit()
     }
 }

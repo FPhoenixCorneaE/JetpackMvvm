@@ -15,12 +15,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
+import com.fphoenixcorneae.ext.loge
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.multistatus.MultiStatusLayoutManager
-import com.fphoenixcorneae.jetpackmvvm.network.NetWorkState
+import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
+import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.util.ContextUtil
 
 /**
@@ -43,7 +45,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     protected lateinit var mContext: FragmentActivity
 
     /** 多状态布局管理器 */
-    private var mMultiStatusLayoutManager: MultiStatusLayoutManager? = null
+    private var mStatusLayoutManager: StatusLayoutManager? = null
 
 
     override fun onAttach(context: Context) {
@@ -71,7 +73,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepared = true
         initParams()
-        createMultiStatusLayoutManager()
+        initUiState()
         initView()
         initListener()
         initViewObservable()
@@ -93,8 +95,8 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         }
     }
 
-    override fun createMultiStatusLayoutManager() {
-        mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
+    override fun initUiState() {
+        mStatusLayoutManager = StatusLayoutManager.Builder()
             .addNoNetWorkClickListener {
                 onNoNetWorkClick()
             }
@@ -104,7 +106,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
             .addEmptyClickListener {
                 onEmptyClick()
             }
-            .register(this)
+            .register(viewBinding!!.root)
     }
 
     private fun lazyLoadDataIfPrepared() {
@@ -119,7 +121,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         }
     }
 
-    protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
+    protected fun addUiLoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
             viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, EventObserver {
@@ -141,15 +143,10 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
-    }
-
     /**
      * 网络变化监听 子类重写
      */
-    open fun onNetworkStateChanged(netWorkState: NetWorkState) {}
+    open fun onNetworkStateChanged(networkState: NetworkState) {}
 
     /**
      * 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿  bug
@@ -161,11 +158,56 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         return 300
     }
 
-    fun show(activity: FragmentActivity) {
-        super.show(activity.supportFragmentManager, null)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 
-    fun show(fragment: Fragment) {
-        super.show(fragment.childFragmentManager, null)
+    override fun showLoading(loadingMsg: String?) {
+        mStatusLayoutManager?.showLoadingView(loadingMsg)
+    }
+
+    override fun showContent() {
+        mStatusLayoutManager?.showContentView()
+    }
+
+    override fun showEmpty(emptyMsg: String?) {
+        mStatusLayoutManager?.showEmptyView(emptyMsg)
+    }
+
+    override fun showNoNetwork(noNetworkMsg: String?) {
+        mStatusLayoutManager?.showNoNetWorkView(noNetworkMsg)
+    }
+
+    override fun showError(errorMsg: String?) {
+        mStatusLayoutManager?.showErrorView(errorMsg)
+    }
+
+    override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
+        toast(errorMsg)
+        t.toString().loge()
+    }
+
+    override fun onNoNetWorkClick() {
+        showLoading(null)
+        initData(null)
+    }
+
+    override fun onErrorClick() {
+        showLoading(null)
+        initData(null)
+    }
+
+    override fun onEmptyClick() {
+        showLoading(null)
+        initData(null)
+    }
+
+    fun show(activity: FragmentActivity, tag: String? = null) {
+        super.show(activity.supportFragmentManager, tag)
+    }
+
+    fun show(fragment: Fragment, tag: String? = null) {
+        super.show(fragment.childFragmentManager, tag)
     }
 }

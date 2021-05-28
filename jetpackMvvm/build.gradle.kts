@@ -83,6 +83,7 @@ dependencies {
     compileOnly(Deps.Kotlin.stdLib)
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
+    compileOnly(Deps.AndroidX.viewpager2)
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
     api(Deps.Lifecycle.commonJava8)
@@ -113,17 +114,14 @@ dependencies {
     api(Deps.Coil.gif)
     api(Deps.Coil.svg)
     api(Deps.Coil.video)
-    api(Deps.Coil.transformations)
-    api(Deps.Coil.transformationsGpu)
-    api(Deps.Coil.transformationsFaceDetection)
+    api(Deps.CoilTransformations.transformations)
+    api(Deps.CoilTransformations.transformationsGpu)
+    api(Deps.CoilTransformations.transformationsFaceDetection)
     // 数据存储
     api(Deps.DataStore.mmkv)
-    // logger
-    api(Deps.Log.logger)
 }
 
-// MavenPublication 配置-------------------------------------------------------------
-
+// MavenPublication 配置 start -------------------------------------------------------------
 afterEvaluate {
     publishing {
         publications {
@@ -137,3 +135,4 @@ afterEvaluate {
         }
     }
 }
+// MavenPublication 配置 end ---------------------------------------------------------------

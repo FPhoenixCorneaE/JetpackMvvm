@@ -9,17 +9,17 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.fphoenixcorneae.jetpackmvvm.JMConstants
-import com.fphoenixcorneae.jetpackmvvm.base.view.IView
-import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
-import com.fphoenixcorneae.jetpackmvvm.multistatus.MultiStatusLayoutManager
-import com.fphoenixcorneae.jetpackmvvm.network.NetWorkState
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.dsl.layout.LinearLayout
-import com.fphoenixcorneae.ext.loggerE
+import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.ext.view.setTintColor
+import com.fphoenixcorneae.jetpackmvvm.base.view.IView
+import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
+import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
+import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
+import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.ContextUtil
 
@@ -43,7 +43,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     protected lateinit var mContext: FragmentActivity
 
     /** 多状态布局管理器 */
-    private var mMultiStatusLayoutManager: MultiStatusLayoutManager? = null
+    private var mStatusLayoutManager: StatusLayoutManager? = null
 
     /** 标题栏 */
     protected var mToolbar: CommonTitleBar? = null
@@ -62,7 +62,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         return setContentView()
     }
 
-    private fun setContentView(): View? = kotlin.run {
+    private fun setContentView(): View = kotlin.run {
         viewBinding = initViewBinding()
         LinearLayout {
             layoutParams = LinearLayout.LayoutParams(
@@ -70,7 +70,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             orientation = LinearLayout.VERTICAL
-            createToolbar()?.let { toolbar ->
+            initToolbar()?.let { toolbar ->
                 // 添加标题栏
                 addView(toolbar)
             }
@@ -96,37 +96,36 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepared = true
         initParams()
-        createMultiStatusLayoutManager()
-        initToolbar()
+        initUiState()
         initView()
         initListener()
         initViewObservable()
         lazyLoadDataIfPrepared()
     }
 
-    override fun createToolbar(): View? {
+    override fun initToolbar(): View? {
         mToolbar = CommonTitleBar(mContext).apply {
-            layoutParams = JMConstants.Toolbar.LAYOUT_PARAMS
-            leftType = JMConstants.Toolbar.LEFT_TYPE
-            leftImageButton?.setTintColor(JMConstants.Toolbar.LEFT_IMAGE_TINT_COLOR)
-            centerType = JMConstants.Toolbar.CENTER_TYPE
+            layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
+            leftType = JmConstants.Toolbar.LEFT_TYPE
+            leftImageButton?.setTintColor(JmConstants.Toolbar.LEFT_IMAGE_TINT_COLOR)
+            centerType = JmConstants.Toolbar.CENTER_TYPE
             centerTextView?.apply {
-                setTextColor(JMConstants.Toolbar.CENTER_TEXT_COLOR)
-                textSize = JMConstants.Toolbar.CENTER_TEXT_SIZE
-                paint.isFakeBoldText = JMConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
+                setTextColor(JmConstants.Toolbar.CENTER_TEXT_COLOR)
+                textSize = JmConstants.Toolbar.CENTER_TEXT_SIZE
+                paint.isFakeBoldText = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
             }
-            showBottomLine = JMConstants.Toolbar.SHOW_BOTTOM_LINE
-            titleBarHeight = JMConstants.Toolbar.TITLE_BAR_HEIGHT
-            titleBarColor = JMConstants.Toolbar.TITLE_BAR_COLOR
-            statusBarColor = JMConstants.Toolbar.STATUS_BAR_COLOR
+            showBottomLine = JmConstants.Toolbar.SHOW_BOTTOM_LINE
+            titleBarHeight = JmConstants.Toolbar.TITLE_BAR_HEIGHT
+            titleBarColor = JmConstants.Toolbar.TITLE_BAR_COLOR
+            statusBarColor = JmConstants.Toolbar.STATUS_BAR_COLOR
             // 不填充状态栏
             showStatusBar(false)
         }
         return mToolbar
     }
 
-    override fun createMultiStatusLayoutManager() {
-        mMultiStatusLayoutManager = MultiStatusLayoutManager.Builder()
+    override fun initUiState() {
+        mStatusLayoutManager = StatusLayoutManager.Builder()
             .addNoNetWorkClickListener {
                 onNoNetWorkClick()
             }
@@ -136,7 +135,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
             .addEmptyClickListener {
                 onEmptyClick()
             }
-            .register(this)
+            .register(viewBinding!!.root)
     }
 
     private fun lazyLoadDataIfPrepared() {
@@ -151,7 +150,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         }
     }
 
-    protected fun addUILoadingChangeObserver(vararg viewModels: BaseViewModel) {
+    protected fun addUiLoadingChangeObserver(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             // 显示弹窗
             viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, EventObserver {
@@ -186,53 +185,50 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     /**
      * 网络变化监听 子类重写
      */
-    open fun onNetworkStateChanged(it: NetWorkState) {}
+    open fun onNetworkStateChanged(it: NetworkState) {}
 
     override fun onDestroyView() {
         super.onDestroyView()
         viewBinding = null
     }
 
-    override fun showLoading(loadingMsg: String) {
-        mMultiStatusLayoutManager?.showLoadingView()
+    override fun showLoading(loadingMsg: String?) {
+        mStatusLayoutManager?.showLoadingView(loadingMsg)
     }
 
     override fun showContent() {
-        mMultiStatusLayoutManager?.showContentView()
+        mStatusLayoutManager?.showContentView()
     }
 
-    override fun showEmpty() {
-        mMultiStatusLayoutManager?.showEmptyView()
+    override fun showEmpty(emptyMsg: String?) {
+        mStatusLayoutManager?.showEmptyView(emptyMsg)
     }
 
-    override fun showNoNetwork() {
-        mMultiStatusLayoutManager?.showNoNetWorkView()
+    override fun showNoNetwork(noNetworkMsg: String?) {
+        mStatusLayoutManager?.showNoNetWorkView(noNetworkMsg)
     }
 
-    override fun showError() {
-        mMultiStatusLayoutManager?.showErrorView()
+    override fun showError(errorMsg: String?) {
+        mStatusLayoutManager?.showErrorView(errorMsg)
     }
 
-    override fun showErrorMsg(t: Throwable) {
-        loggerE(t.toString())
-    }
-
-    override fun showErrorMsg(errorMsg: CharSequence) {
+    override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
         toast(errorMsg)
+        t.toString().loge()
     }
 
     override fun onNoNetWorkClick() {
-        showLoading("")
+        showLoading(null)
         initData(null)
     }
 
     override fun onErrorClick() {
-        showLoading("")
+        showLoading(null)
         initData(null)
     }
 
     override fun onEmptyClick() {
-        showLoading("")
+        showLoading(null)
         initData(null)
     }
 }

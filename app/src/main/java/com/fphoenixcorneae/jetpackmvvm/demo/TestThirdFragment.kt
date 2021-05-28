@@ -14,7 +14,7 @@ class TestThirdFragment : BaseFragment<FragmentTestThirdBinding>() {
         showLoading("")
         //测试普通对象
         mHandler.postDelayed({
-            showError()
+            showError(null)
         }, 2000)
     }
 

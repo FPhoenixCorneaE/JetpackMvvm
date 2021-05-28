@@ -20,14 +20,14 @@ class NetworkStateReceiver : BroadcastReceiver() {
                 NetworkStateManager.networkState.value?.let {
                     if (it.peekContent().isConnected) {
                         toast("网络不给力啊！")
-                        NetworkStateManager.networkState.value = Event(NetWorkState(false))
+                        NetworkStateManager.networkState.value = Event(NetworkState(false))
                     }
                 }
             } else {
                 // 收到有网络时判断之前的值是不是没有网络，如果没有网络才提示通知 ，防止重复通知
                 NetworkStateManager.networkState.value?.let {
                     if (it.peekContent().isConnected.not()) {
-                        NetworkStateManager.networkState.value = Event(NetWorkState(true))
+                        NetworkStateManager.networkState.value = Event(NetworkState(true))
                     }
                 }
             }

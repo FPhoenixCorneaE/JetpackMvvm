@@ -14,7 +14,7 @@ class TestSecondFragment : BaseFragment<FragmentTestSecondBinding>() {
         showLoading("")
         //测试普通对象
         mHandler.postDelayed({
-            showNoNetwork()
+            showNoNetwork(null)
         }, 2000)
     }
 

@@ -8,7 +8,7 @@ import com.fphoenixcorneae.jetpackmvvm.livedata.Event
  * @desc：ViewModel 的基类
  * @date：2021/4/4 18:10
  */
-open class BaseViewModel() : ViewModel() {
+open class BaseViewModel : ViewModel() {
 
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 

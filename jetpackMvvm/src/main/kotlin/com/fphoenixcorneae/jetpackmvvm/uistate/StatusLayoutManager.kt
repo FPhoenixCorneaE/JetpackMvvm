@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.jetpackmvvm.multistatus
+package com.fphoenixcorneae.jetpackmvvm.uistate
 
 import android.app.Activity
 import android.app.Fragment
@@ -8,20 +8,25 @@ import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.annotation.Keep
 import androidx.annotation.LayoutRes
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.fphoenixcorneae.jetpackmvvm.R
 import com.fphoenixcorneae.ext.loggerD
+import com.fphoenixcorneae.jetpackmvvm.R
+import com.fphoenixcorneae.util.ResourceUtil
 
 /**
- * @desc：多状态布局管理器：利用[MultiStatusLayoutManager.Builder.register]获取[MultiStatusLayoutManager]对象
+ * @desc：多状态布局管理器：利用[StatusLayoutManager.Builder.register]获取[StatusLayoutManager]对象
  * @date：2021/1/15 19:23
  */
-class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver {
+class StatusLayoutManager(private val builder: Builder) : LifecycleObserver {
     private val mTarget = builder.target
     private var mStatusViewMap = builder.statusViewMap
     private var mClickListeners = builder.clickListeners
@@ -138,26 +143,12 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
     }
 
     /**
-     * 展示加载动画
-     */
-    fun showLoadingView() {
-        showStatusView(StatusType.LOADING_TYPE)
-    }
-
-    /**
-     * 展示加载动画
+     * 展示加载中页面
      *
      * @param loadingText 加载中文案
      */
-    fun showLoadingView(loadingText: String?) {
+    fun showLoadingView(loadingText: String? = null) {
         showStatusView(StatusType.LOADING_TYPE, loadingText)
-    }
-
-    /**
-     * 展示出错页面
-     */
-    fun showErrorView() {
-        showStatusView(StatusType.ERROR_TYPE)
     }
 
     /**
@@ -165,15 +156,8 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
      *
      * @param errorText 错误文案
      */
-    fun showErrorView(errorText: String?) {
+    fun showErrorView(errorText: String? = null) {
         showStatusView(StatusType.ERROR_TYPE, errorText)
-    }
-
-    /**
-     * 展示空页面
-     */
-    fun showEmptyView() {
-        showStatusView(StatusType.EMPTY_TYPE)
     }
 
     /**
@@ -181,15 +165,8 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
      *
      * @param emptyText 空数据文案
      */
-    fun showEmptyView(emptyText: String?) {
+    fun showEmptyView(emptyText: String? = null) {
         showStatusView(StatusType.EMPTY_TYPE, emptyText)
-    }
-
-    /**
-     * 展示网络错误页面
-     */
-    fun showNoNetWorkView() {
-        showStatusView(StatusType.NO_NETWORK_TYPE)
     }
 
     /**
@@ -197,7 +174,7 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
      *
      * @param noNetworkText 网络错误文案
      */
-    fun showNoNetWorkView(noNetworkText: String?) {
+    fun showNoNetWorkView(noNetworkText: String? = null) {
         showStatusView(StatusType.NO_NETWORK_TYPE, noNetworkText)
     }
 
@@ -215,7 +192,7 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
      */
     private fun showStatusView(
         @StatusType statusType: Int,
-        text: String? = null
+        text: String? = null,
     ) {
         checkStatusViewExist(statusType)
         if (mCurrentStatus == statusType) {
@@ -229,6 +206,25 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
                 val clickListener = mClickListeners?.get(statusType)
                 if (clickListener != null) {
                     view.setOnClickListener(clickListener)
+                }
+            }
+            when (statusType) {
+                StatusType.LOADING_TYPE -> {
+                    val loadingTextView = view.findViewById<TextView>(R.id.loading_text)
+                    loadingTextView?.text = text ?: view.context.getString(R.string.jm_string_status_loading_text)
+                }
+                StatusType.ERROR_TYPE -> {
+                    val errorTextView = view.findViewById<TextView>(R.id.error_text)
+                    errorTextView?.text = text ?: view.context.getString(R.string.jm_string_status_error_text)
+                }
+                StatusType.EMPTY_TYPE -> {
+                    val emptyTextView = view.findViewById<TextView>(R.id.empty_text)
+                    emptyTextView?.text = text ?: view.context.getString(R.string.jm_string_status_empty_text)
+                }
+                StatusType.NO_NETWORK_TYPE -> {
+                    val noNetworkTextView = view.findViewById<TextView>(R.id.no_network_text)
+                    noNetworkTextView?.text =
+                        text ?: view.context.getString(R.string.jm_string_status_no_network_text)
                 }
             }
             mParentLayout?.addView(view, mViewIndex, mLayoutParams)
@@ -375,7 +371,7 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
          */
         private fun addOnClickListener(
             @StatusType status: Int,
-            statusClickListener: View.OnClickListener?
+            statusClickListener: View.OnClickListener?,
         ): Builder {
             if (clickListeners == null) {
                 clickListeners = SparseArray()
@@ -385,39 +381,39 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
         }
 
         /**
-         * 用[register]方法注册[Builder.target]，并获取[MultiStatusLayoutManager]对象
+         * 用[register]方法注册[Builder.target]，并获取[StatusLayoutManager]对象
          */
-        fun register(target: Any?): MultiStatusLayoutManager {
+        fun register(target: Any?): StatusLayoutManager {
             this.target = target
-            return MultiStatusLayoutManager(this).apply {
+            return StatusLayoutManager(this).apply {
                 addObserver(target, this)
             }
         }
 
         private fun addObserver(
             target: Any?,
-            multiStatusLayoutManager: MultiStatusLayoutManager
+            statusLayoutManager: StatusLayoutManager,
         ) {
             when (target) {
                 is ComponentActivity -> {
-                    target.lifecycle.addObserver(multiStatusLayoutManager)
+                    target.lifecycle.addObserver(statusLayoutManager)
                 }
                 is androidx.fragment.app.Fragment -> {
-                    target.lifecycle.addObserver(multiStatusLayoutManager)
+                    target.lifecycle.addObserver(statusLayoutManager)
                 }
             }
         }
 
         fun removeObserver(
             target: Any?,
-            multiStatusLayoutManager: MultiStatusLayoutManager
+            statusLayoutManager: StatusLayoutManager,
         ) {
             when (target) {
                 is ComponentActivity -> {
-                    target.lifecycle.removeObserver(multiStatusLayoutManager)
+                    target.lifecycle.removeObserver(statusLayoutManager)
                 }
                 is androidx.fragment.app.Fragment -> {
-                    target.lifecycle.removeObserver(multiStatusLayoutManager)
+                    target.lifecycle.removeObserver(statusLayoutManager)
                 }
             }
         }
@@ -427,10 +423,10 @@ class MultiStatusLayoutManager(private val builder: Builder) : LifecycleObserver
         /**
          * 四种默认布局 ID
          */
-        private val DEFAULT_LAYOUT_ID_LOADING = R.layout.jm_layout_multiple_status_loading
-        private val DEFAULT_LAYOUT_ID_EMPTY = R.layout.jm_layout_multiple_status_empty
-        private val DEFAULT_LAYOUT_ID_ERROR = R.layout.jm_layout_multiple_status_error
-        private val DEFAULT_LAYOUT_ID_NO_NETWORK = R.layout.jm_layout_multiple_status_no_network
+        private val DEFAULT_LAYOUT_ID_LOADING = R.layout.jm_layout_status_loading
+        private val DEFAULT_LAYOUT_ID_EMPTY = R.layout.jm_layout_status_empty
+        private val DEFAULT_LAYOUT_ID_ERROR = R.layout.jm_layout_status_error
+        private val DEFAULT_LAYOUT_ID_NO_NETWORK = R.layout.jm_layout_status_no_network
     }
 
     init {

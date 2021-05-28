@@ -11,7 +11,7 @@ object Deps {
     const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
 
     object FPhoenixCorneaE {
-        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.0.9"
+        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.1.1"
         const val commonTitlebar = "com.github.FPhoenixCorneaE:CommonTitlebar:1.0.5"
         const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.0"
     }
@@ -63,12 +63,9 @@ object Deps {
         const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0"
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
         const val material = "com.google.android.material:material:1.2.1"
-        const val flexBox = "com.google.android:flexbox:2.0.1"
         const val coreKtx = "androidx.core:core-ktx:1.3.2"
         const val activityKtx = "androidx.activity:activity-ktx:1.2.2"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.3"
-        const val cardView = "androidx.cardview:cardview:1.0.0"
-        const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     }
 
     object Lifecycle {
@@ -96,74 +93,33 @@ object Deps {
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
     }
 
-    object Retrofit2 {
-        const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
-        const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
-
-        // 动态替换 BaseUrl 库：https://github.com/JessYanCoding/RetrofitUrlManager
-        const val urlManager = "me.jessyan:retrofit-url-manager:1.4.0"
-    }
-
-    object RxJava2 {
-        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.0"
-        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
-        const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.2.0"
-    }
-
-    object OkHttp3 {
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.4.0"
-
-        /** Cookies 自动持久化 */
-        const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
-    }
-
-    object ARouter {
-        const val api = "com.alibaba:arouter-api:1.5.0"
-        const val compiler = "com.alibaba:arouter-compiler:1.2.2"
-    }
-
+    /** Kotlin Coroutines Image Loader */
     object Coil {
-        const val coil = "io.coil-kt:coil:1.2.0"
-        const val gif = "io.coil-kt:coil-gif:1.2.0"
-        const val svg = "io.coil-kt:coil-svg:1.2.0"
-        const val video = "io.coil-kt:coil-video:1.2.0"
-        const val transformations = "com.github.Commit451.coil-transformations:transformations:1.0.0"
-        const val transformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
+        private const val version = "1.2.1"
+        const val coil = "io.coil-kt:coil:$version"
+        const val gif = "io.coil-kt:coil-gif:$version"
+        const val svg = "io.coil-kt:coil-svg:$version"
+        const val video = "io.coil-kt:coil-video:$version"
+    }
+
+    /** CoilTransformations */
+    object CoilTransformations {
+        private const val version = "1.0.0"
+        const val transformations =
+            "com.github.Commit451.coil-transformations:transformations:$version"
+        const val transformationsGpu =
+            "com.github.Commit451.coil-transformations:transformations-gpu:$version"
         const val transformationsFaceDetection =
-            "com.github.Commit451.coil-transformations:transformations-face-detection:1.0.0"
-    }
-
-    object Detekt {
-        const val formatting = "io.gitlab.arturbosch.detekt:detekt-formatting:1.14.0"
-    }
-
-    object Bugly {
-        const val crashReport = "com.tencent.bugly:crashreport:3.2.3"
-        const val nativeCrashReport = "com.tencent.bugly:nativecrashreport:3.7.47"
+            "com.github.Commit451.coil-transformations:transformations-face-detection:$version"
     }
 
     object DataStore {
         const val mmkv = "com.tencent:mmkv-static:1.2.8"
     }
 
-    object Log {
-        const val logger = "com.orhanobut:logger:2.2.0"
-    }
-
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
         "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
-
-    /** 优雅地处理加载中，重试，无数据等 */
-    const val loadSir = "com.kingja.loadsir:loadsir:1.3.8"
-
-    /** 提供从js调用Java代码和从java调用js代码的安全便捷方法。 */
-    const val jsbridge = "com.github.lzyzsd:jsbridge:1.0.4"
-
-    const val aliCloudHotfix = "com.aliyun.ams:alicloud-android-hotfix:3.2.15"
-
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
-
 
     /**
      * 当前时间

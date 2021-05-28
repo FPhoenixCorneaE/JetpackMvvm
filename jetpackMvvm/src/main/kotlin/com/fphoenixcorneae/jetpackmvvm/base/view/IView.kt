@@ -21,21 +21,16 @@ interface IView<VB : ViewBinding> {
     fun initParams() {}
 
     /**
-     * 构造多状态布局管理器
+     * 构造状态布局管理器
      */
-    fun createMultiStatusLayoutManager() {}
-
-    /**
-     * 构造标题栏
-     */
-    fun createToolbar(): View? {
-        return null
-    }
+    fun initUiState() {}
 
     /**
      * 初始化标题栏
      */
-    fun initToolbar() {}
+    fun initToolbar(): View? {
+        return null
+    }
 
     /**
      * 初始化View
@@ -60,7 +55,7 @@ interface IView<VB : ViewBinding> {
     /**
      * 显示加载中视图
      */
-    fun showLoading(loadingMsg: String) {}
+    fun showLoading(loadingMsg: String?) {}
 
     /**
      * 显示数据内容视图
@@ -70,29 +65,24 @@ interface IView<VB : ViewBinding> {
     /**
      * 显示空数据视图
      */
-    fun showEmpty() {}
+    fun showEmpty(emptyMsg: String?) {}
 
     /**
      * 显示无网络视图
      */
-    fun showNoNetwork() {}
+    fun showNoNetwork(noNetworkMsg: String?) {}
 
     /**
      * 显示错误视图
      */
-    fun showError() {}
+    fun showError(errorMsg: String?) {}
 
     /**
-     * 显示错误信息
-     * @param t 异常
-     */
-    fun showErrorMsg(t: Throwable) {}
-
-    /**
-     * 显示错误信息
+     * 吐司错误信息
      * @param errorMsg 错误信息
+     * @param t        异常
      */
-    fun showErrorMsg(errorMsg: CharSequence) {}
+    fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {}
 
     /**
      * 无网络视图点击

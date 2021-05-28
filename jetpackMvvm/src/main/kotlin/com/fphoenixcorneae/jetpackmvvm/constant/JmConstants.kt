@@ -1,12 +1,13 @@
-package com.fphoenixcorneae.jetpackmvvm
+package com.fphoenixcorneae.jetpackmvvm.constant
 
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.fphoenixcorneae.ext.dp2Px
+import com.fphoenixcorneae.jetpackmvvm.R
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.ResourceUtil
 
-object JMConstants {
+object JmConstants {
 
     object Toolbar {
         val LAYOUT_PARAMS = RelativeLayout.LayoutParams(

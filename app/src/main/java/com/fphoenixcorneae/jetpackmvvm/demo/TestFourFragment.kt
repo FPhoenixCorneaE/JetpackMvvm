@@ -14,7 +14,7 @@ class TestFourFragment : BaseFragment<FragmentTestFourBinding>() {
         showLoading("")
         //测试普通对象
         mHandler.postDelayed({
-            showEmpty()
+            showEmpty(null)
         }, 2000)
     }
 

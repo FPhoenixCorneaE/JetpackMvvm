@@ -1,10 +1,7 @@
-package com.fphoenixcorneae.jetpackmvvm
+package com.fphoenixcorneae.jetpackmvvm.startup
 
 import android.content.Context
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Build
-import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.startup.Initializer
 import coil.Coil
 import coil.ImageLoader
@@ -16,38 +13,29 @@ import coil.fetch.VideoFrameFileFetcher
 import coil.fetch.VideoFrameUriFetcher
 import coil.util.CoilUtils
 import com.fphoenixcorneae.ext.appContext
-import com.fphoenixcorneae.jetpackmvvm.base.application.ApplicationLifecycleObserver
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateReceiver
-import com.tencent.mmkv.MMKV
+import com.fphoenixcorneae.ext.logd
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 
 /**
- * @desc：Startup 初始化
- * @since：2021-04-29 17:38
+ * @desc：Startup 初始化 Coil
+ * @since：2021-05-26 14:40
  */
-class JMInitializer : Initializer<Unit> {
+class CoilInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
 
     override fun create(context: Context) {
-        GlobalScope.launch(Dispatchers.Main) {
-            context.registerReceiver(
-                NetworkStateReceiver(),
-                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-            )
-            ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver)
-        }
-        GlobalScope.launch(Dispatchers.IO) {
-            // MMKV 初始化
-            MMKV.initialize(context)
-
+        launch(Dispatchers.IO) {
             // 设置全局的 CoilImageLoader
+            "Coil 初始化".logd("startup")
             setCoilImageLoader()
         }
     }
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> {
+        // No dependencies on other libraries.
         return mutableListOf()
     }
 

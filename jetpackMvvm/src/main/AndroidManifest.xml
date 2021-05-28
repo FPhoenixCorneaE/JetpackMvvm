@@ -15,8 +15,14 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.fphoenixcorneae.jetpackmvvm.JMInitializer"
-                android:value="androidx-startup" />
+                android:name="com.fphoenixcorneae.jetpackmvvm.startup.JmInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.fphoenixcorneae.jetpackmvvm.startup.CoilInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.fphoenixcorneae.jetpackmvvm.startup.MmkvInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

@@ -21,7 +21,7 @@ object ApplicationLifecycleObserver : LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onForeground() {
-        isForeground.value = true
+        isForeground.postValue(true)
     }
 
     /**
@@ -29,6 +29,6 @@ object ApplicationLifecycleObserver : LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onBackground() {
-        isForeground.value = false
+        isForeground.postValue(false)
     }
 }
