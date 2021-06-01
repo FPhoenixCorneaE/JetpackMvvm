@@ -13,7 +13,7 @@ object Deps {
     object FPhoenixCorneaE {
         const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.1.1"
         const val CommonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:1.0.6"
-        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.2"
+        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.3"
     }
 
     object GradlePlugin {
@@ -35,9 +35,9 @@ object Deps {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
         const val targetSdkVersion = 30
-        const val versionCode = 101
-        const val versionName = "1.0.1"
-        const val kotlinVersion = "1.5.0"
+        const val versionCode = 103
+        const val versionName = "1.0.3"
+        const val kotlinVersion = "1.5.10"
     }
 
     object BuildType {
@@ -73,7 +73,7 @@ object Deps {
         const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:2.3.1"
         const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
         const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-        const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+        const val process = "androidx.lifecycle:lifecycle-process:2.3.1"
     }
 
     object Navigation {

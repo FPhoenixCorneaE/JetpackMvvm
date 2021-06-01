@@ -5,8 +5,10 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.startup.Initializer
+import com.fphoenixcorneae.ext.appContext
 import com.fphoenixcorneae.ext.logd
-import com.fphoenixcorneae.jetpackmvvm.base.application.ApplicationLifecycleObserver
+import com.fphoenixcorneae.jetpackmvvm.lifecycle.ActivityLifecycleImpl
+import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateReceiver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -24,8 +26,10 @@ class JmInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
                 NetworkStateReceiver(),
                 IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
             )
-            ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver)
+            "registerActivityLifecycleCallbacks".logd("startup")
+            appContext.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
             "Add ApplicationLifecycleObserver".logd("startup")
+            ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleImpl)
         }
     }
 

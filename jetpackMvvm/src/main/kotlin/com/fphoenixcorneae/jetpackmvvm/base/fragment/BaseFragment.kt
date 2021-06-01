@@ -15,18 +15,25 @@ import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
+import com.fphoenixcorneae.jetpackmvvm.lifecycle.FragmentLifecycleImpl
+import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
-import com.fphoenixcorneae.util.ContextUtil
 
 /**
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
 abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
+
+    init {
+        lifecycle.addObserver(FragmentLifecycleImpl())
+    }
+
+    private val mLifecycleHandler by lazy { LifecycleHandler(viewLifecycleOwner) }
 
     /** 视图是否加载完毕 */
     private var isViewPrepared = false
@@ -138,7 +145,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     private fun lazyLoadDataIfPrepared() {
         if (userVisibleHint && isViewPrepared && !hasLoadedData) {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
-            ContextUtil.runOnUiThreadDelayed({
+            mLifecycleHandler.postDelayed({
                 view?.let {
                     initData(null)
                     // 在Fragment中，只有懒加载过了才能开启网络变化监听

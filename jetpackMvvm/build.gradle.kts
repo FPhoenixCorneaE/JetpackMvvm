@@ -87,7 +87,7 @@ dependencies {
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
     api(Deps.Lifecycle.commonJava8)
-    api(Deps.Lifecycle.extensions)
+    api(Deps.Lifecycle.process)
     // liveData
     api(Deps.Lifecycle.liveDataKtx)
     // viewModel
