@@ -8,5 +8,5 @@ import com.fphoenixcorneae.jetpackmvvm.livedata.Event
  * @date：2021/4/5 19:16
  */
 object NetworkStateManager {
-    val networkState = MutableLiveData<Event<NetworkState>>()
+    val networkState = MutableLiveData(Event(NetworkState()))
 }

@@ -1,24 +1,24 @@
 package com.fphoenixcorneae.jetpackmvvm.startup
 
-import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.IntentFilter
 import android.database.Cursor
+import android.net.ConnectivityManager
 import android.net.Uri
-import androidx.lifecycle.ProcessLifecycleOwner
-import com.fphoenixcorneae.jetpackmvvm.lifecycle.ActivityLifecycleImpl
-import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
+import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateReceiver
 
 /**
- * @desc：Startup 生命周期回调监听
- * @date：2021/06/01 16:16
+ * @desc：Startup 网络变化监听
+ * @date：2021/06/01 16:45
  */
-class LifecycleInitializer : ContentProvider() {
+class NetworkChangedInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
-        val application = context!!.applicationContext as Application
-        application.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
-        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleImpl)
+        context?.registerReceiver(
+            NetworkStateReceiver(),
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
         return true
     }
 

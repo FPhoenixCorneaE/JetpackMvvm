@@ -16,6 +16,12 @@
             tools:targetApi="n" />
 
         <provider
+            android:name=".startup.NetworkChangedInitializer"
+            android:authorities="${applicationId}.network-changed"
+            android:exported="false"
+            tools:targetApi="n" />
+
+        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
