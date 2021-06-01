@@ -53,18 +53,23 @@ object Deps {
      * 协程
      */
     object Coroutines {
-        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
-        const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+        private const val version = "1.5.0"
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+        const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
     }
 
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:1.2.0"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-        const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0"
+        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
-        const val material = "com.google.android.material:material:1.2.1"
+        const val material = "com.google.android.material:material:1.3.0"
         const val coreKtx = "androidx.core:core-ktx:1.3.2"
-        const val activityKtx = "androidx.activity:activity-ktx:1.2.2"
+        // activity
+        const val activity = "androidx.activity:activity:1.2.3"
+        const val activityKtx = "androidx.activity:activity-ktx:1.2.3"
+        // fragment
+        const val fragment = "androidx.fragment:fragment:1.3.3"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.3"
     }
 
@@ -77,10 +82,11 @@ object Deps {
     }
 
     object Navigation {
-        const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:2.3.5"
-        const val commonKtx = "androidx.navigation:navigation-common-ktx:2.3.5"
-        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:2.3.5"
-        const val uiKtx = "androidx.navigation:navigation-ui-ktx:2.3.5"
+        private const val version = "2.3.5"
+        const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:$version"
+        const val commonKtx = "androidx.navigation:navigation-common-ktx:$version"
+        const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
+        const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
     }
 
     object Startup {
@@ -114,7 +120,7 @@ object Deps {
     }
 
     object DataStore {
-        const val mmkv = "com.tencent:mmkv-static:1.2.8"
+        const val mmkv = "com.tencent:mmkv-static:1.2.9"
     }
 
     /** Powerful and flexible RecyclerAdapter */

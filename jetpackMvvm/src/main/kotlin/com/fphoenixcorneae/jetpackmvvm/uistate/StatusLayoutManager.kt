@@ -12,21 +12,15 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.annotation.Keep
 import androidx.annotation.LayoutRes
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import com.fphoenixcorneae.ext.loggerD
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.fphoenixcorneae.jetpackmvvm.R
-import com.fphoenixcorneae.util.ResourceUtil
 
 /**
  * @desc：多状态布局管理器：利用[StatusLayoutManager.Builder.register]获取[StatusLayoutManager]对象
  * @date：2021/1/15 19:23
  */
-class StatusLayoutManager(private val builder: Builder) : LifecycleObserver {
+class StatusLayoutManager(private val builder: Builder) : DefaultLifecycleObserver {
     private val mTarget = builder.target
     private var mStatusViewMap = builder.statusViewMap
     private var mClickListeners = builder.clickListeners
@@ -259,35 +253,11 @@ class StatusLayoutManager(private val builder: Builder) : LifecycleObserver {
         builder.removeObserver(mTarget, this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onCreate")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onStart")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onResume")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onPause")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onStop")
+    override fun onStop(owner: LifecycleOwner) {
         showContentView()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        loggerD("MultiStatus:OnLifecycleEvent::${mTarget?.javaClass?.name} onDestroy")
+    override fun onDestroy(owner: LifecycleOwner) {
         // 清理缓存
         release()
     }
