@@ -2,6 +2,7 @@ package com.fphoenixcorneae.jetpackmvvm.databinding
 
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.os.SystemClock
 import android.text.Spanned
 import android.text.TextUtils
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import androidx.annotation.Px
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ import coil.transform.*
 import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
 import com.fphoenixcorneae.ext.isNotNull
+import com.fphoenixcorneae.ext.view.setTintColor
 
 /**
  * @desc：@BindingAdapter 自定义属性
@@ -28,6 +31,35 @@ import com.fphoenixcorneae.ext.isNotNull
 @BindingAdapter("selected")
 fun View.setSelected(selected: Boolean) {
     isSelected = selected
+}
+
+@BindingAdapter("visible")
+fun View.setVisible(visible: Boolean) {
+    isVisible = visible
+}
+
+@BindingAdapter(value = ["onSingleClick"], requireAll = false)
+fun View.setOnSingleClick(onClickListener: View.OnClickListener) {
+    val hits = LongArray(2)
+    setOnClickListener {
+        System.arraycopy(hits, 1, hits, 0, hits.size - 1)
+        hits[hits.size - 1] = SystemClock.uptimeMillis()
+        if (hits[0] < SystemClock.uptimeMillis() - 500) {
+            onClickListener.onClick(it)
+        }
+    }
+}
+
+@BindingAdapter(value = ["onSingleClick"], requireAll = false)
+fun View.setOnSingleClick(block: () -> Unit) {
+    val hits = LongArray(2)
+    setOnClickListener {
+        System.arraycopy(hits, 1, hits, 0, hits.size - 1)
+        hits[hits.size - 1] = SystemClock.uptimeMillis()
+        if (hits[0] < SystemClock.uptimeMillis() - 500) {
+            block()
+        }
+    }
 }
 
 @BindingAdapter(
@@ -58,7 +90,7 @@ fun ImageView.setSrc(
     @Px topRightRadius: Float = 0f,
     @Px bottomLeftRadius: Float = 0f,
     @Px bottomRightRadius: Float = 0f,
-    @ColorInt filterColor: Int = 0
+    @ColorInt filterColor: Int = 0,
 ) {
     loadAny(data = imgUrl) {
         crossfade(200)
@@ -100,14 +132,15 @@ fun ImageView.setSrc(
     }
 }
 
-@BindingAdapter(
-    value = [
-        "android:text"
-    ], requireAll = false
-)
+@BindingAdapter(value = ["tint"], requireAll = false)
+fun ImageView.setTint(tintColor: Int) {
+    setTintColor(tintColor)
+}
+
+@BindingAdapter(value = ["android:text"], requireAll = false)
 fun TextView.setText(text: CharSequence?) {
     val oldText = this.text
-    if (text === oldText || text == null && oldText.isEmpty()) {
+    if (text === oldText || (text == null && oldText.isEmpty())) {
         return
     }
     if (text is Spanned) {
@@ -149,7 +182,7 @@ fun TextView.setStrikeThruText(enable: Boolean) {
 fun ViewPager2.init(
     adapter: RecyclerView.Adapter<*>,
     userInputEnabled: Boolean = true,
-    @IntRange(from = 1) offscreenPageLimit: Int = 1
+    @IntRange(from = 1) offscreenPageLimit: Int = 1,
 ) {
     this.adapter = adapter
     isUserInputEnabled = userInputEnabled
@@ -164,7 +197,7 @@ fun ViewPager2.init(
 )
 fun RecyclerView.init(
     adapter: RecyclerView.Adapter<*>,
-    layoutManager: RecyclerView.LayoutManager? = LinearLayoutManager(context)
+    layoutManager: RecyclerView.LayoutManager? = LinearLayoutManager(context),
 ) {
     this.adapter = adapter
     this.layoutManager = layoutManager
