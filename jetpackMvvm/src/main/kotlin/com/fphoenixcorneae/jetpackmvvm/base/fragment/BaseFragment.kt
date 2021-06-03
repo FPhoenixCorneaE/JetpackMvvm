@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.fphoenixcorneae.dsl.layout.LinearLayout
+import com.fphoenixcorneae.dsl.layout.FrameLayout
+import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
@@ -22,6 +22,7 @@ import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
+import com.fphoenixcorneae.util.ViewUtil
 
 /**
  * @desc：Fragment 基类
@@ -33,7 +34,11 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         lifecycle.addObserver(FragmentLifecycleImpl())
     }
 
+    /** 绑定生命周期的 Handler */
     private val mLifecycleHandler by lazy { LifecycleHandler(viewLifecycleOwner) }
+
+    /** 当前界面 Context 对象*/
+    protected lateinit var mContext: FragmentActivity
 
     /** 视图是否加载完毕 */
     private var isViewPrepared = false
@@ -44,9 +49,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     /** 绑定视图 */
     private var viewBinding: VB? = null
     protected val mViewBinding get() = viewBinding!!
-
-    /** 当前界面 Context 对象*/
-    protected lateinit var mContext: FragmentActivity
 
     /** 多状态布局管理器 */
     private var mStatusLayoutManager: StatusLayoutManager? = null
@@ -70,25 +72,34 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
 
     private fun setContentView(): View = kotlin.run {
         viewBinding = initViewBinding()
-        LinearLayout {
-            layoutParams = LinearLayout.LayoutParams(
+        initToolbar()
+        FrameLayout {
+            layoutParams = android.widget.FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            orientation = LinearLayout.VERTICAL
-            initToolbar()?.let { toolbar ->
-                // 添加标题栏
-                addView(toolbar)
-            }
             // 添加内容
             addView(
                 mViewBinding.root,
-                LinearLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
-                )
+                ).apply {
+                    topMargin = contentViewMarginTop()
+                }
             )
+            mToolbar?.let { toolbar ->
+                // 添加标题栏
+                addView(toolbar)
+            }
         }
+    }
+
+    override fun contentViewMarginTop(): Int {
+        if (mToolbar.isNotNull()) {
+            return ViewUtil.getViewHeight(mToolbar!!)
+        }
+        return 0
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

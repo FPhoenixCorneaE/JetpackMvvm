@@ -33,6 +33,11 @@ interface IView<VB : ViewBinding> {
     }
 
     /**
+     * 内容视图顶部边距
+     */
+    fun contentViewMarginTop(): Int = 0
+
+    /**
      * 初始化View
      */
     fun initView() {}

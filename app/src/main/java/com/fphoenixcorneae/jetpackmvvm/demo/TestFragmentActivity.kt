@@ -10,6 +10,11 @@ class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
         return ActivityTestFragmentBinding.inflate(layoutInflater)
     }
 
+    override fun initView() {
+        mToolbar?.alpha = 0.8f
+        mToolbar?.centerTextView?.text = "FragmentActivity"
+    }
+
     override fun initListener() {
         mViewBinding.apply {
             rbFirst.setOnClickListener {
@@ -33,10 +38,6 @@ class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
                     .commit()
             }
         }
-    }
-
-    override fun initView() {
-        mToolbar?.centerTextView?.text = "FragmentActivity"
     }
 
     override fun initData(savedInstanceState: Bundle?) {

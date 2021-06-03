@@ -7,18 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.fphoenixcorneae.dsl.layout.LinearLayout
+import com.fphoenixcorneae.dsl.layout.FrameLayout
+import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.ext.view.setTintColor
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
+import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
+import com.fphoenixcorneae.util.ViewUtil
 
 /**
  * @desc：Activity 基类
@@ -35,6 +38,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         }
     }
+
+    /** 绑定生命周期的 Handler */
+    private val mLifecycleHandler by lazy { LifecycleHandler(this) }
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -65,26 +71,35 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
     }
 
     override fun setContentView(view: View?) {
-        val contentView = LinearLayout {
-            layoutParams = android.widget.LinearLayout.LayoutParams(
+        initToolbar()
+        val contentView = FrameLayout {
+            layoutParams = android.widget.FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            orientation = android.widget.LinearLayout.VERTICAL
-            initToolbar()?.let { toolbar ->
-                // 添加标题栏
-                addView(toolbar)
-            }
             // 添加内容
             addView(
                 view,
-                android.widget.LinearLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
-                )
+                ).apply {
+                    topMargin = contentViewMarginTop()
+                }
             )
+            mToolbar?.let { toolbar ->
+                // 添加标题栏
+                addView(toolbar)
+            }
         }
         super.setContentView(contentView)
+    }
+
+    override fun contentViewMarginTop(): Int {
+        if (mToolbar.isNotNull()) {
+            return ViewUtil.getViewHeight(mToolbar!!)
+        }
+        return 0
     }
 
     override fun initToolbar(): View? {

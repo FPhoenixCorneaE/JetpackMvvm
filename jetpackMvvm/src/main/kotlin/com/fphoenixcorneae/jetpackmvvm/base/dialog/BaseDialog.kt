@@ -37,7 +37,11 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         lifecycle.addObserver(DialogLifecycleImpl())
     }
 
+    /** 绑定生命周期的 Handler */
     private val mLifecycleHandler by lazy { LifecycleHandler(viewLifecycleOwner) }
+
+    /** 当前界面 Context 对象*/
+    protected lateinit var mContext: FragmentActivity
 
     /** 视图是否加载完毕 */
     private var isViewPrepared = false
@@ -49,12 +53,8 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     private var viewBinding: VB? = null
     protected val mViewBinding get() = viewBinding!!
 
-    /** 当前界面 Context 对象*/
-    protected lateinit var mContext: FragmentActivity
-
     /** 多状态布局管理器 */
     private var mStatusLayoutManager: StatusLayoutManager? = null
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,7 +64,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         viewBinding = initViewBinding()
         return mViewBinding.root
