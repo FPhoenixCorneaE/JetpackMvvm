@@ -11,4 +11,9 @@
         <item name="android:textColor">#a9b7b7</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/jm_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/jm_dialog_exit</item>
+    </style>
 </resources>

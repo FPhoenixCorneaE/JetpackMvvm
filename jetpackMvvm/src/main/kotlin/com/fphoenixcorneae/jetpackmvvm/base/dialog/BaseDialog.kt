@@ -1,22 +1,18 @@
 package com.fphoenixcorneae.jetpackmvvm.base.dialog
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.ProgressDialog
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.jetpackmvvm.R
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.DialogLifecycleImpl
@@ -25,7 +21,6 @@ import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
 import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
-import com.fphoenixcorneae.util.ContextUtil
 
 /**
  * @desc: Dialog 基类，自动把 ViewBinding 注入 Dialog
@@ -91,16 +86,65 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     @SuppressLint("ObsoleteSdkInt")
     override fun onStart() {
         super.onStart()
-        dialog?.window?.apply {
-            // 在5.0以下的版本会出现白色背景边框，若在5.0以上设置则会造成文字部分的背景也变成透明
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                // 目前只有这两个dialog会出现边框
-                if (this is ProgressDialog || this is DatePickerDialog) {
-                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.apply {
+            // 是否可点击外部消失
+            setCanceledOnTouchOutside(true)
+            // 是否可取消
+            setCancelable(true)
+            window?.apply {
+                // 去掉 dialog 默认的 padding
+                decorView.setPadding(0, 0, 0, 0)
+                setBackgroundDrawable(getBackground())
+                setGravity(getGravity())
+                setLayout(getWidth(), getHeight())
+                attributes = attributes?.apply {
+                    windowAnimations = getWindowAnimations()
+                    dimAmount = getDimAmount()
                 }
             }
-            attributes?.dimAmount = 0.0f
         }
+    }
+
+    /**
+     * 若要修改背景可重写该方法
+     */
+    protected fun getBackground(): Drawable {
+        return ColorDrawable()
+    }
+
+    /**
+     * 若要修改重力方向可重写该方法
+     */
+    protected fun getGravity(): Int {
+        return Gravity.CENTER
+    }
+
+    /**
+     * 若要修改弹窗动画可重写该方法
+     */
+    protected fun getWindowAnimations(): Int {
+        return R.style.DialogAnimation
+    }
+
+    /**
+     * 若要修改宽度可重写该方法
+     */
+    protected fun getWidth(): Int {
+        return WindowManager.LayoutParams.WRAP_CONTENT
+    }
+
+    /**
+     * 若要修改高度可重写该方法
+     */
+    protected fun getHeight(): Int {
+        return WindowManager.LayoutParams.WRAP_CONTENT
+    }
+
+    /**
+     * 若要修改模糊度可重写该方法
+     */
+    protected open fun getDimAmount(): Float {
+        return 0.4f
     }
 
     override fun initUiState() {
