@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.fphoenixcorneae.jetpackmvvm.demo.MainViewModel" />
+
         <variable
             name="imgUrl"
             type="Object" />
@@ -14,15 +20,31 @@
             type="Integer" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/rootView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/frame"
+        <LinearLayout
+            android:id="@+id/rootView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                bottomRightRadius="@{40f}"
+                filterColor="@{filterColor}"
+                imgUrl="@{imgUrl}"
+                isBlur="@{false}"
+                isCircle="@{false}"
+                topLeftRadius="@{40f}"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,18 +54,27 @@
                 android:text="Hello World!"
                 app:strikeThruText="@{true}" />
 
-            <ImageView
-                filterColor="@{filterColor}"
-                imgUrl="@{imgUrl}"
-                isBlur="@{false}"
-                isCircle="@{false}"
-                topLeftRadius="@{40f}"
-                topRightRadius="@{40f}"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                tools:ignore="ContentDescription" />
-        </FrameLayout>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/etTwoWayBinding"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="two-way binding"
+                android:inputType="text"
+                android:text="@={viewModel.twoWayBindingText1}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                tools:ignore="Autofill,HardcodedText,LabelFor" />
+
+            <TextView
+                android:id="@+id/tvTwoWayBinding"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:hint="two-way binding"
+                android:text="@={viewModel.twoWayBindingText2}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                tools:ignore="Autofill,HardcodedText,LabelFor" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

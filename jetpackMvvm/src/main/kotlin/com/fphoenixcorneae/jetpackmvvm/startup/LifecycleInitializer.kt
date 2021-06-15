@@ -16,8 +16,8 @@ import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
 class LifecycleInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
-        val application = context!!.applicationContext as Application
-        application.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
+        val application = context?.applicationContext as? Application
+        application?.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleImpl)
         return true
     }

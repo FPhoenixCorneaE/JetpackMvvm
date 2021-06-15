@@ -116,7 +116,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         initUiState()
         initView()
         initListener()
-        initViewObservable()
+        initObserver()
         lazyLoadDataIfPrepared()
     }
 

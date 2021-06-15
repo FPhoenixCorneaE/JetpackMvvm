@@ -3,8 +3,6 @@ package com.fphoenixcorneae.jetpackmvvm.databinding
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.os.SystemClock
-import android.text.Spanned
-import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -135,24 +133,6 @@ fun ImageView.setSrc(
 @BindingAdapter(value = ["tint"], requireAll = false)
 fun ImageView.setTint(tintColor: Int) {
     setTintColor(tintColor)
-}
-
-@BindingAdapter(value = ["android:text"], requireAll = false)
-fun TextView.setText(text: CharSequence?) {
-    val oldText = this.text
-    if (text === oldText || (text == null && oldText.isEmpty())) {
-        return
-    }
-    if (text is Spanned) {
-        if (text == oldText) {
-            // No change in the spans, so don't set anything.
-            return
-        }
-    } else if (TextUtils.equals(text, oldText)) {
-        // No content changes, so don't set anything.
-        return
-    }
-    this.text = text
 }
 
 /**

@@ -50,7 +50,7 @@ interface IView<VB : ViewBinding> {
     /**
      * 初始化界面观察者的监听
      */
-    fun initViewObservable() {}
+    fun initObserver() {}
 
     /**
      * 初始化数据

@@ -65,7 +65,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
         initUiState()
         initView()
         initListener()
-        initViewObservable()
+        initObserver()
         addNetworkStateObserver()
         initData(savedInstanceState)
     }

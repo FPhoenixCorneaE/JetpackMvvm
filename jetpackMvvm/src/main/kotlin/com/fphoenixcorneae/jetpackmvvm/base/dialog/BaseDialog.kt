@@ -79,7 +79,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         initUiState()
         initView()
         initListener()
-        initViewObservable()
+        initObserver()
         lazyLoadDataIfPrepared()
     }
 
