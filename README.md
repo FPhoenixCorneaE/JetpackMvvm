@@ -31,13 +31,13 @@ allprojects {
 **groovy**
 ```groovy
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.3")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.4")
 }
 ```
 **kotlin**
 ```kotlin
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.3")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.4")
 }
 ```
 
