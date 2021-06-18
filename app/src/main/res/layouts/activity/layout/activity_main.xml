@@ -60,7 +60,7 @@
                 android:layout_height="50dp"
                 android:hint="two-way binding"
                 android:inputType="text"
-                android:text="@={viewModel.twoWayBindingText1}"
+                android:text="@={viewModel.twoWayBindingText}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:ignore="Autofill,HardcodedText,LabelFor" />
@@ -71,7 +71,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:hint="two-way binding"
-                android:text="@={viewModel.twoWayBindingText2}"
+                android:text="@={viewModel.twoWayBindingText}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:ignore="Autofill,HardcodedText,LabelFor" />

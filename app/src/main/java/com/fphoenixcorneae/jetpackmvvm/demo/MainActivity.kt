@@ -26,6 +26,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         mViewBinding.apply {
+            // 需要加上这句,否则不会刷新 UI
+            lifecycleOwner = this@MainActivity
             viewModel = mViewModel
             imgUrl = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
             filterColor = Color.parseColor("#50ff0000")
@@ -35,11 +37,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initObserver() {
-        mViewModel.twoWayBindingText1.observe(this) {
-            "twoWayBindingText1: $it".logd()
-        }
-        mViewModel.twoWayBindingText2.observe(this) {
-            "twoWayBindingText2: $it".logd()
+        mViewModel.twoWayBindingText.observe(this) {
+            "twoWayBindingText: $it".logd()
         }
     }
 
@@ -50,7 +49,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             showContent()
             mViewBinding.tvTwoWayBinding.text = "two-way binding value changed"
         }, 2000)
-        mViewModel.twoWayBindingText1.value = "two-way binding value changed"
     }
 
     override fun onPause() {
