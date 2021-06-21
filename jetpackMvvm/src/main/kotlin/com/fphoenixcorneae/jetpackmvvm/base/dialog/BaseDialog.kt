@@ -108,35 +108,35 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     /**
      * 若要修改背景可重写该方法
      */
-    protected fun getBackground(): Drawable {
+    protected open fun getBackground(): Drawable {
         return ColorDrawable()
     }
 
     /**
      * 若要修改重力方向可重写该方法
      */
-    protected fun getGravity(): Int {
+    protected open fun getGravity(): Int {
         return Gravity.CENTER
     }
 
     /**
      * 若要修改弹窗动画可重写该方法
      */
-    protected fun getWindowAnimations(): Int {
+    protected open fun getWindowAnimations(): Int {
         return R.style.DialogAnimation
     }
 
     /**
      * 若要修改宽度可重写该方法
      */
-    protected fun getWidth(): Int {
+    protected open fun getWidth(): Int {
         return WindowManager.LayoutParams.WRAP_CONTENT
     }
 
     /**
      * 若要修改高度可重写该方法
      */
-    protected fun getHeight(): Int {
+    protected open fun getHeight(): Int {
         return WindowManager.LayoutParams.WRAP_CONTENT
     }
 
