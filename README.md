@@ -1,6 +1,7 @@
 # JetpackMvvm 架构
 封装了 Base 组件、LiveDataEvent、多状态布局管理、Navigation、网络变化监听等等。
 
+[![](https://jitpack.io/v/FPhoenixCorneaE/JetpackMvvm.svg)](https://jitpack.io/#FPhoenixCorneaE/JetpackMvvm)
 
 ### How to include it in your project:
 **Step 1.** Add the JitPack repository to your build file
