@@ -29,16 +29,9 @@ allprojects {
 
 **Step 2.** Add the dependency
 
-**groovy**
-```groovy
-dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.4")
-}
-```
-**kotlin**
 ```kotlin
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.4")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.5")
 }
 ```
 

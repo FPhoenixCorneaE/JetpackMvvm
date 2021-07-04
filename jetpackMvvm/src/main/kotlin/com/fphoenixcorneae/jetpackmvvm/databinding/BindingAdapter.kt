@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import androidx.annotation.Px
+import androidx.annotation.RestrictTo
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,6 +61,7 @@ fun View.setOnSingleClick(block: () -> Unit) {
     }
 }
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 @BindingAdapter(
     value = [
         "imgUrl",
