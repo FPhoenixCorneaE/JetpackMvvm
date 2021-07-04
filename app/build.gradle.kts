@@ -1,6 +1,7 @@
 plugins {
     id(Deps.PluginIds.application)
     kotlin(Deps.PluginIds.kotlinAndroid)
+    kotlin(Deps.PluginIds.kotlinKapt)
     id(Deps.PluginIds.kotlinParcelize)
 }
 
