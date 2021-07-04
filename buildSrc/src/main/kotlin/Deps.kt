@@ -13,7 +13,7 @@ object Deps {
     object FPhoenixCorneaE {
         const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.1.1"
         const val CommonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:1.0.6"
-        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.4"
+        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:1.0.6"
     }
 
     object GradlePlugin {
@@ -35,8 +35,8 @@ object Deps {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
         const val targetSdkVersion = 30
-        const val versionCode = 105
-        const val versionName = "1.0.5"
+        const val versionCode = 106
+        const val versionName = "1.0.6"
         const val kotlinVersion = "1.5.10"
     }
 

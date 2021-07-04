@@ -31,7 +31,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:1.0.5")
+	implementation("com.github.FPhoenixCorneaE:JetpackMvvm:$latest")
 }
 ```
 
