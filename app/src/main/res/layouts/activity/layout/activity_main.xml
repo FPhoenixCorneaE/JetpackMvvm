@@ -47,12 +47,12 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                strikeThruText="@{true}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Hello World!"
-                app:strikeThruText="@{true}" />
+                android:text="Hello World!" />
 
             <EditText
                 android:id="@+id/etTwoWayBinding"

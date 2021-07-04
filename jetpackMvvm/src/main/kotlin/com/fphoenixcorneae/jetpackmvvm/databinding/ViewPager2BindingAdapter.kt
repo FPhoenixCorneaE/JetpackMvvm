@@ -13,20 +13,23 @@ import androidx.viewpager2.widget.ViewPager2
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 class ViewPager2BindingAdapter {
 
-    @BindingAdapter(
-        value = [
-            "adapter",
-            "userInputEnabled",
-            "offscreenPageLimit"
-        ], requireAll = false
-    )
-    fun ViewPager2.init(
-        adapter: RecyclerView.Adapter<*>,
-        userInputEnabled: Boolean = true,
-        @IntRange(from = 1) offscreenPageLimit: Int = 1,
-    ) {
-        this.adapter = adapter
-        isUserInputEnabled = userInputEnabled
-        setOffscreenPageLimit(offscreenPageLimit)
+    companion object{
+        @JvmStatic
+        @BindingAdapter(
+            value = [
+                "adapter",
+                "userInputEnabled",
+                "offscreenPageLimit"
+            ], requireAll = false
+        )
+        fun ViewPager2.init(
+            adapter: RecyclerView.Adapter<*>,
+            userInputEnabled: Boolean = true,
+            @IntRange(from = 1) offscreenPageLimit: Int = 1,
+        ) {
+            this.adapter = adapter
+            isUserInputEnabled = userInputEnabled
+            setOffscreenPageLimit(offscreenPageLimit)
+        }
     }
 }
