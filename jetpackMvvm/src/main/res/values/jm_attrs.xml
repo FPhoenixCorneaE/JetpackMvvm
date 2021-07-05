@@ -18,15 +18,49 @@
     <attr name="bottomRightRadius" format="reference|float" />
     <attr name="filterColor" format="reference|integer" />
 
+    <declare-styleable name="ImageView">
+        <attr name="imgUrl" />
+        <attr name="placeholderResId" />
+        <attr name="placeholderDrawable" />
+        <attr name="centerCrop" />
+        <attr name="isCircle" />
+        <attr name="isBlur" />
+        <attr name="isGrayscale" />
+        <attr name="topLeftRadius" />
+        <attr name="topRightRadius" />
+        <attr name="bottomLeftRadius" />
+        <attr name="bottomRightRadius" />
+        <attr name="filterColor" />
+    </declare-styleable>
+
     <!-- TextView -->
     <attr name="strikeThruText" format="boolean" />
+
+    <declare-styleable name="TextView">
+        <attr name="strikeThruText" />
+    </declare-styleable>
 
     <!-- View -->
     <attr name="selected" format="boolean" />
     <attr name="visible" format="boolean" />
     <attr name="onSingleClick" format="reference" />
 
+    <declare-styleable name="View">
+        <attr name="selected" />
+        <attr name="visible" />
+        <attr name="onSingleClick" />
+    </declare-styleable>
+
     <!-- ViewPager2 -->
     <attr name="userInputEnabled" format="boolean" />
     <attr name="offscreenPageLimit" format="integer" />
+    <declare-styleable name="ViewPager2">
+        <attr name="adapter" />
+        <attr name="userInputEnabled" />
+        <attr name="offscreenPageLimit" />
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerView">
+        <attr name="adapter" />
+    </declare-styleable>
 </resources>
