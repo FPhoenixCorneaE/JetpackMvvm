@@ -17,7 +17,7 @@ object Deps {
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.2.1"
+        const val gradle = "com.android.tools.build:gradle:4.2.2"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     }
 
@@ -35,8 +35,8 @@ object Deps {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
         const val targetSdkVersion = 30
-        const val versionCode = 110
-        const val versionName = "1.1.0"
+        const val versionCode = 111
+        const val versionName = "1.1.1"
         const val kotlinVersion = "1.5.10"
     }
 
