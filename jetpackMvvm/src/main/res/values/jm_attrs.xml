@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- require RecyclerView or ViewPager2 -->
     <attr name="adapter" format="reference" />
 
-    <declare-styleable name="ImageView">
-        <attr name="imgUrl" format="reference" />
-        <attr name="placeholderResId" format="reference|integer" />
-        <attr name="placeholderDrawable" format="reference" />
-        <attr name="centerCrop" format="boolean" />
-        <attr name="isCircle" format="boolean" />
-        <attr name="isBlur" format="boolean" />
-        <attr name="isGrayscale" format="boolean" />
-        <attr name="topLeftRadius" format="reference|float" />
-        <attr name="topRightRadius" format="reference|float" />
-        <attr name="bottomLeftRadius" format="reference|float" />
-        <attr name="bottomRightRadius" format="reference|float" />
-        <attr name="filterColor" format="reference|integer" />
-    </declare-styleable>
+    <!-- ImageView -->
+    <attr name="imgUrl" format="reference" />
+    <attr name="placeholderResId" format="reference|integer" />
+    <attr name="placeholderDrawable" format="reference" />
+    <attr name="centerCrop" format="boolean" />
+    <attr name="isCircle" format="boolean" />
+    <attr name="isBlur" format="boolean" />
+    <attr name="isGrayscale" format="boolean" />
+    <attr name="topLeftRadius" format="reference|float" />
+    <attr name="topRightRadius" format="reference|float" />
+    <attr name="bottomLeftRadius" format="reference|float" />
+    <attr name="bottomRightRadius" format="reference|float" />
+    <attr name="filterColor" format="reference|integer" />
 
-    <declare-styleable name="RecyclerView">
-        <attr name="adapter" />
-        <attr name="layoutManager" format="reference" />
-    </declare-styleable>
+    <!-- TextView -->
+    <attr name="strikeThruText" format="boolean" />
 
-    <declare-styleable name="TextView">
-        <attr name="strikeThruText" format="boolean" />
-    </declare-styleable>
+    <!-- View -->
+    <attr name="selected" format="boolean" />
+    <attr name="visible" format="boolean" />
+    <attr name="onSingleClick" format="reference" />
 
-    <declare-styleable name="View">
-        <attr name="selected" format="boolean" />
-        <attr name="visible" format="boolean" />
-        <attr name="onSingleClick" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewPager2">
-        <attr name="adapter" />
-        <attr name="userInputEnabled" format="boolean" />
-        <attr name="offscreenPageLimit" format="integer" />
-    </declare-styleable>
+    <!-- ViewPager2 -->
+    <attr name="userInputEnabled" format="boolean" />
+    <attr name="offscreenPageLimit" format="integer" />
 </resources>

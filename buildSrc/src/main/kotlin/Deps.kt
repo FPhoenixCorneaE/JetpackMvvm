@@ -35,8 +35,8 @@ object Deps {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
         const val targetSdkVersion = 30
-        const val versionCode = 108
-        const val versionName = "1.0.8"
+        const val versionCode = 109
+        const val versionName = "1.0.9"
         const val kotlinVersion = "1.5.10"
     }
 
