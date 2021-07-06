@@ -27,7 +27,6 @@ object Deps {
         const val kotlinAndroid = "android"
         const val kotlinParcelize = "kotlin-parcelize"
         const val kotlinKapt = "kapt"
-        const val mavenPublish = "org.gradle.maven-publish"
     }
 
     object Versions {
@@ -35,8 +34,8 @@ object Deps {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
         const val targetSdkVersion = 30
-        const val versionCode = 111
-        const val versionName = "1.1.1"
+        const val versionCode = 112
+        const val versionName = "1.1.2"
         const val kotlinVersion = "1.5.10"
     }
 

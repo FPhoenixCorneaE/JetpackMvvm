@@ -3,10 +3,8 @@
 
     <attr name="adapter" format="reference" />
 
-    <declare-styleable name="Blank" />
-
     <!-- View -->
-    <declare-styleable name="View" parent="Blank">
+    <declare-styleable name="View">
         <attr name="selected" format="boolean" />
         <attr name="visible" format="boolean" />
         <attr name="onSingleClick" format="reference" />
@@ -26,6 +24,7 @@
         <attr name="bottomLeftRadius" format="reference|float" />
         <attr name="bottomRightRadius" format="reference|float" />
         <attr name="filterColor" format="reference|color" />
+        <attr name="tint" format="reference|color" />
     </declare-styleable>
 
     <!-- TextView -->

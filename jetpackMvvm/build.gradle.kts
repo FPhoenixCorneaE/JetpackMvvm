@@ -2,7 +2,7 @@ plugins {
     id(Deps.PluginIds.library)
     kotlin(Deps.PluginIds.kotlinAndroid)
     kotlin(Deps.PluginIds.kotlinKapt)
-    id(Deps.PluginIds.mavenPublish)
+    `maven-publish`
 }
 
 android {
