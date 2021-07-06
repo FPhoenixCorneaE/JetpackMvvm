@@ -33,11 +33,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image"
                 bottomRightRadius="@{40f}"
                 filterColor="@{filterColor}"
                 imgUrl="@{imgUrl}"
                 isBlur="@{false}"
                 isCircle="@{false}"
+                onSingleClick="@{() -> viewModel.onClickImg(image,imgUrl)}"
                 topLeftRadius="@{40f}"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -46,7 +48,9 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                strikeThruText="@{true}"
+                android:id="@+id/tvHelloWorld"
+                onSingleClick="@{() -> viewModel.helloWorld(tvHelloWorld)}"
+                strikeThru="@{true}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

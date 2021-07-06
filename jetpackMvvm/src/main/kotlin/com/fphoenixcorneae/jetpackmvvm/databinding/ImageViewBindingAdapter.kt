@@ -11,20 +11,8 @@ import coil.size.ViewSizeResolver
 import coil.transform.*
 import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
-import com.fphoenixcorneae.ext.appContext
 import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.view.setTintColor
-import com.fphoenixcorneae.jetpackmvvm.R
-
-/**
- * @desc：ImageViewBindingAdapter
- * @date：2021/7/4 21:06
- */
-
-val imageViewAttrs = run {
-        val typedArray = appContext.obtainStyledAttributes(null, R.styleable.ImageView)
-        typedArray.recycle()
-    }
 
 @BindingAdapter(
     value = [
@@ -40,9 +28,10 @@ val imageViewAttrs = run {
         "bottomLeftRadius",
         "bottomRightRadius",
         "filterColor",
-    ], requireAll = false
+    ],
+    requireAll = false
 )
-fun ImageView.setSrc(
+fun ImageView.init(
     imgUrl: Any?,
     @DrawableRes placeholderResId: Int = 0,
     placeholderDrawable: Drawable? = null,
@@ -59,7 +48,8 @@ fun ImageView.setSrc(
     loadAny(data = imgUrl) {
         crossfade(200)
         // 可选的，但是设置 ViewSizeResolver 可以通过限制预加载的大小来节省内存
-        size(ViewSizeResolver(this@setSrc))
+        size(ViewSizeResolver(this@init))
+        // 占位图
         if (placeholderDrawable.isNotNull()) {
             placeholder(placeholderDrawable)
         } else {
@@ -83,12 +73,15 @@ fun ImageView.setSrc(
         }
         when {
             isBlur -> {
-                transformations.add(BlurTransformation(this@setSrc.context, 20f))
+                // 高斯模糊
+                transformations.add(BlurTransformation(this@init.context, 20f))
             }
             isGrayscale -> {
+                // 灰度
                 transformations.add(GrayscaleTransformation())
             }
             filterColor != 0 -> {
+                // 过滤颜色
                 transformations.add(ColorFilterTransformation(filterColor))
             }
         }
@@ -96,7 +89,12 @@ fun ImageView.setSrc(
     }
 }
 
-@BindingAdapter(value = ["tint"], requireAll = false)
-fun ImageView.setTint(tintColor: Int) {
+@BindingAdapter(
+    value = [
+        "tint",
+    ],
+    requireAll = false
+)
+fun ImageView.init(tintColor: Int) {
     setTintColor(tintColor)
 }
