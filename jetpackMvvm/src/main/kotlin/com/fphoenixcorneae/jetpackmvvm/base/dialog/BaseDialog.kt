@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -61,7 +62,9 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        viewBinding = initViewBinding()
+        viewBinding = initViewBinding().apply {
+            (this as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
+        }
         return mViewBinding.root
     }
 
