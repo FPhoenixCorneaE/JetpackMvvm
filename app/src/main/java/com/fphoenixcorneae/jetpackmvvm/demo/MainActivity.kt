@@ -26,8 +26,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         mViewBinding.apply {
-            // 需要加上这句,否则不会刷新 UI
-            lifecycleOwner = this@MainActivity
             viewModel = mViewModel
             imgUrl = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
             filterColor = Color.parseColor("#50ff0000")

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.dsl.layout.FrameLayout
@@ -59,6 +60,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
         super.onCreate(savedInstanceState)
         mContext = this
         viewBinding = initViewBinding().apply {
+            (this as ViewDataBinding).lifecycleOwner = mContext
             setContentView(root)
         }
         initParams()

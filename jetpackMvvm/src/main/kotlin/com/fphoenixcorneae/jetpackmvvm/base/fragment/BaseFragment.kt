@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
@@ -71,7 +72,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     }
 
     private fun setContentView(): View = kotlin.run {
-        viewBinding = initViewBinding()
+        viewBinding = initViewBinding().apply {
+            (this as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
+        }
         initToolbar()
         FrameLayout {
             layoutParams = android.widget.FrameLayout.LayoutParams(
