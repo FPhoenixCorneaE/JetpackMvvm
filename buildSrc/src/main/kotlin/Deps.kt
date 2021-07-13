@@ -11,7 +11,7 @@ object Deps {
     const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
 
     object FPhoenixCorneaE {
-        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.1.1"
+        const val commonUtil = "com.github.FPhoenixCorneaE:CommonUtil:1.1.2"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:1.0.6"
         const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${Versions.versionName}"
     }
