@@ -52,8 +52,10 @@ fun ImageView.init(
         // 占位图
         if (placeholderDrawable.isNotNull()) {
             placeholder(placeholderDrawable)
+            error(placeholderDrawable)
         } else {
             placeholder(placeholderResId)
+            error(placeholderResId)
         }
         val transformations = arrayListOf<Transformation>()
         if (centerCrop) {
