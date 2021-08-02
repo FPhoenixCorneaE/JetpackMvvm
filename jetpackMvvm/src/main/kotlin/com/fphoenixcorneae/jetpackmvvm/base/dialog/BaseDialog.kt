@@ -2,6 +2,7 @@ package com.fphoenixcorneae.jetpackmvvm.base.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -51,6 +52,8 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
 
     /** 多状态布局管理器 */
     private var mStatusLayoutManager: StatusLayoutManager? = null
+
+    private var mOnDismissListener: ((DialogInterface) -> Unit)? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -266,5 +269,14 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
 
     fun show(fragment: Fragment, tag: String? = null) {
         super.show(fragment.childFragmentManager, tag)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        mOnDismissListener?.invoke(dialog)
+    }
+
+    fun setOnDismissListener(onDismissListener: (DialogInterface) -> Unit) = apply {
+        mOnDismissListener = onDismissListener
     }
 }
