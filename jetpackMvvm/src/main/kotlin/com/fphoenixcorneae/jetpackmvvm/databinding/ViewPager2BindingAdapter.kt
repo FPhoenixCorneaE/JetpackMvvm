@@ -14,11 +14,17 @@ import androidx.viewpager2.widget.ViewPager2
     requireAll = false
 )
 fun ViewPager2.init(
-    adapter: RecyclerView.Adapter<*>,
-    userInputEnabled: Boolean = true,
-    @IntRange(from = 1) offscreenPageLimit: Int = 1,
+    adapter: RecyclerView.Adapter<*>? = null,
+    userInputEnabled: Boolean? = true,
+    @IntRange(from = 1) offscreenPageLimit: Int? = 1,
 ) {
-    this.adapter = adapter
-    isUserInputEnabled = userInputEnabled
-    setOffscreenPageLimit(offscreenPageLimit)
+    adapter?.also {
+        this.adapter = it
+    }
+    userInputEnabled?.also {
+        isUserInputEnabled = it
+    }
+    offscreenPageLimit?.also {
+        setOffscreenPageLimit(it)
+    }
 }

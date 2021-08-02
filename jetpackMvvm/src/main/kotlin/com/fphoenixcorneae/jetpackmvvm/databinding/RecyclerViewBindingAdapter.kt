@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
     requireAll = false
 )
 fun RecyclerView.init(
-    adapter: RecyclerView.Adapter<*>,
+    adapter: RecyclerView.Adapter<*>? = null,
     layoutManager: RecyclerView.LayoutManager? = LinearLayoutManager(context),
 ) {
-    this.adapter = adapter
-    this.layoutManager = layoutManager
+    adapter?.also {
+        this.adapter = it
+    }
+    layoutManager?.also {
+        this.layoutManager = it
+    }
 }

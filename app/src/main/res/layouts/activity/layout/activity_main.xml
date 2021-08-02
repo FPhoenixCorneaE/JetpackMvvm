@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -78,6 +79,18 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:ignore="Autofill,HardcodedText,LabelFor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:adapter="@{null}"
+                app:layoutManager="@{null}"
+                tools:itemCount="2" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:userInputEnabled="@{false}" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
