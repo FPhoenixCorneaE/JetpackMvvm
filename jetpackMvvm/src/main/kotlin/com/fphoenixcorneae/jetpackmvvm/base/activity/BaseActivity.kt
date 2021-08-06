@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.dsl.layout.FrameLayout
+import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
@@ -108,18 +109,16 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
         mToolbar = CommonToolbar(this).apply {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             leftType = JmConstants.Toolbar.LEFT_TYPE
-            leftImageButton?.setTintColor(JmConstants.Toolbar.LEFT_IMAGE_TINT_COLOR)
+            leftImageTint = JmConstants.Toolbar.LEFT_IMAGE_TINT_COLOR
             centerType = JmConstants.Toolbar.CENTER_TYPE
-            centerTextView?.apply {
-                setTextColor(JmConstants.Toolbar.CENTER_TEXT_COLOR)
-                textSize = JmConstants.Toolbar.CENTER_TEXT_SIZE
-                paint.isFakeBoldText = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
-            }
+            centerTextColor = JmConstants.Toolbar.CENTER_TEXT_COLOR
+            centerTextSize = JmConstants.Toolbar.CENTER_TEXT_SIZE.dpToPx()
+            centerTextBold = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
             showBottomLine = JmConstants.Toolbar.SHOW_BOTTOM_LINE
             toolbarHeight = JmConstants.Toolbar.TOOLBAR_HEIGHT
             toolbarColor = JmConstants.Toolbar.TOOLBAR_COLOR
             statusBarColor = JmConstants.Toolbar.STATUS_BAR_COLOR
-            onToolbarClickListener = { v: View, action: Int, extra: String? ->
+            onToolbarClickListener = { v: View, action: Int, extra: CharSequence? ->
                 if (action == CommonToolbar.TYPE_LEFT_IMAGE_BUTTON) {
                     onBackPressed()
                 }

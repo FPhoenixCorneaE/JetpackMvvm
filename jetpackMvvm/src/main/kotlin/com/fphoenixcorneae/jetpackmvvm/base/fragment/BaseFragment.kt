@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.dsl.layout.FrameLayout
+import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
@@ -127,17 +128,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         mToolbar = CommonToolbar(mContext).apply {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             centerType = JmConstants.Toolbar.CENTER_TYPE
-            centerTextView?.apply {
-                setTextColor(JmConstants.Toolbar.CENTER_TEXT_COLOR)
-                textSize = JmConstants.Toolbar.CENTER_TEXT_SIZE
-                paint.isFakeBoldText = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
-            }
+            centerTextColor = JmConstants.Toolbar.CENTER_TEXT_COLOR
+            centerTextSize = JmConstants.Toolbar.CENTER_TEXT_SIZE.dpToPx()
+            centerTextBold = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
             showBottomLine = JmConstants.Toolbar.SHOW_BOTTOM_LINE
             toolbarHeight = JmConstants.Toolbar.TOOLBAR_HEIGHT
             toolbarColor = JmConstants.Toolbar.TOOLBAR_COLOR
             statusBarColor = JmConstants.Toolbar.STATUS_BAR_COLOR
             // 不填充状态栏
-            showStatusBar(false)
+            fillStatusBar = false
         }
         return mToolbar
     }
