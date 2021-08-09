@@ -1,68 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rootView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RadioGroup
-        android:id="@+id/rgTab"
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#dddddd"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/rbFirst"
-            android:layout_width="0dp"
+        <RadioGroup
+            android:id="@+id/rgTab"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#dddddd"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbFirst"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Frist"
+                android:textColor="@color/selector_tab"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbSecond"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="Second"
+                android:textColor="@color/selector_tab"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbThird"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="Third"
+                android:textColor="@color/selector_tab"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rbFour"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="Four"
+                android:textColor="@color/selector_tab"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:text="Frist"
-            android:textColor="@color/selector_tab"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbSecond"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:text="Second"
-            android:textColor="@color/selector_tab"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbThird"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:text="Third"
-            android:textColor="@color/selector_tab"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rbFour"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:text="Four"
-            android:textColor="@color/selector_tab"
-            android:textSize="18sp" />
-    </RadioGroup>
-
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rgTab" />
-</RelativeLayout>
+            android:layout_below="@id/rgTab" />
+    </RelativeLayout>
+</layout>
