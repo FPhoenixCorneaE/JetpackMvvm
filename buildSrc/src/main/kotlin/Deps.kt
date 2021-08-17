@@ -17,7 +17,7 @@ object Deps {
     }
 
     object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:4.2.2"
+        const val gradle = "com.android.tools.build:gradle:7.0.0"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     }
 
@@ -36,7 +36,7 @@ object Deps {
         const val targetSdkVersion = 30
         const val versionCode = 119
         const val versionName = "1.1.9"
-        const val kotlinVersion = "1.5.20"
+        const val kotlinVersion = "1.5.21"
     }
 
     object BuildType {
@@ -98,9 +98,9 @@ object Deps {
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
     }
 
-    /** Kotlin Coroutines Image Loader */
+    /** Kotlin Coroutines Image Loader ：https://coil-kt.github.io/coil/ */
     object Coil {
-        private const val version = "1.2.1"
+        private const val version = "1.3.2"
         const val coil = "io.coil-kt:coil:$version"
         const val gif = "io.coil-kt:coil-gif:$version"
         const val svg = "io.coil-kt:coil-svg:$version"

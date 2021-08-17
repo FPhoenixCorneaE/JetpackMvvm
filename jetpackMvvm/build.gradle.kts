@@ -6,16 +6,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Deps.Versions.compileSdkVersion)
-    buildToolsVersion(Deps.Versions.buildToolsVersion)
-
     defaultConfig {
-        minSdkVersion(Deps.Versions.minSdkVersion)
-        targetSdkVersion(Deps.Versions.targetSdkVersion)
-        versionCode = Deps.Versions.versionCode
-        versionName = Deps.Versions.versionName
-
-        setConsumerProguardFiles(listOf("consumer-rules.pro"))
+        buildToolsVersion = Deps.Versions.buildToolsVersion
+        compileSdk = Deps.Versions.compileSdkVersion
+        minSdk = Deps.Versions.minSdkVersion
+        targetSdk = Deps.Versions.targetSdkVersion
     }
 
     buildTypes {
@@ -47,19 +42,16 @@ android {
     }
 
     compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    dexOptions {
-        jumboMode = true
-    }
-
-    lintOptions {
+    lint {
+        isCheckDependencies = true
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }

@@ -6,13 +6,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Deps.Versions.compileSdkVersion)
-    buildToolsVersion(Deps.Versions.buildToolsVersion)
-
     defaultConfig {
         applicationId = Deps.applicationId
-        minSdkVersion(Deps.Versions.minSdkVersion)
-        targetSdkVersion(Deps.Versions.targetSdkVersion)
+        buildToolsVersion = Deps.Versions.buildToolsVersion
+        compileSdk = Deps.Versions.compileSdkVersion
+        minSdk = Deps.Versions.minSdkVersion
+        targetSdk = Deps.Versions.targetSdkVersion
         versionCode = Deps.Versions.versionCode
         versionName = Deps.Versions.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -41,19 +40,16 @@ android {
     }
 
     compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    dexOptions {
-        jumboMode = true
-    }
-
-    lintOptions {
+    lint {
+        isCheckDependencies = true
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }
@@ -64,7 +60,7 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/proguard/coroutines.pro")
+        resources.excludes.add("META-INF/proguard/coroutines.pro")
     }
 
     configurations.all {
@@ -117,7 +113,7 @@ dependencies {
     implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.recyclerView)
     implementation(project(mapOf("path" to ":jetpackMvvm")))
-//    implementation(Deps.FPhoenixCorneaE.jetpackMvvm)
+    //    implementation(Deps.FPhoenixCorneaE.jetpackMvvm)
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitExt)
     androidTestImplementation(Deps.Test.espresso)
