@@ -58,6 +58,7 @@ object Deps {
     }
 
     object AndroidX {
+        const val multiDex = "androidx.multidex:multidex:2.0.1"
         const val appcompat = "androidx.appcompat:appcompat:1.2.0"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"

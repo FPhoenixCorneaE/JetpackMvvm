@@ -73,9 +73,11 @@ dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // kotlin
     compileOnly(Deps.Kotlin.stdLib)
+    // androidX
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
     compileOnly(Deps.AndroidX.viewpager2)
+    api(Deps.AndroidX.multiDex)
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
     api(Deps.Lifecycle.commonJava8)
