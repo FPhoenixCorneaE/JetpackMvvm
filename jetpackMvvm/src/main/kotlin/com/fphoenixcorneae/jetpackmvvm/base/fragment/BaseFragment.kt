@@ -20,8 +20,6 @@ import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.FragmentLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
 import com.fphoenixcorneae.util.ViewUtil
@@ -160,9 +158,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
             mLifecycleHandler.postDelayed({
                 view?.let {
-                    initData(null)
-                    // 在Fragment中，只有懒加载过了才能开启网络变化监听
-                    addNetworkStateObserver()
+                    initData(arguments)
                 }
             }, lazyLoadTime())
             hasLoadedData = true
@@ -182,15 +178,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         }
     }
 
-    private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observe(viewLifecycleOwner, EventObserver {
-            // 视图加载完毕时调用方法，防止数据第一次监听错误
-            if (hasLoadedData) {
-                onNetworkStateChanged(it)
-            }
-        })
-    }
-
     /**
      * 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿  bug
      * 这里传入你想要延迟的时间，延迟时间可以设置比转场动画时间长一点 单位： 毫秒
@@ -200,11 +187,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     open fun lazyLoadTime(): Long {
         return 300
     }
-
-    /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(it: NetworkState) {}
 
     override fun onDestroyView() {
         super.onDestroyView()

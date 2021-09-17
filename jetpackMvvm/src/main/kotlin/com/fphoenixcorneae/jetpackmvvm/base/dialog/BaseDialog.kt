@@ -20,8 +20,6 @@ import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.DialogLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 
 /**
@@ -172,9 +170,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
             mLifecycleHandler.postDelayed({
                 view?.let {
-                    initData(null)
-                    // 在Fragment中，只有懒加载过了才能开启网络变化监听
-                    addNetworkStateObserver()
+                    initData(arguments)
                 }
             }, lazyLoadTime())
             hasLoadedData = true
@@ -193,20 +189,6 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
             })
         }
     }
-
-    private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observe(viewLifecycleOwner, EventObserver {
-            // 视图加载完毕时调用方法，防止数据第一次监听错误
-            if (hasLoadedData) {
-                onNetworkStateChanged(it)
-            }
-        })
-    }
-
-    /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(networkState: NetworkState) {}
 
     /**
      * 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿  bug

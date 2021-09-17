@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.fphoenixcorneae.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.ActivityLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
 
@@ -16,6 +17,7 @@ import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
 class LifecycleInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
+        "LifecycleObserver 初始化".logd("startup")
         val application = context?.applicationContext as? Application
         application?.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleImpl)

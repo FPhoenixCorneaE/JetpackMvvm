@@ -13,14 +13,11 @@ import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.isNotNull
 import com.fphoenixcorneae.ext.loge
 import com.fphoenixcorneae.ext.toast
-import com.fphoenixcorneae.ext.view.setTintColor
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkState
-import com.fphoenixcorneae.jetpackmvvm.network.NetworkStateManager
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
 import com.fphoenixcorneae.util.ViewUtil
@@ -69,8 +66,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
         initView()
         initListener()
         initObserver()
-        addNetworkStateObserver()
-        initData(savedInstanceState)
+        initData(intent.extras)
     }
 
     override fun setContentView(view: View?) {
@@ -153,17 +149,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
             })
         }
     }
-
-    private fun addNetworkStateObserver() {
-        NetworkStateManager.networkState.observe(this, EventObserver {
-            onNetworkStateChanged(it)
-        })
-    }
-
-    /**
-     * 网络变化监听 子类重写
-     */
-    open fun onNetworkStateChanged(it: NetworkState) {}
 
     override fun onDestroy() {
         super.onDestroy()

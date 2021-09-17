@@ -21,6 +21,11 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         MultiDex.install(base)
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        sInstance = this
+    }
+
     override fun getViewModelStore(): ViewModelStore {
         return mViewModelStore
     }
@@ -34,5 +39,13 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(this)
         ).get(modelClass)
+    }
+
+    companion object {
+        @Volatile
+        private var sInstance: BaseApplication? = null
+
+        @Synchronized
+        fun getInstance(): BaseApplication = sInstance!!
     }
 }

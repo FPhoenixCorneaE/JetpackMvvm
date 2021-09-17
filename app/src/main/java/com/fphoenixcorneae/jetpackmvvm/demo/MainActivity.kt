@@ -14,6 +14,7 @@ import com.fphoenixcorneae.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityMainBinding
 import com.fphoenixcorneae.jetpackmvvm.ext.defaultMMKV
+import com.fphoenixcorneae.jetpackmvvm.ext.networkViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -37,6 +38,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initObserver() {
         mViewModel.twoWayBindingText.observe(this) {
             "twoWayBindingText: $it".logd()
+        }
+        networkViewModel.networkState.observe(this) {
+            "networkState: $it".logd()
         }
     }
 
