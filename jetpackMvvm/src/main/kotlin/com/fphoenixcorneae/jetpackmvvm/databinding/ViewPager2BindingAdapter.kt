@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
     ],
     requireAll = false
 )
-fun ViewPager2.init(
+fun ViewPager2.initViewPager2(
     adapter: RecyclerView.Adapter<*>? = null,
     userInputEnabled: Boolean? = true,
     @IntRange(from = 1) offscreenPageLimit: Int? = 1,

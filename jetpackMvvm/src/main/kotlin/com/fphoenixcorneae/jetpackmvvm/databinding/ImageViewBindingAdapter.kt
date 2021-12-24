@@ -16,7 +16,7 @@ import com.fphoenixcorneae.ext.view.setTintColor
 
 @BindingAdapter(
     value = [
-        "imgUrl",
+        "imgData",
         "placeholderResId",
         "placeholderDrawable",
         "centerCrop",
@@ -31,8 +31,8 @@ import com.fphoenixcorneae.ext.view.setTintColor
     ],
     requireAll = false
 )
-fun ImageView.init(
-    imgUrl: Any?,
+fun ImageView.loadData(
+    imgData: Any?,
     @DrawableRes placeholderResId: Int = 0,
     placeholderDrawable: Drawable? = null,
     centerCrop: Boolean = true,
@@ -45,10 +45,10 @@ fun ImageView.init(
     @Px bottomRightRadius: Float = 0f,
     @ColorInt filterColor: Int = 0,
 ) {
-    loadAny(data = imgUrl) {
+    loadAny(data = imgData) {
         crossfade(200)
         // 可选的，但是设置 ViewSizeResolver 可以通过限制预加载的大小来节省内存
-        size(ViewSizeResolver(this@init))
+        size(ViewSizeResolver(this@loadData))
         // 占位图
         if (placeholderDrawable.isNotNull()) {
             placeholder(placeholderDrawable)
@@ -76,7 +76,7 @@ fun ImageView.init(
         when {
             isBlur -> {
                 // 高斯模糊
-                transformations.add(BlurTransformation(this@init.context, 20f))
+                transformations.add(BlurTransformation(context, 20f))
             }
             isGrayscale -> {
                 // 灰度
@@ -91,12 +91,7 @@ fun ImageView.init(
     }
 }
 
-@BindingAdapter(
-    value = [
-        "tint",
-    ],
-    requireAll = false
-)
-fun ImageView.init(tintColor: Int) {
-    setTintColor(tintColor)
+@BindingAdapter(value = ["tint"], requireAll = false)
+fun setTintColor(imageView: ImageView, tintColor: Int) {
+    imageView.setTintColor(tintColor)
 }

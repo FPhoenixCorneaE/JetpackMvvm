@@ -13,8 +13,8 @@ import androidx.activity.viewModels
 import com.fphoenixcorneae.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityMainBinding
-import com.fphoenixcorneae.jetpackmvvm.ext.defaultMMKV
 import com.fphoenixcorneae.jetpackmvvm.ext.networkViewModel
+import com.fphoenixcorneae.jetpackmvvm.startup.defaultMMKV
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView() {
         mViewBinding.apply {
             viewModel = mViewModel
-            imgUrl = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
+            imgData = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
             filterColor = Color.parseColor("#50ff0000")
         }
 

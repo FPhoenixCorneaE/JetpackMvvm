@@ -12,7 +12,7 @@
             type="com.fphoenixcorneae.jetpackmvvm.demo.MainViewModel" />
 
         <variable
-            name="imgUrl"
+            name="imgData"
             type="Object" />
 
         <variable
@@ -37,10 +37,10 @@
                 android:id="@+id/image"
                 bottomRightRadius="@{40f}"
                 filterColor="@{filterColor}"
-                imgUrl="@{imgUrl}"
+                imgData="@{imgData}"
                 isBlur="@{false}"
                 isCircle="@{false}"
-                onSingleClick="@{() -> viewModel.onClickImg(image,imgUrl)}"
+                onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
                 topLeftRadius="@{40f}"
                 android:layout_width="150dp"
                 android:layout_height="150dp"

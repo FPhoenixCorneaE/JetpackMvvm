@@ -10,6 +10,13 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 /**
+ * MMKV 默认实例
+ */
+val defaultMMKV by lazy {
+    MMKV.defaultMMKV()!!
+}
+
+/**
  * @desc：Startup 初始化 MMKV
  * @since：2021-05-26 14:40
  */

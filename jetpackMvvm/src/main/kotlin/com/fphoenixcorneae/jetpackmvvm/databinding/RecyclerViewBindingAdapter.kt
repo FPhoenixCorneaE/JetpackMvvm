@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
     ],
     requireAll = false
 )
-fun RecyclerView.init(
+fun RecyclerView.initRecycler(
     adapter: RecyclerView.Adapter<*>? = null,
     layoutManager: RecyclerView.LayoutManager? = LinearLayoutManager(context),
 ) {
