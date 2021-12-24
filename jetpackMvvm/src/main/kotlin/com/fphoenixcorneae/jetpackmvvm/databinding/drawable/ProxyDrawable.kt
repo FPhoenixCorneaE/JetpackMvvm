@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.jetpackmvvm.databinding
+package com.fphoenixcorneae.jetpackmvvm.databinding.drawable
 
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable

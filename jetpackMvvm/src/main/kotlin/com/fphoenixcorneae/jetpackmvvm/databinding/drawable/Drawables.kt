@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.jetpackmvvm.databinding
+package com.fphoenixcorneae.jetpackmvvm.databinding.drawable
 
 import android.R
 import android.annotation.SuppressLint
