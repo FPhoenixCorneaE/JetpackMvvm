@@ -2,7 +2,8 @@ package com.fphoenixcorneae.jetpackmvvm.startup
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.CommonInitializer
+import com.fphoenixcorneae.common.ext.logd
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,6 @@ class MmkvInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> {
         // No dependencies on other libraries.
-        return mutableListOf()
+        return mutableListOf(CommonInitializer::class.java)
     }
 }

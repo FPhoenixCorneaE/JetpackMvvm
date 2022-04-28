@@ -1,52 +1,30 @@
 package com.fphoenixcorneae.jetpackmvvm.startup
 
-import android.app.Application
-import android.content.ContentProvider
-import android.content.ContentValues
-import android.database.Cursor
-import android.net.Uri
+import android.content.Context
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.fphoenixcorneae.ext.logd
+import androidx.startup.Initializer
+import com.fphoenixcorneae.common.CommonInitializer
+import com.fphoenixcorneae.common.ext.applicationContext
+import com.fphoenixcorneae.common.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.ActivityLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.ApplicationLifecycleImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 /**
  * @desc：Startup 生命周期回调监听
  * @date：2021/06/01 16:16
  */
-class LifecycleInitializer : ContentProvider() {
+class LifecycleInitializer  : Initializer<Unit>, CoroutineScope by MainScope() {
 
-    override fun onCreate(): Boolean {
+    override fun create(context: Context) {
         "LifecycleObserver 初始化".logd("startup")
-        val application = context?.applicationContext as? Application
-        application?.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
+        applicationContext.registerActivityLifecycleCallbacks(ActivityLifecycleImpl())
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleImpl)
-        return true
     }
 
-    override fun query(
-        uri: Uri,
-        projection: Array<out String>?,
-        selection: String?,
-        selectionArgs: Array<out String>?,
-        sortOrder: String?,
-    ): Cursor? {
-        return null
-    }
-
-    override fun getType(uri: Uri): String? {
-        return null
-    }
-
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        return null
-    }
-
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        return 0
-    }
-
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
-        return 0
+    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
+        // No dependencies on other libraries.
+        return mutableListOf(CommonInitializer::class.java)
     }
 }

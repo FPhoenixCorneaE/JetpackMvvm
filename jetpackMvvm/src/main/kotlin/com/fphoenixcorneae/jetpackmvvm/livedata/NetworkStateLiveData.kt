@@ -10,8 +10,8 @@ import android.net.Network
 import android.net.NetworkRequest
 import android.os.Build
 import androidx.lifecycle.LiveData
-import com.fphoenixcorneae.ext.appContext
-import com.fphoenixcorneae.ext.connectivityManager
+import com.fphoenixcorneae.common.ext.applicationContext
+import com.fphoenixcorneae.common.ext.connectivityManager
 
 /**
  * @desc：网络连接状态实时数据
@@ -21,7 +21,7 @@ import com.fphoenixcorneae.ext.connectivityManager
 class NetworkStateLiveData : LiveData<Boolean>() {
 
     /** 上下文 */
-    private val mContext = appContext
+    private val mContext = applicationContext
 
     /** 连接管理器 */
     private val mConnectivityManager = mContext.connectivityManager

@@ -85,10 +85,11 @@ class NavHostFragment : Fragment(), NavHost {
      * @return this host's navigation controller
      * @throws IllegalStateException if called before [.onCreate]
      */
-    override fun getNavController(): NavController {
-        checkNotNull(mNavController) { "NavController is not available before onCreate()" }
-        return mNavController!!
-    }
+    override val navController: NavController
+        get() {
+            checkNotNull(mNavController) { "NavController is not available before onCreate()" }
+            return mNavController!!
+        }
 
     @CallSuper
     override fun onAttach(context: Context) {
@@ -314,9 +315,10 @@ class NavHostFragment : Fragment(), NavHost {
             }
             throw IllegalStateException(
                 "Fragment " + fragment
-                    + " does not have a NavController set"
+                        + " does not have a NavController set"
             )
         }
+
         /**
          * Create a new NavHostFragment instance with an inflated [NavGraph] resource.
          *

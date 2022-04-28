@@ -3,7 +3,7 @@ package com.fphoenixcorneae.jetpackmvvm.lifecycle
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.ext.logd
 
 /**
  * @desc：Application 生命周期观察者

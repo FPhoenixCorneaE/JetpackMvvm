@@ -279,7 +279,7 @@ class FragmentNavigator(
      * [NavController]'s
      * [NavigatorProvider.getNavigator] method.
      */
-    (fragmentNavigator: Navigator<out Destination?>) : NavDestination(fragmentNavigator) {
+    (fragmentNavigator: Navigator<out NavDestination>) : NavDestination(fragmentNavigator) {
         private var mClassName: String? = null
 
         /**

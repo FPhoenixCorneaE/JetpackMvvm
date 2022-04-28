@@ -11,8 +11,8 @@ import coil.size.ViewSizeResolver
 import coil.transform.*
 import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
-import com.fphoenixcorneae.ext.isNotNull
-import com.fphoenixcorneae.ext.view.setTintColor
+import com.fphoenixcorneae.common.ext.isNotNull
+import com.fphoenixcorneae.common.ext.view.setTintColor
 
 @BindingAdapter(
     value = [

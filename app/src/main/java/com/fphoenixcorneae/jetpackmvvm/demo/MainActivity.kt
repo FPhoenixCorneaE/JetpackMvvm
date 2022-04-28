@@ -10,7 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityMainBinding
 import com.fphoenixcorneae.jetpackmvvm.ext.networkViewModel
@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView() {
         mViewBinding.apply {
             viewModel = mViewModel
-            imgData = "https://img-pre.ivsky.com/img/tupian/pre/202103/04/sunyunzhu_baise_lianyiqun.jpg"
+            imgData = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp5.itc.cn%2Fq_70%2Fimages03%2F20200916%2F9670e51911c342f69c7de6e29e10a03b.gif&refer=http%3A%2F%2Fp5.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1653718813&t=47572ac331539c55b7ee17424accbaaf"
             filterColor = Color.parseColor("#50ff0000")
         }
 

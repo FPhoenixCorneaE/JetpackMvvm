@@ -9,11 +9,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.fphoenixcorneae.dsl.layout.FrameLayout
-import com.fphoenixcorneae.ext.dpToPx
-import com.fphoenixcorneae.ext.isNotNull
-import com.fphoenixcorneae.ext.loge
-import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.common.dsl.layout.FrameLayout
+import com.fphoenixcorneae.common.ext.dp
+import com.fphoenixcorneae.common.ext.loge
+import com.fphoenixcorneae.common.ext.toast
+import com.fphoenixcorneae.common.ext.view.measureHeight
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
@@ -22,7 +22,6 @@ import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
 import com.fphoenixcorneae.toolbar.CommonToolbar
-import com.fphoenixcorneae.util.ViewUtil
 
 /**
  * @desc：Fragment 基类
@@ -98,10 +97,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     }
 
     override fun contentViewMarginTop(): Int {
-        if (mToolbar.isNotNull()) {
-            return ViewUtil.getViewHeight(mToolbar!!)
-        }
-        return 0
+        return mToolbar?.measureHeight ?: 0
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -127,7 +123,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             centerType = JmConstants.Toolbar.CENTER_TYPE
             centerTextColor = JmConstants.Toolbar.CENTER_TEXT_COLOR
-            centerTextSize = JmConstants.Toolbar.CENTER_TEXT_SIZE.dpToPx()
+            centerTextSize = JmConstants.Toolbar.CENTER_TEXT_SIZE.dp.toFloat()
             centerTextBold = JmConstants.Toolbar.CENTER_TEXT_IS_FAKE_BOLD
             showBottomLine = JmConstants.Toolbar.SHOW_BOTTOM_LINE
             toolbarHeight = JmConstants.Toolbar.TOOLBAR_HEIGHT

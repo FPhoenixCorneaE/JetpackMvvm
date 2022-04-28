@@ -3,7 +3,7 @@ package com.fphoenixcorneae.jetpackmvvm.lifecycle
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.ext.logd
 
 /**
  * @desc：Activity 生命周期回调

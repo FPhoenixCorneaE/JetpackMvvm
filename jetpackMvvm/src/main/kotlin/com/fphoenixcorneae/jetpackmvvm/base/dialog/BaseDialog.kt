@@ -12,8 +12,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.fphoenixcorneae.ext.loge
-import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.common.ext.loge
+import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.R
 import com.fphoenixcorneae.jetpackmvvm.base.view.IView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel

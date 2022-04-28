@@ -2,7 +2,7 @@ package com.fphoenixcorneae.jetpackmvvm.lifecycle
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.ext.logd
 
 /**
  * @desc：Dialog 生命周期回调

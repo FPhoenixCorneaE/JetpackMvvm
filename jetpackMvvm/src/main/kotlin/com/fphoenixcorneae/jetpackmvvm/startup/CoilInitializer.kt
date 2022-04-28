@@ -12,8 +12,9 @@ import coil.decode.VideoFrameDecoder
 import coil.fetch.VideoFrameFileFetcher
 import coil.fetch.VideoFrameUriFetcher
 import coil.util.CoilUtils
-import com.fphoenixcorneae.ext.appContext
-import com.fphoenixcorneae.ext.logd
+import com.fphoenixcorneae.common.CommonInitializer
+import com.fphoenixcorneae.common.ext.applicationContext
+import com.fphoenixcorneae.common.ext.logd
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -36,7 +37,7 @@ class CoilInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> {
         // No dependencies on other libraries.
-        return mutableListOf()
+        return mutableListOf(CommonInitializer::class.java)
     }
 
     /**
@@ -44,27 +45,27 @@ class CoilInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
      */
     private fun setCoilImageLoader() {
         Coil.setImageLoader(
-            ImageLoader.Builder(appContext)
+            ImageLoader.Builder(applicationContext)
                 .availableMemoryPercentage(0.25)
                 .crossfade(true)
                 .okHttpClient {
                     OkHttpClient.Builder()
-                        .cache(CoilUtils.createDefaultCache(appContext))
+                        .cache(CoilUtils.createDefaultCache(applicationContext))
                         .build()
                 }
                 .componentRegistry {
                     // Gif: GifDecoder 支持所有 API 级别，但速度较慢，ImageDecoderDecoder 的加载速度快，但仅在 API 28 及更高版本可用
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        add(ImageDecoderDecoder(appContext))
+                        add(ImageDecoderDecoder(applicationContext))
                     } else {
                         add(GifDecoder())
                     }
                     // Svg
-                    add(SvgDecoder(appContext))
+                    add(SvgDecoder(applicationContext))
                     // Video
-                    add(VideoFrameFileFetcher(appContext))
-                    add(VideoFrameUriFetcher(appContext))
-                    add(VideoFrameDecoder(appContext))
+                    add(VideoFrameFileFetcher(applicationContext))
+                    add(VideoFrameUriFetcher(applicationContext))
+                    add(VideoFrameDecoder(applicationContext))
                 }
                 .build()
         )

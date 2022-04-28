@@ -116,5 +116,6 @@ dependencies {
     //    implementation(Deps.FPhoenixCorneaE.jetpackMvvm)
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.junitExt)
+    androidTestImplementation(Deps.Test.junitExtKtx)
     androidTestImplementation(Deps.Test.espresso)
 }

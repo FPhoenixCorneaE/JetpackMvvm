@@ -10,16 +10,13 @@
             android:value="2.4" />
 
         <provider
-            android:name=".startup.LifecycleInitializer"
-            android:authorities="${applicationId}.lifecycle-callbacks"
-            android:exported="false"
-            tools:targetApi="n" />
-
-        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+            <meta-data
+                android:name="com.fphoenixcorneae.jetpackmvvm.startup.LifecycleInitializer"
+                android:value="androidx.startup" />
             <meta-data
                 android:name="com.fphoenixcorneae.jetpackmvvm.startup.CoilInitializer"
                 android:value="androidx.startup" />

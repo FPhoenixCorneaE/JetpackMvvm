@@ -81,11 +81,12 @@ dependencies {
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
     api(Deps.Lifecycle.commonJava8)
-    api(Deps.Lifecycle.process)
-    // liveData
     api(Deps.Lifecycle.liveDataKtx)
-    // viewModel
     api(Deps.Lifecycle.viewModelKtx)
+    api(Deps.Lifecycle.viewModelSavedState)
+    api(Deps.Lifecycle.process)
+    api(Deps.Lifecycle.service)
+    kapt(Deps.Lifecycle.compiler)
     // navigation
     api(Deps.Navigation.runtimeKtx)
     api(Deps.Navigation.commonKtx)
@@ -94,11 +95,9 @@ dependencies {
     // startup
     api(Deps.Startup.runtime)
     // 通用工具类
-    api(Deps.FPhoenixCorneaE.commonUtil)
+    api(Deps.FPhoenixCorneaE.common)
     // 标题栏
-    api(Deps.FPhoenixCorneaE.commonToolbar) {
-        exclude(group = "com.github.FPhoenixCorneaE", module = "CommonUtil")
-    }
+    api(Deps.FPhoenixCorneaE.commonToolbar)
     // RecyclerViewAdapter
     api(Deps.baseRecyclerViewAdapterHelper) {
         exclude(group = "org.jetbrains.kotlin")

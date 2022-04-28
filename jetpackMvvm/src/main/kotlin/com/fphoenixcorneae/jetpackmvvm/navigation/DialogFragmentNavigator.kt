@@ -141,7 +141,7 @@ class DialogFragmentNavigator(
      * [NavController]'s
      * [NavigatorProvider.getNavigator] method.
      */
-    (fragmentNavigator: Navigator<out Destination?>) : NavDestination(fragmentNavigator), FloatingWindow {
+    (fragmentNavigator: Navigator<out NavDestination>) : NavDestination(fragmentNavigator), FloatingWindow {
         private var mClassName: String? = null
 
         /**
