@@ -37,11 +37,11 @@ dependencies {
 
   VM： ViewModel (负责Model与View间交互，业务逻辑)
 
-​		![MVVM架构](D:\workspace\github\JetpackMvvm\images\pic_mvvm.png)
+​		![MVVM架构](https://github.com/FPhoenixCorneaE/JetpackMvvm/blob/main/images/pic_mvvm.png)
 
 - **DataBinding**与**LiveData**/**StateFlow**结合实现数据绑定/双向绑定
 
-​		![MVVM架构-数据绑定](D:\workspace\github\JetpackMvvm\images\pic_mvvm_databinding.png)
+​		![MVVM架构-数据绑定](https://github.com/FPhoenixCorneaE/JetpackMvvm/blob/main/images/pic_mvvm_databinding.png)
 
 
 
