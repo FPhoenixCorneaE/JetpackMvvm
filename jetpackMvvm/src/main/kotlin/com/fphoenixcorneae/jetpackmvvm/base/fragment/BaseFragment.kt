@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.common.dsl.layout.FrameLayout
 import com.fphoenixcorneae.common.ext.dp
 import com.fphoenixcorneae.common.ext.loge
 import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.common.ext.view.measureHeight
-import com.fphoenixcorneae.jetpackmvvm.base.view.IView
+import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.FragmentLifecycleImpl
@@ -27,7 +28,7 @@ import com.fphoenixcorneae.toolbar.CommonToolbar
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
-abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
+abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
 
     init {
         lifecycle.addObserver(FragmentLifecycleImpl())
@@ -53,7 +54,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     private var mStatusLayoutManager: StatusLayoutManager? = null
 
     /** 标题栏 */
-    protected var mToolbar: CommonToolbar? = null
+    protected var mToolbar: View? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,7 +74,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
         viewBinding = initViewBinding().apply {
             (this as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
         }
-        initToolbar()
+        mToolbar = initToolbar()
         FrameLayout {
             layoutParams = android.widget.FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -119,7 +120,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     }
 
     override fun initToolbar(): View? {
-        mToolbar = CommonToolbar(mContext).apply {
+        return CommonToolbar(mContext).apply {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             centerType = JmConstants.Toolbar.CENTER_TYPE
             centerTextColor = JmConstants.Toolbar.CENTER_TEXT_COLOR
@@ -132,7 +133,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
             // 不填充状态栏
             fillStatusBar = false
         }
-        return mToolbar
     }
 
     override fun initUiState() {
@@ -150,7 +150,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView<VB> {
     }
 
     private fun lazyLoadDataIfPrepared() {
-        if (userVisibleHint && isViewPrepared && !hasLoadedData) {
+        if (lifecycle.currentState >= Lifecycle.State.CREATED && isViewPrepared && !hasLoadedData) {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
             mLifecycleHandler.postDelayed({
                 view?.let {

@@ -13,7 +13,7 @@ import com.fphoenixcorneae.common.ext.dp
 import com.fphoenixcorneae.common.ext.loge
 import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.common.ext.view.measureHeight
-import com.fphoenixcorneae.jetpackmvvm.base.view.IView
+import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
@@ -25,7 +25,7 @@ import com.fphoenixcorneae.toolbar.CommonToolbar
  * @desc：Activity 基类
  * @date：2021/1/15 21:07
  */
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), BaseView<VB> {
 
     companion object {
 
@@ -51,7 +51,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
     private var mStatusLayoutManager: StatusLayoutManager? = null
 
     /** 标题栏 */
-    protected var mToolbar: CommonToolbar? = null
+    protected var mToolbar: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +69,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
     }
 
     override fun setContentView(view: View?) {
-        initToolbar()
+        mToolbar = initToolbar()
         val contentView = FrameLayout {
             layoutParams = android.widget.FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -98,7 +98,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
     }
 
     override fun initToolbar(): View? {
-        mToolbar = CommonToolbar(this).apply {
+        return CommonToolbar(this).apply {
             layoutParams = JmConstants.Toolbar.LAYOUT_PARAMS
             leftType = JmConstants.Toolbar.LEFT_TYPE
             leftImageTint = JmConstants.Toolbar.LEFT_IMAGE_TINT_COLOR
@@ -116,7 +116,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView<VB> {
                 }
             }
         }
-        return mToolbar
     }
 
     override fun initUiState() {

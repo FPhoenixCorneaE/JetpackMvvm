@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
  * @desc：视图接口
  * @date：2021/1/15 17:54
  */
-interface IView<VB : ViewBinding> {
+interface BaseView<VB : ViewBinding> {
 
     /**
      * 初始化视图绑定

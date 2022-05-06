@@ -3,6 +3,7 @@ package com.fphoenixcorneae.jetpackmvvm.demo
 import android.os.Bundle
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityTestFragmentBinding
+import com.fphoenixcorneae.toolbar.CommonToolbar
 
 class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
 
@@ -12,7 +13,7 @@ class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
 
     override fun initView() {
         mToolbar?.alpha = 0.8f
-        mToolbar?.centerTextView?.text = "FragmentActivity"
+        (mToolbar as CommonToolbar?)?.centerTextView?.text = "FragmentActivity"
     }
 
     override fun initListener() {

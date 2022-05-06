@@ -11,11 +11,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.common.ext.loge
 import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.R
-import com.fphoenixcorneae.jetpackmvvm.base.view.IView
+import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.DialogLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
@@ -26,7 +27,7 @@ import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
  * @desc: Dialog 基类，自动把 ViewBinding 注入 Dialog
  * @since：2021-04-09 14:12
  */
-abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
+abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
 
     init {
         lifecycle.addObserver(DialogLifecycleImpl())
@@ -166,7 +167,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), IView<VB> {
     }
 
     private fun lazyLoadDataIfPrepared() {
-        if (userVisibleHint && isViewPrepared && !hasLoadedData) {
+        if (lifecycle.currentState >= Lifecycle.State.CREATED && isViewPrepared && !hasLoadedData) {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
             mLifecycleHandler.postDelayed({
                 view?.let {
