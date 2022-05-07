@@ -1,20 +1,18 @@
 plugins {
-    id(Deps.PluginIds.application)
-    kotlin(Deps.PluginIds.kotlinAndroid)
-    kotlin(Deps.PluginIds.kotlinKapt)
-    id(Deps.PluginIds.kotlinParcelize)
+    id(Deps.PluginId.application)
+    id(Deps.PluginId.kotlin)
 }
 
 android {
     defaultConfig {
-        applicationId = Deps.applicationId
-        buildToolsVersion = Deps.Versions.buildToolsVersion
-        compileSdk = Deps.Versions.compileSdkVersion
-        minSdk = Deps.Versions.minSdkVersion
-        targetSdk = Deps.Versions.targetSdkVersion
-        versionCode = Deps.Versions.versionCode
-        versionName = Deps.Versions.versionName
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = Deps.DefaultConfig.applicationId
+        buildToolsVersion = Deps.DefaultConfig.buildToolsVersion
+        compileSdk = Deps.DefaultConfig.compileSdk
+        minSdk = Deps.DefaultConfig.minSdk
+        targetSdk = Deps.DefaultConfig.targetSdk
+        versionCode = Deps.DefaultConfig.versionCode
+        versionName = Deps.DefaultConfig.versionName
+        testInstrumentationRunner = Deps.DefaultConfig.testInstrumentationRunner
         multiDexEnabled = true
         ndk {
             // 设置支持的SO库架构

@@ -1,16 +1,16 @@
 plugins {
-    id(Deps.PluginIds.library)
-    kotlin(Deps.PluginIds.kotlinAndroid)
-    kotlin(Deps.PluginIds.kotlinKapt)
+    id(Deps.PluginId.library)
+    id(Deps.PluginId.kotlin)
+    kotlin(Deps.PluginId.kotlinKapt)
     `maven-publish`
 }
 
 android {
     defaultConfig {
-        buildToolsVersion = Deps.Versions.buildToolsVersion
-        compileSdk = Deps.Versions.compileSdkVersion
-        minSdk = Deps.Versions.minSdkVersion
-        targetSdk = Deps.Versions.targetSdkVersion
+        buildToolsVersion = Deps.DefaultConfig.buildToolsVersion
+        compileSdk = Deps.DefaultConfig.compileSdk
+        minSdk = Deps.DefaultConfig.minSdk
+        targetSdk = Deps.DefaultConfig.targetSdk
     }
 
     buildTypes {

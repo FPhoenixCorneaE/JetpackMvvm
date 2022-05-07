@@ -3,40 +3,38 @@ import java.util.*
 
 /**
  * @desc：所有依赖库按照规范写在这里，用到的地方，通过 Deps 引用即可。在添加依赖之前，请检查该文件中是否已存在相
- *        同的依赖，如若已经添加相同依赖，则无需再重复添加，请注意。
+ *       同的依赖，如若已经添加相同依赖，则无需再重复添加，请注意。
  * @date：2021/1/16 19:08
  */
 object Deps {
 
-    const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
+    object Version {
+        const val agpVersion = "7.0.4"
+        const val kotlinVersion = "1.6.10"
+    }
 
     object FPhoenixCorneaE {
         const val common = "com.github.FPhoenixCorneaE:Common:2.0.4"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
-        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${Versions.versionName}"
+        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
     }
 
-    object GradlePlugin {
-        const val gradle = "com.android.tools.build:gradle:7.0.3"
-        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
-    }
-
-    object PluginIds {
+    object PluginId {
         const val application = "com.android.application"
         const val library = "com.android.library"
-        const val kotlinAndroid = "android"
-        const val kotlinParcelize = "kotlin-parcelize"
+        const val kotlin = "org.jetbrains.kotlin.android"
         const val kotlinKapt = "kapt"
     }
 
-    object Versions {
-        const val compileSdkVersion = 32
+    object DefaultConfig {
+        const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
+        const val compileSdk = 32
         const val buildToolsVersion = "32.0.0"
-        const val minSdkVersion = 21
-        const val targetSdkVersion = 32
-        const val versionCode = 121
+        const val minSdk = 21
+        const val targetSdk = 32
+        const val versionCode = 130
         const val versionName = "1.3.0"
-        const val kotlinVersion = "1.6.10"
+        const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     object BuildType {
@@ -45,16 +43,7 @@ object Deps {
     }
 
     object Kotlin {
-        const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
-    }
-
-    /**
-     * 协程
-     */
-    object Coroutines {
-        private const val version = "1.5.0"
-        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
-        const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlinVersion}"
     }
 
     object AndroidX {
@@ -125,12 +114,12 @@ object Deps {
     }
 
     object DataStore {
-        const val mmkv = "com.tencent:mmkv-static:1.2.9"
+        const val mmkv = "com.tencent:mmkv-static:1.2.13"
     }
 
     /** Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
-        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
 
     /**
      * 当前时间
