@@ -1,6 +1,9 @@
 <resources>
-    <string name="jm_string_status_empty_text">暂无数据\n点击空白处刷新</string>
-    <string name="jm_string_status_error_text">加载失败\n点击空白处刷新</string>
-    <string name="jm_string_status_no_network_text">网络开小差了\n点击重试</string>
-    <string name="jm_string_status_loading_text">加载中&#8230;</string>
+    <string name="jm_string_ui_state_empty_text">暂无数据</string>
+    <string name="jm_string_ui_state_empty_retry_text">点击空白处刷新</string>
+    <string name="jm_string_ui_state_error_text">数据获取失败</string>
+    <string name="jm_string_ui_state_error_retry_text">请检查网络后点击空白处重新加载</string>
+    <string name="jm_string_ui_state_no_network_text">网络开小差了</string>
+    <string name="jm_string_ui_state_no_network_retry_text">请检查网络后点击空白处刷新</string>
+    <string name="jm_string_ui_state_loading_text">加载中&#8230;</string>
 </resources>

@@ -17,6 +17,7 @@ object Deps {
         const val common = "com.github.FPhoenixCorneaE:Common:2.0.4"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
         const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
+        const val loadSir = "com.github.FPhoenixCorneaE:LoadSir:1.3.8"
     }
 
     object PluginId {
@@ -52,11 +53,8 @@ object Deps {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.3"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
-        const val material = "com.google.android.material:material:1.4.0"
+        const val material = "com.google.android.material:material:1.5.0"
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
-
-        // activity
-        const val activityKtx = "androidx.activity:activity-ktx:1.4.0"
 
         // fragment
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.4.1"
@@ -93,7 +91,9 @@ object Deps {
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
     }
 
-    /** Kotlin Coroutines Image Loader ：https://coil-kt.github.io/coil/ */
+    /**
+     * Kotlin Coroutines Image Loader(https://coil-kt.github.io/coil/)
+     */
     object Coil {
         private const val version = "1.3.2"
         const val coil = "io.coil-kt:coil:$version"
@@ -102,7 +102,9 @@ object Deps {
         const val video = "io.coil-kt:coil-video:$version"
     }
 
-    /** CoilTransformations */
+    /**
+     * CoilTransformations
+     */
     object CoilTransformations {
         private const val version = "1.0.0"
         const val transformations =
@@ -113,11 +115,15 @@ object Deps {
             "com.github.Commit451.coil-transformations:transformations-face-detection:$version"
     }
 
+    /**
+     * 数据存储
+     */
     object DataStore {
+        // https://github.com/Tencent/MMKV：基于 mmap 的高性能通用 key-value 组件
         const val mmkv = "com.tencent:mmkv-static:1.2.13"
     }
 
-    /** Powerful and flexible RecyclerAdapter */
+    /** https://github.com/CymChad/BaseRecyclerViewAdapterHelper：Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
         "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
 

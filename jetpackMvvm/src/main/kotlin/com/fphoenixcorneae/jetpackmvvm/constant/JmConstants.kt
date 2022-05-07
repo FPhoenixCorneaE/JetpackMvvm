@@ -23,6 +23,6 @@ object JmConstants {
         const val SHOW_BOTTOM_LINE = true
         val TOOLBAR_HEIGHT = 44.dp
         val TOOLBAR_COLOR = getColor(R.color.jm_color_toolbar_0xffffff)
-        val STATUS_BAR_COLOR = getColor(R.color.jm_color_statusBar_0xdddddd)
+        val STATUS_BAR_COLOR = getColor(R.color.jm_color_status_bar_0xdddddd)
     }
 }

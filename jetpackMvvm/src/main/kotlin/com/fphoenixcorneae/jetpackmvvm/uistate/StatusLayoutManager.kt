@@ -204,21 +204,21 @@ class StatusLayoutManager(private val builder: Builder) : DefaultLifecycleObserv
             }
             when (statusType) {
                 StatusType.LOADING_TYPE -> {
-                    val loadingTextView = view.findViewById<TextView>(R.id.loading_text)
-                    loadingTextView?.text = text ?: view.context.getString(R.string.jm_string_status_loading_text)
+                    val loadingTextView = view.findViewById<TextView>(R.id.tvLoading)
+                    loadingTextView?.text = text ?: view.context.getString(R.string.jm_string_ui_state_loading_text)
                 }
                 StatusType.ERROR_TYPE -> {
-                    val errorTextView = view.findViewById<TextView>(R.id.error_text)
-                    errorTextView?.text = text ?: view.context.getString(R.string.jm_string_status_error_text)
+                    val errorTextView = view.findViewById<TextView>(R.id.tvError)
+                    errorTextView?.text = text ?: view.context.getString(R.string.jm_string_ui_state_error_text)
                 }
                 StatusType.EMPTY_TYPE -> {
-                    val emptyTextView = view.findViewById<TextView>(R.id.empty_text)
-                    emptyTextView?.text = text ?: view.context.getString(R.string.jm_string_status_empty_text)
+                    val emptyTextView = view.findViewById<TextView>(R.id.tvEmpty)
+                    emptyTextView?.text = text ?: view.context.getString(R.string.jm_string_ui_state_empty_text)
                 }
                 StatusType.NO_NETWORK_TYPE -> {
-                    val noNetworkTextView = view.findViewById<TextView>(R.id.no_network_text)
+                    val noNetworkTextView = view.findViewById<TextView>(R.id.tvNoNetwork)
                     noNetworkTextView?.text =
-                        text ?: view.context.getString(R.string.jm_string_status_no_network_text)
+                        text ?: view.context.getString(R.string.jm_string_ui_state_no_network_text)
                 }
             }
             mParentLayout?.addView(view, mViewIndex, mLayoutParams)
@@ -393,10 +393,10 @@ class StatusLayoutManager(private val builder: Builder) : DefaultLifecycleObserv
         /**
          * 四种默认布局 ID
          */
-        private val DEFAULT_LAYOUT_ID_LOADING = R.layout.jm_layout_status_loading
-        private val DEFAULT_LAYOUT_ID_EMPTY = R.layout.jm_layout_status_empty
-        private val DEFAULT_LAYOUT_ID_ERROR = R.layout.jm_layout_status_error
-        private val DEFAULT_LAYOUT_ID_NO_NETWORK = R.layout.jm_layout_status_no_network
+        private val DEFAULT_LAYOUT_ID_LOADING = R.layout.jm_layout_ui_state_loading
+        private val DEFAULT_LAYOUT_ID_EMPTY = R.layout.jm_layout_ui_state_empty
+        private val DEFAULT_LAYOUT_ID_ERROR = R.layout.jm_layout_ui_state_error
+        private val DEFAULT_LAYOUT_ID_NO_NETWORK = R.layout.jm_layout_ui_state_no_network
     }
 
     init {

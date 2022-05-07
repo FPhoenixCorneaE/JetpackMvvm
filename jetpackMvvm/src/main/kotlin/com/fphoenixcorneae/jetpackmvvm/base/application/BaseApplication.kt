@@ -36,9 +36,9 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
      */
     fun <VM : ViewModel> getAndroidViewModel(modelClass: Class<VM>): VM {
         return ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(this)
-        ).get(modelClass)
+            owner = this,
+            factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application = this)
+        )[modelClass]
     }
 
     companion object {

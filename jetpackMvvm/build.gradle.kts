@@ -98,6 +98,8 @@ dependencies {
     api(Deps.FPhoenixCorneaE.common)
     // 标题栏
     api(Deps.FPhoenixCorneaE.commonToolbar)
+    // 状态布局管理
+    api(Deps.FPhoenixCorneaE.loadSir)
     // RecyclerViewAdapter
     api(Deps.baseRecyclerViewAdapterHelper) {
         exclude(group = "org.jetbrains.kotlin")
