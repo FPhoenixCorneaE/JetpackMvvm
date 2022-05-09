@@ -103,11 +103,11 @@ fun LoadService<*>.setLoadingData(
  * 设置超时
  */
 fun LoadService<*>.showNoNetwork(
-    timeoutImg: Any? = null,
-    timeoutMsg: CharSequence? = null,
+    noNetworkImg: Any? = null,
+    noNetworkMsg: CharSequence? = null,
     retryText: CharSequence? = null
 ) {
-    setTimeoutData(timeoutImg, timeoutMsg, retryText)
+    setTimeoutData(noNetworkImg, noNetworkMsg, retryText)
     showCallback(NoNetworkCallback::class.java)
 }
 

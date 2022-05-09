@@ -88,19 +88,4 @@ interface BaseView<VB : ViewBinding> {
      * @param t        异常
      */
     fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {}
-
-    /**
-     * 无网络视图点击
-     */
-    fun onNoNetWorkClick() {}
-
-    /**
-     * 错误视图点击
-     */
-    fun onErrorClick() {}
-
-    /**
-     * 无数据视图点击
-     */
-    fun onEmptyClick() {}
 }

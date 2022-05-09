@@ -24,7 +24,7 @@ class LifecycleInitializer  : Initializer<Unit>, CoroutineScope by MainScope() {
     }
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> {
-        // No dependencies on other libraries.
+        // dependency on CommonInitializer.
         return mutableListOf(CommonInitializer::class.java)
     }
 }

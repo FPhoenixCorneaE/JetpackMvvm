@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.fphoenixcorneae.common.ext.logd
@@ -84,9 +85,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onErrorClick() {
-        Toast.makeText(mContext, "错误页面点击", Toast.LENGTH_SHORT).show()
     }
 }

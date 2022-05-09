@@ -21,13 +21,20 @@ import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.DialogLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
+import com.fphoenixcorneae.jetpackmvvm.uistate.showEmpty
+import com.fphoenixcorneae.jetpackmvvm.uistate.showError
+import com.fphoenixcorneae.jetpackmvvm.uistate.showLoading
+import com.fphoenixcorneae.jetpackmvvm.uistate.showNoNetwork
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
+import kotlin.properties.Delegates
 
 /**
  * @desc: Dialog 基类，自动把 ViewBinding 注入 Dialog
  * @since：2021-04-09 14:12
  */
-abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
+abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Callback.OnReloadListener {
 
     init {
         lifecycle.addObserver(DialogLifecycleImpl())
@@ -49,8 +56,8 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
     private var viewBinding: VB? = null
     protected val mViewBinding get() = viewBinding!!
 
-    /** 多状态布局管理器 */
-    private var mStatusLayoutManager: StatusLayoutManager? = null
+    /** 多状态布局管理服务 */
+    protected var mLoadService by Delegates.notNull<LoadService<*>>()
 
     private var mOnDismissListener: ((DialogInterface) -> Unit)? = null
 
@@ -153,17 +160,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
     }
 
     override fun initUiState() {
-        mStatusLayoutManager = StatusLayoutManager.Builder()
-            .addNoNetWorkClickListener {
-                onNoNetWorkClick()
-            }
-            .addErrorClickListener {
-                onErrorClick()
-            }
-            .addEmptyClickListener {
-                onEmptyClick()
-            }
-            .register(viewBinding!!.root)
+        mLoadService = LoadSir.getDefault().register(viewBinding!!.root, this)
     }
 
     private fun lazyLoadDataIfPrepared() {
@@ -207,43 +204,28 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
     }
 
     override fun showLoading(loadingMsg: String?) {
-        mStatusLayoutManager?.showLoadingView(loadingMsg)
+        mLoadService.showLoading(loadingMsg = loadingMsg, showLoadingMsg = true)
     }
 
     override fun showContent() {
-        mStatusLayoutManager?.showContentView()
+        mLoadService.showSuccess()
     }
 
     override fun showEmpty(emptyMsg: String?) {
-        mStatusLayoutManager?.showEmptyView(emptyMsg)
+        mLoadService.showEmpty(emptyMsg = emptyMsg)
     }
 
     override fun showNoNetwork(noNetworkMsg: String?) {
-        mStatusLayoutManager?.showNoNetWorkView(noNetworkMsg)
+        mLoadService.showNoNetwork(noNetworkMsg = noNetworkMsg)
     }
 
     override fun showError(errorMsg: String?) {
-        mStatusLayoutManager?.showErrorView(errorMsg)
+        mLoadService.showError(errorMsg = errorMsg)
     }
 
     override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
         toast(errorMsg)
         t.toString().loge()
-    }
-
-    override fun onNoNetWorkClick() {
-        showLoading(null)
-        initData(null)
-    }
-
-    override fun onErrorClick() {
-        showLoading(null)
-        initData(null)
-    }
-
-    override fun onEmptyClick() {
-        showLoading(null)
-        initData(null)
     }
 
     fun show(activity: FragmentActivity, tag: String? = null) {
@@ -261,5 +243,10 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB> {
 
     fun setOnDismissListener(onDismissListener: (DialogInterface) -> Unit) = apply {
         mOnDismissListener = onDismissListener
+    }
+
+    override fun onReload(v: View?) {
+        showLoading(null)
+        initData(null)
     }
 }

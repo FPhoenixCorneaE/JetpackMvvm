@@ -21,14 +21,21 @@ import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.FragmentLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
-import com.fphoenixcorneae.jetpackmvvm.uistate.StatusLayoutManager
+import com.fphoenixcorneae.jetpackmvvm.uistate.showEmpty
+import com.fphoenixcorneae.jetpackmvvm.uistate.showError
+import com.fphoenixcorneae.jetpackmvvm.uistate.showLoading
+import com.fphoenixcorneae.jetpackmvvm.uistate.showNoNetwork
 import com.fphoenixcorneae.toolbar.CommonToolbar
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
+import kotlin.properties.Delegates
 
 /**
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
-abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
+abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB>, Callback.OnReloadListener {
 
     init {
         lifecycle.addObserver(FragmentLifecycleImpl())
@@ -50,8 +57,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
     private var viewBinding: VB? = null
     protected val mViewBinding get() = viewBinding!!
 
-    /** 多状态布局管理器 */
-    private var mStatusLayoutManager: StatusLayoutManager? = null
+    /** 多状态布局管理服务 */
+    protected var mLoadService by Delegates.notNull<LoadService<*>>()
 
     /** 标题栏 */
     protected var mToolbar: View? = null
@@ -136,17 +143,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
     }
 
     override fun initUiState() {
-        mStatusLayoutManager = StatusLayoutManager.Builder()
-            .addNoNetWorkClickListener {
-                onNoNetWorkClick()
-            }
-            .addErrorClickListener {
-                onErrorClick()
-            }
-            .addEmptyClickListener {
-                onEmptyClick()
-            }
-            .register(viewBinding!!.root)
+        mLoadService = LoadSir.getDefault().register(viewBinding!!.root, this)
     }
 
     private fun lazyLoadDataIfPrepared() {
@@ -190,23 +187,23 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
     }
 
     override fun showLoading(loadingMsg: String?) {
-        mStatusLayoutManager?.showLoadingView(loadingMsg)
+        mLoadService.showLoading(loadingMsg = loadingMsg, showLoadingMsg = true)
     }
 
     override fun showContent() {
-        mStatusLayoutManager?.showContentView()
+        mLoadService.showSuccess()
     }
 
     override fun showEmpty(emptyMsg: String?) {
-        mStatusLayoutManager?.showEmptyView(emptyMsg)
+        mLoadService.showEmpty(emptyMsg = emptyMsg)
     }
 
     override fun showNoNetwork(noNetworkMsg: String?) {
-        mStatusLayoutManager?.showNoNetWorkView(noNetworkMsg)
+        mLoadService.showNoNetwork(noNetworkMsg = noNetworkMsg)
     }
 
     override fun showError(errorMsg: String?) {
-        mStatusLayoutManager?.showErrorView(errorMsg)
+        mLoadService.showError(errorMsg = errorMsg)
     }
 
     override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
@@ -214,17 +211,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB> {
         t.toString().loge()
     }
 
-    override fun onNoNetWorkClick() {
-        showLoading(null)
-        initData(null)
-    }
-
-    override fun onErrorClick() {
-        showLoading(null)
-        initData(null)
-    }
-
-    override fun onEmptyClick() {
+    override fun onReload(v: View?) {
         showLoading(null)
         initData(null)
     }
