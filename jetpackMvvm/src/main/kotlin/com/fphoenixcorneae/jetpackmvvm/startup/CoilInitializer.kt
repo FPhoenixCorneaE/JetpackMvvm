@@ -2,6 +2,7 @@ package com.fphoenixcorneae.jetpackmvvm.startup
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.startup.Initializer
 import coil.Coil
 import coil.ImageLoader
@@ -9,9 +10,9 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.decode.VideoFrameDecoder
-import coil.fetch.VideoFrameFileFetcher
-import coil.fetch.VideoFrameUriFetcher
-import coil.util.CoilUtils
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
+import coil.util.DebugLogger
 import com.fphoenixcorneae.common.CommonInitializer
 import com.fphoenixcorneae.common.ext.applicationContext
 import com.fphoenixcorneae.common.ext.logd
@@ -46,26 +47,34 @@ class CoilInitializer : Initializer<Unit>, CoroutineScope by MainScope() {
     private fun setCoilImageLoader() {
         Coil.setImageLoader(
             ImageLoader.Builder(applicationContext)
-                .availableMemoryPercentage(0.25)
-                .crossfade(true)
+                .logger(DebugLogger(level = Log.DEBUG))
+                .crossfade(enable = true)
                 .okHttpClient {
-                    OkHttpClient.Builder()
-                        .cache(CoilUtils.createDefaultCache(applicationContext))
+                    OkHttpClient.Builder().build()
+                }
+                .memoryCache {
+                    MemoryCache.Builder(applicationContext)
+                        .maxSizePercent(percent = 0.25)
+                        .weakReferencesEnabled(enable = true)
                         .build()
                 }
-                .componentRegistry {
+                .diskCache {
+                    DiskCache.Builder()
+                        .directory(directory = applicationContext.cacheDir.resolve("image_cache"))
+                        .maxSizePercent(percent = 0.02)
+                        .build()
+                }
+                .components {
                     // Gif: GifDecoder 支持所有 API 级别，但速度较慢，ImageDecoderDecoder 的加载速度快，但仅在 API 28 及更高版本可用
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        add(ImageDecoderDecoder(applicationContext))
+                        add(ImageDecoderDecoder.Factory())
                     } else {
-                        add(GifDecoder())
+                        add(GifDecoder.Factory())
                     }
                     // Svg
-                    add(SvgDecoder(applicationContext))
+                    add(SvgDecoder.Factory())
                     // Video
-                    add(VideoFrameFileFetcher(applicationContext))
-                    add(VideoFrameUriFetcher(applicationContext))
-                    add(VideoFrameDecoder(applicationContext))
+                    add(VideoFrameDecoder.Factory())
                 }
                 .build()
         )

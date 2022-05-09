@@ -63,16 +63,16 @@ android {
 
     configurations.all {
         resolutionStrategy {
-            force(Deps.Kotlin.stdLib)
             force(Deps.AndroidX.appcompat)
+            force(Deps.AndroidX.activityKtx)
+            force(Deps.AndroidX.fragmentKtx)
+            force(Deps.AndroidX.recyclerView)
         }
     }
 }
 
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    // kotlin
-    compileOnly(Deps.Kotlin.stdLib)
     // androidX
     compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
@@ -113,7 +113,7 @@ dependencies {
     api(Deps.CoilTransformations.transformationsGpu)
     api(Deps.CoilTransformations.transformationsFaceDetection)
     // 数据存储
-    api(Deps.DataStore.mmkv)
+    api(Deps.mmkv)
 }
 
 // MavenPublication 配置 start -------------------------------------------------------------

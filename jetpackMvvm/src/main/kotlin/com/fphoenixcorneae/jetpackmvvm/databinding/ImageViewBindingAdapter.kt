@@ -6,11 +6,13 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.databinding.BindingAdapter
-import coil.loadAny
+import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.*
+import com.commit451.coiltransformations.BlurTransformation
 import com.commit451.coiltransformations.ColorFilterTransformation
 import com.commit451.coiltransformations.CropTransformation
+import com.commit451.coiltransformations.GrayscaleTransformation
 import com.fphoenixcorneae.common.ext.isNotNull
 import com.fphoenixcorneae.common.ext.view.setTintColor
 
@@ -45,7 +47,7 @@ fun ImageView.loadData(
     @Px bottomRightRadius: Float = 0f,
     @ColorInt filterColor: Int = 0,
 ) {
-    loadAny(data = imgData) {
+    load(data = imgData) {
         crossfade(200)
         // 可选的，但是设置 ViewSizeResolver 可以通过限制预加载的大小来节省内存
         size(ViewSizeResolver(this@loadData))

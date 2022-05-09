@@ -35,13 +35,14 @@
 
             <ImageView
                 android:id="@+id/image"
-                bottomRightRadius="@{40f}"
+                bottomRightRadius="@{80f}"
                 filterColor="@{filterColor}"
                 imgData="@{imgData}"
                 isBlur="@{false}"
+                isGrayscale="@{false}"
                 isCircle="@{false}"
                 onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
-                topLeftRadius="@{40f}"
+                topLeftRadius="@{80f}"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"

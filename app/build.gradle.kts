@@ -63,7 +63,6 @@ android {
 
     configurations.all {
         resolutionStrategy {
-            force(Deps.Kotlin.stdLib)
         }
     }
 }
@@ -104,7 +103,6 @@ fun listSubFile(): ArrayList<String> {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Deps.Kotlin.stdLib)
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.constraintLayout)

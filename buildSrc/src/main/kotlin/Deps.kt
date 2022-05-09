@@ -14,7 +14,7 @@ object Deps {
     }
 
     object FPhoenixCorneaE {
-        const val common = "com.github.FPhoenixCorneaE:Common:2.0.4"
+        const val common = "com.github.FPhoenixCorneaE:Common:2.0.6"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
         const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
         const val loadSir = "com.github.FPhoenixCorneaE:LoadSir:1.3.8"
@@ -33,18 +33,14 @@ object Deps {
         const val buildToolsVersion = "32.0.0"
         const val minSdk = 21
         const val targetSdk = 32
-        const val versionCode = 130
-        const val versionName = "1.3.0"
+        const val versionCode = 131
+        const val versionName = "1.3.1"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     object BuildType {
         const val Debug = "debug"
         const val Release = "release"
-    }
-
-    object Kotlin {
-        const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlinVersion}"
     }
 
     object AndroidX {
@@ -55,6 +51,9 @@ object Deps {
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
         const val material = "com.google.android.material:material:1.5.0"
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
+
+        // activity
+        const val activityKtx = "androidx.activity:activity-ktx:1.4.0"
 
         // fragment
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.4.1"
@@ -92,10 +91,10 @@ object Deps {
     }
 
     /**
-     * Kotlin Coroutines Image Loader(https://coil-kt.github.io/coil/)
+     * Kotlin Coroutines Image Loader：https://coil-kt.github.io/coil/
      */
     object Coil {
-        private const val version = "1.3.2"
+        private const val version = "2.0.0-rc03"
         const val coil = "io.coil-kt:coil:$version"
         const val gif = "io.coil-kt:coil-gif:$version"
         const val svg = "io.coil-kt:coil-svg:$version"
@@ -103,10 +102,10 @@ object Deps {
     }
 
     /**
-     * CoilTransformations
+     * CoilTransformations：https://github.com/Commit451/coil-transformations
      */
     object CoilTransformations {
-        private const val version = "1.0.0"
+        private const val version = "1.1.2"
         const val transformations =
             "com.github.Commit451.coil-transformations:transformations:$version"
         const val transformationsGpu =
@@ -115,17 +114,12 @@ object Deps {
             "com.github.Commit451.coil-transformations:transformations-face-detection:$version"
     }
 
-    /**
-     * 数据存储
-     */
-    object DataStore {
-        // https://github.com/Tencent/MMKV：基于 mmap 的高性能通用 key-value 组件
-        const val mmkv = "com.tencent:mmkv-static:1.2.13"
-    }
-
     /** https://github.com/CymChad/BaseRecyclerViewAdapterHelper：Powerful and flexible RecyclerAdapter */
     const val baseRecyclerViewAdapterHelper =
         "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
+
+    /** https://github.com/Tencent/MMKV：基于 mmap 的高性能通用 key-value 组件 */
+    const val mmkv = "com.tencent:mmkv-static:1.2.13"
 
     /**
      * 当前时间
