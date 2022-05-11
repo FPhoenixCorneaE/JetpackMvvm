@@ -33,6 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         defaultMMKV.encode("mmkv-version", "1.2.8")
+
+        SplashDialog().show(this)
     }
 
     override fun initObserver() {
