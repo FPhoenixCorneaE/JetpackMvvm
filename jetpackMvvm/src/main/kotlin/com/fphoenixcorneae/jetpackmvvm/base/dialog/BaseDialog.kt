@@ -100,9 +100,9 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Ca
         super.onStart()
         dialog?.apply {
             // 是否可点击外部消失
-            setCanceledOnTouchOutside(true)
+            setCanceledOnTouchOutside(canceledOnTouchOutside)
             // 是否可取消
-            setCancelable(true)
+            setCancelable(isCancelable)
             window?.apply {
                 // 去掉 dialog 默认的 padding
                 decorView.setPadding(0, 0, 0, 0)
@@ -158,6 +158,11 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Ca
     protected open fun getDimAmount(): Float {
         return 0.4f
     }
+
+    /**
+     * 若要修改[canceledOnTouchOutside]可重写该属性
+     */
+    protected open var canceledOnTouchOutside = true
 
     override fun initUiState() {
         mLoadService = LoadSir.getDefault().register(viewBinding!!.root, this)
