@@ -139,6 +139,9 @@ fun <T> Result<T>?.parseResult(
     onError: ((ApiException) -> Unit)? = null,
     onLoading: (() -> Unit)? = null
 ) {
+    if (this == null) {
+        return
+    }
     when (this) {
         is Result.Loading -> {
             activity.showLoading(loadingMsg)
@@ -160,9 +163,7 @@ fun <T> Result<T>?.parseResult(
             }
             onError?.run { this(exception) }
         }
-        else -> {
-            throw RuntimeException("Result<T> must not be null!")
-        }
+        else -> {}
     }
 }
 
@@ -178,6 +179,9 @@ fun <T> Result<T>?.parseResult(
     onError: ((ApiException) -> Unit)? = null,
     onLoading: (() -> Unit)? = null
 ) {
+    if (this == null) {
+        return
+    }
     when (this) {
         is Result.Loading -> {
             fragment.showLoading(loadingMsg)
@@ -199,9 +203,7 @@ fun <T> Result<T>?.parseResult(
             }
             onError?.run { this(exception) }
         }
-        else -> {
-            throw RuntimeException("Result<T> must not be null!")
-        }
+        else -> {}
     }
 }
 
@@ -217,6 +219,9 @@ fun <T> Result<T>?.parseResult(
     onError: ((ApiException) -> Unit)? = null,
     onLoading: (() -> Unit)? = null
 ) {
+    if (this == null) {
+        return
+    }
     when (this) {
         is Result.Loading -> {
             dialog.showLoading(loadingMsg)
@@ -238,9 +243,7 @@ fun <T> Result<T>?.parseResult(
             }
             onError?.run { this(exception) }
         }
-        else -> {
-            throw RuntimeException("Result<T> must not be null!")
-        }
+        else -> {}
     }
 }
 
