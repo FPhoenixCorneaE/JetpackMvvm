@@ -96,6 +96,8 @@ dependencies {
     api(Deps.Startup.runtime)
     // 通用工具类
     api(Deps.FPhoenixCorneaE.common)
+    // 协程挂起网络请求
+    api(Deps.FPhoenixCorneaE.coRetrofit)
     // 标题栏
     api(Deps.FPhoenixCorneaE.commonToolbar)
     // 状态布局管理

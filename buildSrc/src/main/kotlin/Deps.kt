@@ -15,9 +15,10 @@ object Deps {
 
     object FPhoenixCorneaE {
         const val common = "com.github.FPhoenixCorneaE:Common:2.0.6"
+        const val coRetrofit = "com.github.FPhoenixCorneaE:CoRetrofit:1.0.5"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
-        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
         const val loadSir = "com.github.FPhoenixCorneaE:LoadSir:1.3.8"
+        const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
     }
 
     object PluginId {
@@ -33,8 +34,8 @@ object Deps {
         const val buildToolsVersion = "32.0.0"
         const val minSdk = 21
         const val targetSdk = 32
-        const val versionCode = 131
-        const val versionName = "1.3.1"
+        const val versionCode = 132
+        const val versionName = "1.3.2"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
