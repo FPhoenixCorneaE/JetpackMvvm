@@ -34,8 +34,8 @@ object Deps {
         const val buildToolsVersion = "32.0.0"
         const val minSdk = 21
         const val targetSdk = 32
-        const val versionCode = 133
-        const val versionName = "1.3.3"
+        const val versionCode = 134
+        const val versionName = "1.3.4"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -95,7 +95,7 @@ object Deps {
      * Kotlin Coroutines Image Loader：https://coil-kt.github.io/coil/
      */
     object Coil {
-        private const val version = "2.0.0-rc03"
+        private const val version = "2.0.0"
         const val coil = "io.coil-kt:coil:$version"
         const val gif = "io.coil-kt:coil-gif:$version"
         const val svg = "io.coil-kt:coil-svg:$version"
@@ -106,7 +106,7 @@ object Deps {
      * CoilTransformations：https://github.com/Commit451/coil-transformations
      */
     object CoilTransformations {
-        private const val version = "1.1.2"
+        private const val version = "2.0.2"
         const val transformations =
             "com.github.Commit451.coil-transformations:transformations:$version"
         const val transformationsGpu =

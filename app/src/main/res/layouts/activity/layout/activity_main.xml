@@ -38,7 +38,7 @@
                 bottomRightRadius="@{80f}"
                 filterColor="@{filterColor}"
                 imgData="@{imgData}"
-                isBlur="@{false}"
+                isBlur="@{true}"
                 isGrayscale="@{false}"
                 isCircle="@{false}"
                 onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
