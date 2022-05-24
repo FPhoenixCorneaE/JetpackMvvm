@@ -241,6 +241,7 @@ object Drawables {
         ],
         requireAll = false
     )
+    @JvmStatic
     fun setViewBackground(
         view: View,
         @ShapeMode shapeMode: Int,
