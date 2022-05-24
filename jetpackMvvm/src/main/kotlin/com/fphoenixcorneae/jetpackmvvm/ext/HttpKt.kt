@@ -19,13 +19,42 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * http request 不校验请求结果数据是否是成功
+ * http request 校验请求结果数据(过滤服务器结果)是否是成功
  * @param block 请求体方法
  * @param result 请求回调的[Result]数据
  * @param isShowDialog 是否显示加载框
  * @param loadingMsg 加载框提示内容
  */
 fun <T> BaseViewModel.request(
+    block: suspend () -> BaseResponse<T>,
+    result: MutableStateFlow<Result<T>?>,
+    isShowDialog: Boolean = false,
+    loadingMsg: String? = "正在努力加载中..."
+): Job {
+    return viewModelScope.launch {
+        runCatching {
+            if (isShowDialog) {
+                result.value = Result.onLoading(loadingMsg = loadingMsg)
+            }
+            // 请求体
+            block()
+        }.onSuccess {
+            result.paresResult(it)
+        }.onFailure {
+            it.message?.loge()
+            result.paresException(it)
+        }
+    }
+}
+
+/**
+ * http request 不校验请求结果数据是否是成功
+ * @param block 请求体方法
+ * @param result 请求回调的[Result]数据
+ * @param isShowDialog 是否显示加载框
+ * @param loadingMsg 加载框提示内容
+ */
+fun <T> BaseViewModel.requestNoCheck(
     block: suspend () -> T,
     result: MutableStateFlow<Result<T>?>,
     isShowDialog: Boolean = false,
