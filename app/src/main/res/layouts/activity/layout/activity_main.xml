@@ -38,9 +38,9 @@
                 bottomRightRadius="@{80f}"
                 filterColor="@{filterColor}"
                 imgData="@{imgData}"
-                isBlur="@{true}"
-                isGrayscale="@{false}"
+                isBlur="@{false}"
                 isCircle="@{false}"
+                isGrayscale="@{false}"
                 onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
                 topLeftRadius="@{80f}"
                 android:layout_width="150dp"
@@ -80,6 +80,12 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:ignore="Autofill,HardcodedText,LabelFor" />
+
+            <ImageView
+                android:id="@+id/ivTestGifWebP"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
