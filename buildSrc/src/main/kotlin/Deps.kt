@@ -14,7 +14,7 @@ object Deps {
     }
 
     object FPhoenixCorneaE {
-        const val common = "com.github.FPhoenixCorneaE:Common:2.0.6"
+        const val common = "com.github.FPhoenixCorneaE:Common:2.0.8"
         const val coRetrofit = "com.github.FPhoenixCorneaE:CoRetrofit:1.0.5"
         const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
         const val loadSir = "com.github.FPhoenixCorneaE:LoadSir:1.3.8"
