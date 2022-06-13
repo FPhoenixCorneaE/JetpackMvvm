@@ -9,11 +9,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashDialog : BaseDialog<DialogSplashBinding>() {
-    override fun initViewBinding(): DialogSplashBinding {
-        return DialogSplashBinding.inflate(layoutInflater)
+    override fun DialogSplashBinding.initViewBinding() {
     }
 
-    override fun initView() {
+    override fun DialogSplashBinding.initView() {
         viewLifecycleOwner.lifecycleScope.launch {
             delay(2000)
             dismiss()
@@ -25,6 +24,5 @@ class SplashDialog : BaseDialog<DialogSplashBinding>() {
     override fun getHeight() = screenHeight
 
     override var canceledOnTouchOutside: Boolean = true
-
     override fun isCancelable(): Boolean = false
 }

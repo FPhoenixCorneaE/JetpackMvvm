@@ -10,8 +10,7 @@ class TestSecondFragment : BaseFragment<FragmentTestSecondBinding>() {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun initViewBinding(): FragmentTestSecondBinding {
-        return FragmentTestSecondBinding.inflate(layoutInflater)
+    override fun FragmentTestSecondBinding.initViewBinding() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {

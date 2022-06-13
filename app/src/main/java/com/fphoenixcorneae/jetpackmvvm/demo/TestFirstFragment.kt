@@ -10,18 +10,17 @@ class TestFirstFragment : BaseFragment<FragmentTestFirstBinding>() {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    override fun initViewBinding(): FragmentTestFirstBinding {
-        return FragmentTestFirstBinding.inflate(layoutInflater)
+    override fun FragmentTestFirstBinding.initViewBinding() {
     }
 
     override fun contentViewMarginTop(): Int {
         return 0
     }
 
-    override fun initView() {
+    override fun FragmentTestFirstBinding.initView() {
         mToolbar?.alpha = 0.8f
         showLoading("")
-        mViewBinding.tvText.text = "Test First Fragment"
+        tvText.text = "Test First Fragment"
     }
 
     override fun initData(savedInstanceState: Bundle?) {

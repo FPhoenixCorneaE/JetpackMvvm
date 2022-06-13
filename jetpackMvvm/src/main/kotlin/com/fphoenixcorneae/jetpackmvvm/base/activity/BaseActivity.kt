@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
-import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.common.dsl.layout.FrameLayout
 import com.fphoenixcorneae.common.ext.dp
 import com.fphoenixcorneae.common.ext.loge
@@ -16,6 +15,7 @@ import com.fphoenixcorneae.common.ext.view.measureHeight
 import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
+import com.fphoenixcorneae.jetpackmvvm.ext.getViewBinding
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
 import com.fphoenixcorneae.jetpackmvvm.uistate.showEmpty
@@ -32,7 +32,7 @@ import kotlin.properties.Delegates
  * @desc：Activity 基类
  * @date：2021/1/15 21:07
  */
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), BaseView<VB>, Callback.OnReloadListener {
+abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(), BaseView<VB>, Callback.OnReloadListener {
 
     companion object {
 
@@ -63,15 +63,18 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), BaseView<VB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
-        viewBinding = initViewBinding().apply {
-            (this as ViewDataBinding).lifecycleOwner = mContext
+        viewBinding = getViewBinding<VB>(layoutInflater).apply {
+            lifecycleOwner = mContext
             setContentView(root)
         }
         initParams()
         initUiState()
-        initView()
-        initListener()
-        initObserver()
+        viewBinding?.apply {
+            initViewBinding()
+            initView()
+            initListener()
+            initObserver()
+        }
         initData(intent.extras)
     }
 

@@ -30,7 +30,6 @@ class TestFourFragment : BaseFragment<FragmentTestFourBinding>() {
         }
     }
 
-    override fun initViewBinding(): FragmentTestFourBinding {
-        return FragmentTestFourBinding.inflate(layoutInflater)
+    override fun FragmentTestFourBinding.initViewBinding() {
     }
 }

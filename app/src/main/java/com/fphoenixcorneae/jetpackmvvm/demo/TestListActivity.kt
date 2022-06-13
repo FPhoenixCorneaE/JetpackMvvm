@@ -14,8 +14,7 @@ class TestListActivity : BaseActivity<ActivityTestListBinding>() {
 
     var list: ArrayList<String>? = null
 
-    override fun initViewBinding(): ActivityTestListBinding {
-        return ActivityTestListBinding.inflate(layoutInflater)
+    override fun ActivityTestListBinding.initViewBinding() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {

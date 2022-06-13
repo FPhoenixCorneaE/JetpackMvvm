@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
-import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.common.dsl.layout.FrameLayout
 import com.fphoenixcorneae.common.ext.dp
 import com.fphoenixcorneae.common.ext.loge
@@ -18,6 +17,7 @@ import com.fphoenixcorneae.common.ext.view.measureHeight
 import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.constant.JmConstants
+import com.fphoenixcorneae.jetpackmvvm.ext.getViewBinding
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.FragmentLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
@@ -35,7 +35,7 @@ import kotlin.properties.Delegates
  * @desc：Fragment 基类
  * @date：2021/1/15 21:07
  */
-abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB>, Callback.OnReloadListener {
+abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Callback.OnReloadListener {
 
     init {
         lifecycle.addObserver(FragmentLifecycleImpl())
@@ -74,12 +74,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB>, Callba
         savedInstanceState: Bundle?,
     ): View? {
         // 加载布局
-        return setContentView()
+        return setContentView(inflater, container)
     }
 
-    private fun setContentView(): View = kotlin.run {
-        viewBinding = initViewBinding().apply {
-            (this as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
+    private fun setContentView(inflater: LayoutInflater, container: ViewGroup?): View = run {
+        viewBinding = getViewBinding<VB>(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
         }
         mToolbar = initToolbar()
         FrameLayout {
@@ -120,9 +120,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView<VB>, Callba
         isViewPrepared = true
         initParams()
         initUiState()
-        initView()
-        initListener()
-        initObserver()
+        viewBinding?.apply {
+            initViewBinding()
+            initView()
+            initListener()
+            initObserver()
+        }
         lazyLoadDataIfPrepared()
     }
 

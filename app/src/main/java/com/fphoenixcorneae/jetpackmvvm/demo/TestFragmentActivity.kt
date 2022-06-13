@@ -7,16 +7,15 @@ import com.fphoenixcorneae.toolbar.CommonToolbar
 
 class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
 
-    override fun initViewBinding(): ActivityTestFragmentBinding {
-        return ActivityTestFragmentBinding.inflate(layoutInflater)
+    override fun ActivityTestFragmentBinding.initViewBinding() {
     }
 
-    override fun initView() {
+    override fun ActivityTestFragmentBinding.initView() {
         mToolbar?.alpha = 0.8f
         (mToolbar as CommonToolbar?)?.centerTextView?.text = "FragmentActivity"
     }
 
-    override fun initListener() {
+    override fun ActivityTestFragmentBinding.initListener() {
         mViewBinding.apply {
             rbFirst.setOnClickListener {
                 supportFragmentManager.beginTransaction()

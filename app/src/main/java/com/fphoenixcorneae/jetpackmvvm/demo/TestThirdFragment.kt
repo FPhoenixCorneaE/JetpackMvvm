@@ -30,7 +30,6 @@ class TestThirdFragment : BaseFragment<FragmentTestThirdBinding>() {
         }
     }
 
-    override fun initViewBinding(): FragmentTestThirdBinding {
-        return FragmentTestThirdBinding.inflate(layoutInflater)
+    override fun FragmentTestThirdBinding.initViewBinding() {
     }
 }

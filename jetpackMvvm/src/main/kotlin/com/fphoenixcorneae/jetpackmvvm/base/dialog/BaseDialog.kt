@@ -12,12 +12,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
-import androidx.viewbinding.ViewBinding
 import com.fphoenixcorneae.common.ext.loge
 import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.jetpackmvvm.R
 import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
+import com.fphoenixcorneae.jetpackmvvm.ext.getViewBinding
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.DialogLifecycleImpl
 import com.fphoenixcorneae.jetpackmvvm.lifecycle.LifecycleHandler
 import com.fphoenixcorneae.jetpackmvvm.livedata.EventObserver
@@ -34,7 +34,7 @@ import kotlin.properties.Delegates
  * @desc: Dialog 基类，自动把 ViewBinding 注入 Dialog
  * @since：2021-04-09 14:12
  */
-abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Callback.OnReloadListener {
+abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>, Callback.OnReloadListener {
 
     init {
         lifecycle.addObserver(DialogLifecycleImpl())
@@ -71,10 +71,10 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Ca
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        viewBinding = initViewBinding().apply {
-            (this as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
+        viewBinding = getViewBinding<VB>(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
         }
-        return mViewBinding.root
+        return viewBinding?.root
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -89,9 +89,12 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment(), BaseView<VB>, Ca
         isViewPrepared = true
         initParams()
         initUiState()
-        initView()
-        initListener()
-        initObserver()
+        viewBinding?.apply {
+            initViewBinding()
+            initView()
+            initListener()
+            initObserver()
+        }
         lazyLoadDataIfPrepared()
     }
 

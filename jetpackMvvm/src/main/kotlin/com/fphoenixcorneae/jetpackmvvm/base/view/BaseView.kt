@@ -2,18 +2,18 @@ package com.fphoenixcorneae.jetpackmvvm.base.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.ViewDataBinding
 
 /**
  * @desc：视图接口
  * @date：2021/1/15 17:54
  */
-interface BaseView<VB : ViewBinding> {
+interface BaseView<VB : ViewDataBinding> {
 
     /**
      * 初始化视图绑定
      */
-    fun initViewBinding(): VB
+    fun VB.initViewBinding()
 
     /**
      * 初始化界面传递参数
@@ -40,17 +40,17 @@ interface BaseView<VB : ViewBinding> {
     /**
      * 初始化View
      */
-    fun initView() {}
+    fun VB.initView() {}
 
     /**
      * 初始化监听器
      */
-    fun initListener() {}
+    fun VB.initListener() {}
 
     /**
      * 初始化界面观察者的监听
      */
-    fun initObserver() {}
+    fun VB.initObserver() {}
 
     /**
      * 初始化数据

@@ -20,31 +20,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val mHandler = Handler(Looper.getMainLooper())
     private val mViewModel by viewModels<MainViewModel>()
 
-    override fun initViewBinding(): ActivityMainBinding {
-        return ActivityMainBinding.inflate(layoutInflater)
-    }
-
-    override fun initView() {
-        mViewBinding.apply {
-            viewModel = mViewModel
-            imgData =
+    override fun ActivityMainBinding.initViewBinding() {
+        viewModel = mViewModel
+        imgData =
 //                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp5.itc.cn%2Fq_70%2Fimages03%2F20200916%2F9670e51911c342f69c7de6e29e10a03b.gif&refer=http%3A%2F%2Fp5.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1653718813&t=47572ac331539c55b7ee17424accbaaf"
 //                R.mipmap.gif_jumping_star
-                "https://img0.baidu.com/it/u=3914584310,1839938303&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300"
+            "https://img0.baidu.com/it/u=3914584310,1839938303&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300"
 //            filterColor = Color.parseColor("#50ff0000")
-            ivTestGifWebP.loadData(R.mipmap.gif_jumping_star)
-        }
-
-        defaultMMKV.encode("mmkv-version", "1.2.8")
-
-        SplashDialog().show(this)
     }
 
-    override fun initObserver() {
-        mViewModel.twoWayBindingText.observe(this) {
+    override fun ActivityMainBinding.initView() {
+        ivTestGifWebP.loadData(R.mipmap.gif_jumping_star)
+        SplashDialog().show(mContext)
+    }
+
+    override fun ActivityMainBinding.initObserver() {
+        mViewModel.twoWayBindingText.observe(mContext) {
             "twoWayBindingText: $it".logd()
         }
-        networkViewModel.networkState.observe(this) {
+        networkViewModel.networkState.observe(mContext) {
             "networkState: $it".logd()
         }
     }
@@ -56,6 +50,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             showContent()
             mViewBinding.tvTwoWayBinding.text = "two-way binding value changed"
         }, 2000)
+
+        defaultMMKV.encode("mmkv-version", "1.2.8")
     }
 
     override fun onPause() {
