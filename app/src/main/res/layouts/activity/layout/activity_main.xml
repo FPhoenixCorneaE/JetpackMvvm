@@ -33,21 +33,34 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image"
-                bottomRightRadius="@{80f}"
-                filterColor="@{filterColor}"
-                imgData="@{imgData}"
-                isBlur="@{false}"
-                isCircle="@{false}"
-                isGrayscale="@{false}"
-                onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
-                topLeftRadius="@{80f}"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                tools:ignore="ContentDescription" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image"
+                    bottomRightRadius="@{80f}"
+                    filterColor="@{filterColor}"
+                    imgData="@{imgData}"
+                    isBlur="@{false}"
+                    isCircle="@{false}"
+                    isGrayscale="@{false}"
+                    onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
+                    topLeftRadius="@{80f}"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@{&quot;跳过&quot; + viewModel.timeCountDown + &quot;秒&quot;}"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvHelloWorld"

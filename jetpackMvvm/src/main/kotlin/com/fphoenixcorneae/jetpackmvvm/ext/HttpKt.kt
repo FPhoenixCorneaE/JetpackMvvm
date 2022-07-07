@@ -1,6 +1,5 @@
 package com.fphoenixcorneae.jetpackmvvm.ext
 
-import androidx.lifecycle.viewModelScope
 import com.fphoenixcorneae.common.ext.loge
 import com.fphoenixcorneae.coretrofit.exception.ApiException
 import com.fphoenixcorneae.coretrofit.exception.Error
@@ -16,136 +15,133 @@ import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.livedata.Event
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 /**
  * http request 校验请求结果数据(过滤服务器结果)是否是成功
- * @param block 请求体方法
- * @param result 请求回调的[Result]数据
+ * @param block        请求体方法
+ * @param result       请求回调的[Result]数据
  * @param isShowDialog 是否显示加载框
- * @param loadingMsg 加载框提示内容
+ * @param loadingMsg   加载框提示内容
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
     result: MutableStateFlow<Result<T>?>,
     isShowDialog: Boolean = false,
-    loadingMsg: String? = "正在努力加载中..."
-): Job {
-    return viewModelScope.launch {
-        runCatching {
+    loadingMsg: String? = "正在努力加载中...",
+): Job =
+    launch(
+        block = {
             if (isShowDialog) {
                 result.value = Result.onLoading(loadingMsg = loadingMsg)
             }
             // 请求体
             block()
-        }.onSuccess {
-            result.paresResult(it)
-        }.onFailure {
+        },
+        error = {
             it.message?.loge()
             result.paresException(it)
         }
+    ) {
+        result.paresResult(it)
     }
-}
+
 
 /**
  * http request 不校验请求结果数据是否是成功
- * @param block 请求体方法
- * @param result 请求回调的[Result]数据
+ * @param block        请求体方法
+ * @param result       请求回调的[Result]数据
  * @param isShowDialog 是否显示加载框
- * @param loadingMsg 加载框提示内容
+ * @param loadingMsg   加载框提示内容
  */
 fun <T> BaseViewModel.requestNoCheck(
     block: suspend () -> T,
     result: MutableStateFlow<Result<T>?>,
     isShowDialog: Boolean = false,
-    loadingMsg: String? = "正在努力加载中..."
-): Job {
-    return viewModelScope.launch {
-        runCatching {
+    loadingMsg: String? = "正在努力加载中...",
+): Job =
+    launch(
+        block = {
             if (isShowDialog) {
                 result.value = Result.onLoading(loadingMsg = loadingMsg)
             }
             // 请求体
             block()
-        }.onSuccess {
-            result.paresResult(it)
-        }.onFailure {
+        },
+        error = {
             it.message?.loge()
             result.paresException(it)
         }
+    ) {
+        result.paresResult(it)
     }
-}
 
 /**
  * http request 校验请求结果数据(过滤服务器结果)是否是成功
- * @param block 请求体方法
- * @param success 成功回调
- * @param error 失败回调 可不传
+ * @param block        请求体方法
+ * @param success      成功回调
+ * @param error        失败回调 可不传
  * @param isShowDialog 是否显示加载框
- * @param loadingMsg 加载框提示内容
+ * @param loadingMsg   加载框提示内容
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
     success: (T?) -> Unit,
     error: (ApiException) -> Unit = {},
     isShowDialog: Boolean = false,
-    loadingMsg: String? = "正在努力加载中..."
-): Job {
-    return viewModelScope.launch {
-        runCatching {
+    loadingMsg: String? = "正在努力加载中...",
+): Job =
+    launch(
+        block = {
             if (isShowDialog) {
                 loadingChange.showDialog.postValue(Event(loadingMsg))
             }
             // 请求体
             block()
-        }.onSuccess {
-            // 网络请求成功 关闭弹窗
-            loadingChange.dismissDialog.postValue(Event(true))
-            // 校验请求结果码是否正确
-            if (it.isSuccess()) {
-                success(it.getResponseData())
-            } else {
-                error(ApiException(errCode = it.getResponseCode(), error = it.getResponseMsg()))
-            }
-        }.onFailure { e ->
+        },
+        error = { e ->
             // 网络请求异常 关闭弹窗
             loadingChange.dismissDialog.postValue(Event(true))
             // 打印错误消息
             e.message?.loge()
             // 失败回调
             error(ExceptionHandler.handleException(e))
+        },
+    ) {
+        // 网络请求成功 关闭弹窗
+        loadingChange.dismissDialog.postValue(Event(true))
+        // 校验请求结果码是否正确
+        if (it.isSuccess()) {
+            success(it.getResponseData())
+        } else {
+            error(ApiException(errCode = it.getResponseCode(), error = it.getResponseMsg()))
         }
     }
-}
+
 
 /**
  * http request 校验请求结果数据(过滤服务器结果)是否是成功
- * @param block 请求体方法
- * @param success 成功回调
- * @param error 失败回调 可不传
+ * @param block        请求体方法
+ * @param success      成功回调
+ * @param error        失败回调 可不传
  * @param isShowDialog 是否显示加载框
- * @param loadingMsg 加载框提示内容
+ * @param loadingMsg   加载框提示内容
  */
 fun <T> BaseViewModel.requestNoCheck(
     block: suspend () -> T?,
     success: (T?) -> Unit,
     error: (ApiException) -> Unit = {},
     isShowDialog: Boolean = false,
-    loadingMsg: String? = "正在努力加载中..."
-): Job {
-    return viewModelScope.launch {
-        runCatching {
+    loadingMsg: String? = "正在努力加载中...",
+): Job =
+    launch(
+        block = {
             if (isShowDialog) {
                 loadingChange.showDialog.postValue(Event(loadingMsg))
             }
             // 请求体
             block()
-        }.onSuccess {
-            // 网络请求成功 关闭弹窗
-            loadingChange.dismissDialog.postValue(Event(true))
-            // 成功回调
-            success(it)
-        }.onFailure { e ->
+        },
+        error = { e ->
             // 网络请求异常 关闭弹窗
             loadingChange.dismissDialog.postValue(Event(true))
             // 打印错误消息
@@ -153,20 +149,24 @@ fun <T> BaseViewModel.requestNoCheck(
             // 失败回调
             error(ExceptionHandler.handleException(e))
         }
+    ) {
+        // 网络请求成功 关闭弹窗
+        loadingChange.dismissDialog.postValue(Event(true))
+        // 成功回调
+        success(it)
     }
-}
 
 /**
  * 显示页面状态，这里有个技巧，成功回调在第一个，其后两个带默认值的回调可省
  * @param onSuccess 成功回调
- * @param onError 失败回调
+ * @param onError   失败回调
  * @param onLoading 加载中
  */
 fun <T> Result<T>?.parseResult(
     activity: BaseActivity<*>,
     onSuccess: (T?) -> Unit,
     onError: ((ApiException) -> Unit)? = null,
-    onLoading: (() -> Unit)? = null
+    onLoading: (() -> Unit)? = null,
 ) {
     if (this == null) {
         return
@@ -206,7 +206,7 @@ fun <T> Result<T>?.parseResult(
     fragment: BaseFragment<*>,
     onSuccess: (T?) -> Unit,
     onError: ((ApiException) -> Unit)? = null,
-    onLoading: (() -> Unit)? = null
+    onLoading: (() -> Unit)? = null,
 ) {
     if (this == null) {
         return
@@ -246,7 +246,7 @@ fun <T> Result<T>?.parseResult(
     dialog: BaseDialog<*>,
     onSuccess: (T?) -> Unit,
     onError: ((ApiException) -> Unit)? = null,
-    onLoading: (() -> Unit)? = null
+    onLoading: (() -> Unit)? = null,
 ) {
     if (this == null) {
         return
