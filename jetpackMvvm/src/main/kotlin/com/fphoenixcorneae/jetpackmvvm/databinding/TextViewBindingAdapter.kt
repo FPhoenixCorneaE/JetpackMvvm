@@ -16,3 +16,11 @@ fun TextView.setStrikeThru(enable: Boolean) {
         paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
     }
 }
+
+/**
+ * 设置粗体
+ */
+@BindingAdapter("isFakeBoldText")
+fun setFakeBoldText(textView: TextView, isFakeBoldText: Boolean) {
+    textView.paint.isFakeBoldText = isFakeBoldText
+}
