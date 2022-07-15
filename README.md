@@ -27,7 +27,13 @@ dependencies {
 
 
 
-### 二、什么是MVVM？？？
+### 二、什么是Jetpack？？？
+
+> Jetpack 是一个由多个库组成的套件，可帮助开发者遵循最佳做法、减少样板代码并编写可在各种 Android 版本和设备中一致运行的代码，让开发者可将精力集中于真正重要的编码工作。
+
+
+
+### 三、什么是MVVM？？？
 
 > MVVM(Model-View-ViewModel)是一种软件架构设计模式，它是一种简化用户界面的事件驱动编程方式。
 
@@ -45,7 +51,7 @@ dependencies {
 
 
 
-### 三、为什么要使用MVVM？？？
+### 四、为什么要使用MVVM？？？
 
 - ##### 低耦合
 
@@ -65,25 +71,25 @@ dependencies {
 
 
 
-### 四、特性
+### 五、特性
 
-1. ##### MVVM框架设计模式基础组件
+1. ##### MVVM框架设计模式基础组件：Application、Activity、Fragment、Dialog、ViewModel、Adapter
 
-2. ##### Data Binding 自定义属性
+2. ##### Jetpack Data Binding：声明性将布局中的界面组件绑定到应用中的数据源
 
-3. ##### 生命周期回调监听
+3. ##### Jetpack Lifecycle：Activity、Fragment、Dialog生命周期感知
 
-4. ##### Navigation导航
+4. ##### Jetpack Navigation：Fragment、Activity之间导航
 
-5. ##### 多状态布局管理
+5. ##### Jetpack LiveData：Event、NetworkState
 
-6. ##### 网络连接状态LiveData
+6. ##### Jetpack Startup：应用启动时简单高效地初始化组件
 
-7. ##### LiveDataEvent
+7. ##### 多状态布局管理：Empty、Error、Loading、NoNetwork、Content
 
 
 
-### 五、开始使用
+### 六、开始使用
 
 1. #### LiveDataEvent：MutableLiveData<Event<T>>()
 

@@ -41,12 +41,6 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
         lifecycle.addObserver(FragmentLifecycleImpl())
     }
 
-    /** 绑定生命周期的 Handler */
-    private val mLifecycleHandler by lazy { LifecycleHandler(viewLifecycleOwner) }
-
-    /** 当前界面 Context 对象*/
-    protected lateinit var mContext: FragmentActivity
-
     /** 视图是否加载完毕 */
     private var isViewPrepared = false
 
@@ -55,7 +49,15 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
 
     /** 绑定视图 */
     private var viewBinding: VB? = null
+
+    /** 当前界面 Context 对象*/
+    protected lateinit var mContext: FragmentActivity
+
+    /** ViewBinding */
     protected val mViewBinding get() = viewBinding!!
+
+    /** 绑定生命周期的 Handler */
+    protected val mLifecycleHandler by lazy { LifecycleHandler(viewLifecycleOwner) }
 
     /** 多状态布局管理服务 */
     protected var mLoadService by Delegates.notNull<LoadService<*>>()

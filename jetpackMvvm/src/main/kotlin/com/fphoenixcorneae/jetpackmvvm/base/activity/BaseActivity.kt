@@ -44,15 +44,17 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(), BaseVie
         }
     }
 
-    /** 绑定生命周期的 Handler */
-    private val mLifecycleHandler by lazy { LifecycleHandler(this) }
+    /** 绑定视图 */
+    private var viewBinding: VB? = null
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
 
-    /** 绑定视图 */
-    private var viewBinding: VB? = null
+    /** ViewBinding */
     protected val mViewBinding get() = viewBinding!!
+
+    /** 绑定生命周期的 Handler */
+    protected val mLifecycleHandler by lazy { LifecycleHandler(this) }
 
     /** 多状态布局管理服务 */
     protected var mLoadService by Delegates.notNull<LoadService<*>>()
