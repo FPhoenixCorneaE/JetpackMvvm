@@ -93,3 +93,16 @@ fun setOnMultiClick(
         }
     }
 }
+
+/**
+ * 设置长按监听
+ */
+@BindingAdapter(value = ["onLongClick"], requireAll = false)
+fun setOnLongClick(
+    view: View,
+    onLongClick: View.OnLongClickListener,
+) {
+    view.setOnLongClickListener {
+        return@setOnLongClickListener onLongClick.onLongClick(it)
+    }
+}

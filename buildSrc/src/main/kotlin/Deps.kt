@@ -34,8 +34,8 @@ object Deps {
         const val buildToolsVersion = "32.0.0"
         const val minSdk = 21
         const val targetSdk = 32
-        const val versionCode = 201
-        const val versionName = "2.0.1"
+        const val versionCode = 202
+        const val versionName = "2.0.2"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

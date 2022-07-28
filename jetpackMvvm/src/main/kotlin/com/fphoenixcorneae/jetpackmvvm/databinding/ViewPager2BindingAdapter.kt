@@ -5,26 +5,20 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
-@BindingAdapter(
-    value = [
-        "adapter",
-        "userInputEnabled",
-        "offscreenPageLimit"
-    ],
-    requireAll = false
-)
-fun ViewPager2.initViewPager2(
+@BindingAdapter(value = ["adapter", "isUserInputEnabled", "offscreenPageLimit"], requireAll = false)
+fun initViewPager2(
+    viewPager2: ViewPager2,
     adapter: RecyclerView.Adapter<*>? = null,
-    userInputEnabled: Boolean? = true,
+    isUserInputEnabled: Boolean? = true,
     @IntRange(from = 1) offscreenPageLimit: Int? = 1,
 ) {
-    adapter?.also {
-        this.adapter = it
+    adapter?.let {
+        viewPager2.adapter = it
     }
-    userInputEnabled?.also {
-        isUserInputEnabled = it
+    isUserInputEnabled?.let {
+        viewPager2.isUserInputEnabled = it
     }
-    offscreenPageLimit?.also {
-        setOffscreenPageLimit(it)
+    offscreenPageLimit?.let {
+        viewPager2.offscreenPageLimit = it
     }
 }

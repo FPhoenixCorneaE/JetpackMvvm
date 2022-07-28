@@ -110,7 +110,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                app:userInputEnabled="@{false}" />
+                app:isUserInputEnabled="@{false}" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
