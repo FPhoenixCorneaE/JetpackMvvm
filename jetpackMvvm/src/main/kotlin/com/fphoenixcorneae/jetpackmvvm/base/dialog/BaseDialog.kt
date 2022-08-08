@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
+import androidx.activity.addCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -98,6 +99,13 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
             initObserver()
         }
         lazyLoadDataIfPrepared()
+        // 添加返回键点击回调
+        requireActivity().onBackPressedDispatcher.addCallback(
+            owner = viewLifecycleOwner,
+            enabled = handleOnBackPressedEnable
+        ) {
+            onBackPressed()
+        }
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -111,7 +119,7 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
             window?.apply {
                 // 去掉 dialog 默认的 padding
                 decorView.setPadding(0, 0, 0, 0)
-                setBackgroundDrawable(getBackground())
+                setBackgroundDrawable(getWindowBackground())
                 setGravity(getGravity())
                 setLayout(getWidth(), getHeight())
                 attributes = attributes?.apply {
@@ -123,9 +131,9 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
     }
 
     /**
-     * 若要修改背景可重写该方法
+     * 若要修改窗口背景可重写该方法
      */
-    protected open fun getBackground(): Drawable {
+    protected open fun getWindowBackground(): Drawable {
         return ColorDrawable()
     }
 
@@ -204,8 +212,14 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
      * 不传默认 300毫秒
      * @return Long
      */
-    open fun lazyLoadTime(): Long {
+    protected open fun lazyLoadTime(): Long {
         return 300
+    }
+
+    protected open val handleOnBackPressedEnable = true
+
+    protected open fun onBackPressed() {
+        dismiss()
     }
 
     override fun onDestroyView() {
@@ -234,7 +248,7 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
     }
 
     override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
-        toast(errorMsg)
+        toast(content = errorMsg)
         t.toString().loge()
     }
 
@@ -256,7 +270,7 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
     }
 
     override fun onReload(v: View?) {
-        showLoading(null)
-        initData(null)
+        showLoading(loadingMsg = null)
+        initData(savedInstanceState = null)
     }
 }

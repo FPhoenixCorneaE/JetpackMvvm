@@ -23,6 +23,10 @@ class TestThirdFragment : BaseFragment<FragmentTestThirdBinding>() {
         mHandler.removeCallbacksAndMessages(null)
     }
 
+    override fun onBackPressed() {
+        testFragmentViewModel.setOnBackPressed3Click()
+    }
+
     companion object {
         fun newInstance(): TestThirdFragment {
             val fragment = TestThirdFragment()

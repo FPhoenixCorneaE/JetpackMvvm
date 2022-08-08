@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import com.fphoenixcorneae.common.dsl.layout.FrameLayout
 import com.fphoenixcorneae.common.ext.dp
 import com.fphoenixcorneae.common.ext.loge
+import com.fphoenixcorneae.common.ext.navigateUp
 import com.fphoenixcorneae.common.ext.toast
 import com.fphoenixcorneae.common.ext.view.measureHeight
 import com.fphoenixcorneae.jetpackmvvm.base.view.BaseView
@@ -129,6 +131,13 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
             initObserver()
         }
         lazyLoadDataIfPrepared()
+        // 添加返回键点击回调
+        requireActivity().onBackPressedDispatcher.addCallback(
+            owner = viewLifecycleOwner,
+            enabled = handleOnBackPressedEnable
+        ) {
+            onBackPressed()
+        }
     }
 
     override fun initToolbar(): View? {
@@ -182,8 +191,14 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
      * 不传默认 300毫秒
      * @return Long
      */
-    open fun lazyLoadTime(): Long {
+    protected open fun lazyLoadTime(): Long {
         return 300
+    }
+
+    protected open val handleOnBackPressedEnable = true
+
+    protected open fun onBackPressed() {
+        navigateUp()
     }
 
     override fun onDestroyView() {
@@ -212,12 +227,12 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
     }
 
     override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
-        toast(errorMsg)
+        toast(content = errorMsg)
         t.toString().loge()
     }
 
     override fun onReload(v: View?) {
-        showLoading(null)
-        initData(null)
+        showLoading(loadingMsg = null)
+        initData(savedInstanceState = null)
     }
 }

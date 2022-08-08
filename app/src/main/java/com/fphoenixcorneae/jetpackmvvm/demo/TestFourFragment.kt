@@ -23,6 +23,10 @@ class TestFourFragment : BaseFragment<FragmentTestFourBinding>() {
         mHandler.removeCallbacksAndMessages(null)
     }
 
+    override fun onBackPressed() {
+        testFragmentViewModel.setOnBackPressed4Click()
+    }
+
     companion object {
         fun newInstance(): TestFourFragment {
             val fragment = TestFourFragment()

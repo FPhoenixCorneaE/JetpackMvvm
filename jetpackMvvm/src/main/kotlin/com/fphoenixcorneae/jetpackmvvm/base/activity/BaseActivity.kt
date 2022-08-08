@@ -173,12 +173,12 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(), BaseVie
     }
 
     override fun toastErrorMsg(errorMsg: CharSequence?, t: Throwable?) {
-        toast(errorMsg)
+        toast(content = errorMsg)
         t.toString().loge()
     }
 
     override fun onReload(v: View?) {
-        showLoading(null)
-        initData(null)
+        showLoading(loadingMsg = null)
+        initData(savedInstanceState = null)
     }
 }

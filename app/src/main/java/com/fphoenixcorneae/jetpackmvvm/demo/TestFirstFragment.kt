@@ -35,6 +35,10 @@ class TestFirstFragment : BaseFragment<FragmentTestFirstBinding>() {
         mHandler.removeCallbacksAndMessages(null)
     }
 
+    override fun onBackPressed() {
+        testFragmentViewModel.setOnBackPressed1Click()
+    }
+
     companion object {
         fun newInstance(): TestFirstFragment {
             val fragment = TestFirstFragment()

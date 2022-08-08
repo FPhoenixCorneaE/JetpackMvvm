@@ -26,6 +26,10 @@ class TestSecondFragment : BaseFragment<FragmentTestSecondBinding>() {
         mHandler.removeCallbacksAndMessages(null)
     }
 
+    override fun onBackPressed() {
+        testFragmentViewModel.setOnBackPressed2Click()
+    }
+
     companion object {
         fun newInstance(): TestSecondFragment {
             val fragment = TestSecondFragment()
