@@ -7,6 +7,10 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="com.fphoenixcorneae.jetpackmvvm.demo.R" />
+
+        <import type="com.google.android.material.shape.CornerFamily" />
+
         <variable
             name="viewModel"
             type="com.fphoenixcorneae.jetpackmvvm.demo.MainViewModel" />
@@ -35,31 +39,79 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/image"
-                    bottomRightRadius="@{60f}"
-                    filterColor="@{filterColor}"
-                    imgData="@{imgData}"
-                    isBlur="@{false}"
-                    isCircle="@{false}"
-                    isGrayscale="@{false}"
-                    onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
-                    topLeftRadius="@{60f}"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="10dp"
-                    tools:ignore="ContentDescription" />
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
                     android:text="@{&quot;跳过&quot; + viewModel.timeCountDown + &quot;秒&quot;}"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/image"
+                        bottomRightRadius="@{50f}"
+                        filterColor="@{filterColor}"
+                        imgData="@{imgData}"
+                        isBlur="@{false}"
+                        isCircle="@{false}"
+                        isGrayscale="@{false}"
+                        onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
+                        topLeftRadius="@{50f}"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        tools:ignore="ContentDescription" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        borderColor="@{@android:color/holo_red_light}"
+                        borderSize="@{4f}"
+                        bottomLeftCornerFamily="@{CornerFamily.CUT}"
+                        bottomLeftCornerSize="@{60f}"
+                        bottomRightCornerFamily="@{CornerFamily.CUT}"
+                        bottomRightCornerSize="@{60f}"
+                        cornerFamily="@{CornerFamily.ROUNDED}"
+                        cornerSize="@{20f}"
+                        imgData="@{imgData}"
+                        topLeftCornerFamily="@{CornerFamily.CUT}"
+                        topLeftCornerSize="@{60f}"
+                        topRightCornerFamily="@{CornerFamily.CUT}"
+                        topRightCornerSize="@{60f}"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:scaleType="centerCrop" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        borderColor="@{@android:color/holo_red_light}"
+                        borderSize="@{4f}"
+                        bottomLeftCornerFamily="@{CornerFamily.ROUNDED}"
+                        bottomLeftCornerSize="@{50f}"
+                        bottomRightCornerFamily="@{CornerFamily.ROUNDED}"
+                        bottomRightCornerSize="@{40f}"
+                        cornerFamily="@{CornerFamily.CUT}"
+                        imgData="@{imgData}"
+                        topLeftCornerFamily="@{CornerFamily.ROUNDED}"
+                        topLeftCornerSize="@{20f}"
+                        topRightCornerFamily="@{CornerFamily.ROUNDED}"
+                        topRightCornerSize="@{30f}"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/ivTestGifWebP"
+                        imgData="@{R.mipmap.gif_jumping_star}"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
             </RelativeLayout>
 
             <TextView
@@ -93,12 +145,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:ignore="Autofill,HardcodedText,LabelFor" />
-
-            <ImageView
-                android:id="@+id/ivTestGifWebP"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

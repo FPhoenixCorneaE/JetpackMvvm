@@ -30,7 +30,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun ActivityMainBinding.initView() {
-        ivTestGifWebP.loadData(R.mipmap.gif_jumping_star)
         SplashDialog().show(mContext)
     }
 
