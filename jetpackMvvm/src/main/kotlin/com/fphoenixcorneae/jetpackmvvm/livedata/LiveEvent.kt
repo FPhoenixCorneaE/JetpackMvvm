@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 
 /**
  * 有疑惑参考：[Jetpack MVVM 七宗罪之四： 使用 LiveData/StateFlow 发送 Events](https://juejin.cn/post/7046191406825603109)
- * @desc：使用 ObserverWrapper 对 Observer 进行封装后，可以使用 pending 针对单个消费者记录事件的消费，避免二次消费。
+ * @desc：LiveEvent：使用 ObserverWrapper 对 Observer 进行封装后，可以使用 pending 针对单个消费者记录事件的消费，避免二次消费。
+ *        也可以使用 SharedFlow 处理事件，如果你希望接收到 collect 之前的事件则可以选择 Channel。
  * @date：2022/08/10 13:49
  */
 open class LiveEvent<T> : MediatorLiveData<T>() {
