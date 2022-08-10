@@ -10,8 +10,9 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import com.fphoenixcorneae.common.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
-import com.fphoenixcorneae.jetpackmvvm.databinding.loadData
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityMainBinding
+import com.fphoenixcorneae.jetpackmvvm.ext.collectWithLifecycle
+import com.fphoenixcorneae.jetpackmvvm.ext.launchRepeatOnLifecycle
 import com.fphoenixcorneae.jetpackmvvm.ext.networkViewModel
 import com.fphoenixcorneae.jetpackmvvm.startup.defaultMMKV
 
@@ -34,8 +35,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun ActivityMainBinding.initObserver() {
-        mViewModel.twoWayBindingText.observe(mContext) {
-            "twoWayBindingText: $it".logd()
+        with(mViewModel) {
+            twoWayBindingText.observe(mContext) {
+                "twoWayBindingText: $it".logd()
+            }
+            launchRepeatOnLifecycle {
+                repeatOnLifecycleFlow.collect {
+                    "launchRepeatOnLifecycle: $it".logd()
+                }
+            }
+            repeatOnLifecycleFlow.collectWithLifecycle(this@MainActivity) {
+                "collectWithLifecycle: $it".logd()
+            }
         }
         networkViewModel.networkState.observe(mContext) {
             "networkState: $it".logd()

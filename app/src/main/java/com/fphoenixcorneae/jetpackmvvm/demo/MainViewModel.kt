@@ -13,6 +13,7 @@ import com.fphoenixcorneae.jetpackmvvm.ext.launchIO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 
 class MainViewModel : BaseViewModel() {
 
@@ -20,6 +21,8 @@ class MainViewModel : BaseViewModel() {
 
     private val _timeCountDown = MutableStateFlow(5)
     val timeCountDown = _timeCountDown.asStateFlow()
+
+    val repeatOnLifecycleFlow = flow { emit("launchRepeatOnLifecycle") }
 
     fun onClickImg(img: ImageView, imgData: Any?) {
         img.loadData(imgData, filterColor = getRandomColor())
