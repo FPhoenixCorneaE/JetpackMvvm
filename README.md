@@ -84,7 +84,7 @@ dependencies {
 
 ### 六、开始使用
 
-1. #### LiveDataEvent：MutableLiveData<Event<T>>()
+1. #### live data event：SingleLiveEvent
 
 ```kotlin
 // 显示加载框
@@ -98,7 +98,7 @@ viewModel.loadingChange.showDialog.observe(this, EventObserver {
 })
 ```
 
-2. #### Flow<T>.collect{ }
+2. #### flow collect with lifecycle
 
 > ```
 > Runs the block of code in a coroutine when the lifecycle is at least STARTED.
