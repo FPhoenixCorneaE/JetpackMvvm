@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import com.fphoenixcorneae.common.ext.getRandomColor
 import com.fphoenixcorneae.common.ext.logd
+import com.fphoenixcorneae.common.ext.toastAliPayStyle
 import com.fphoenixcorneae.common.ext.toastQQStyle
 import com.fphoenixcorneae.jetpackmvvm.base.viewmodel.BaseViewModel
 import com.fphoenixcorneae.jetpackmvvm.databinding.loadData
@@ -52,6 +53,11 @@ class MainViewModel : BaseViewModel() {
                 delay(1000)
             }
         })
+    }
+
+    fun onMultiClickImg() {
+        toastAliPayStyle("onMultiClickImg")
+        "onMultiClickImg".logd("onMultiClickImg")
     }
 
     fun helloWorld(text: TextView) {

@@ -39,7 +39,7 @@ fun isSelected(view: View, selected: Boolean) {
 @BindingAdapter(value = ["onSingleClick"], requireAll = false)
 fun setOnSingleClick(
     view: View,
-    onSingleClick: View.OnClickListener
+    onSingleClick: View.OnClickListener,
 ) {
     val hits = LongArray(2)
     view.setOnClickListener {
@@ -54,7 +54,7 @@ fun setOnSingleClick(
 /**
  * 设置多次点击监听
  * @param onClickListener 点击监听
- * @param clickTimes      点击次数
+ * @param times      点击次数
  * @param duration        有效时间
  */
 @BindingAdapter(
@@ -67,29 +67,29 @@ fun setOnSingleClick(
 )
 fun setOnMultiClick(
     view: View,
-    clickTimes: Int,
+    times: Int,
     duration: Long,
-    onClickListener: View.OnClickListener
+    onClickListener: View.OnClickListener,
 ) {
-    var tempClickTimes = clickTimes
-    if (tempClickTimes <= 2) {
-        tempClickTimes = 2
+    var clickTimes = times
+    if (clickTimes <= 2) {
+        clickTimes = 2
     }
-    var tempDuration = duration
-    if (tempDuration <= 1_000) {
-        tempDuration = 1_000
+    var validDuration = duration
+    if (validDuration <= 1_000) {
+        validDuration = 1_000
     }
-    var hits = LongArray(tempClickTimes)
+    var hits = LongArray(clickTimes + 1)
     view.setOnClickListener {
         // 将hits数组内的所有元素左移一个位置
         System.arraycopy(hits, 1, hits, 0, hits.size - 1)
         // 获得当前系统已经启动的时间
-        hits[hits.size - 1] = SystemClock.uptimeMillis()
-        if (hits[0] >= SystemClock.uptimeMillis() - tempDuration) {
+        hits[hits.lastIndex] = SystemClock.uptimeMillis()
+        if (hits.last() - hits[1] <= validDuration && hits.last() - hits.first() >= validDuration) {
             // 相关逻辑操作
             onClickListener.onClick(it)
-            // 初始化点击次数
-            hits = LongArray(tempClickTimes)
+            // 初始化数组点击时间为上一次点击时间
+            hits = hits.flatMap { listOf(hits.last()) }.toLongArray()
         }
     }
 }
@@ -100,9 +100,9 @@ fun setOnMultiClick(
 @BindingAdapter(value = ["onLongClick"], requireAll = false)
 fun setOnLongClick(
     view: View,
-    onLongClick: View.OnLongClickListener,
+    onLongClickListener: View.OnLongClickListener,
 ) {
     view.setOnLongClickListener {
-        return@setOnLongClickListener onLongClick.onLongClick(it)
+        return@setOnLongClickListener onLongClickListener.onLongClick(it)
     }
 }
