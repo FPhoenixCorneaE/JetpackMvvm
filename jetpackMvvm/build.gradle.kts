@@ -102,10 +102,6 @@ dependencies {
     api(Deps.FPhoenixCorneaE.commonToolbar)
     // 状态布局管理
     api(Deps.FPhoenixCorneaE.loadSir)
-    // RecyclerViewAdapter
-    api(Deps.baseRecyclerViewAdapterHelper) {
-        exclude(group = "org.jetbrains.kotlin")
-    }
     // coil 图片加载
     api(Deps.Coil.coil)
     api(Deps.Coil.gif)
