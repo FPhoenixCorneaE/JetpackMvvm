@@ -108,6 +108,7 @@ dependencies {
     implementation(Deps.AndroidX.constraintLayout)
     implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.recyclerView)
+    debugImplementation(Deps.leakcanary)
     implementation(project(mapOf("path" to ":jetpackMvvm")))
     //    implementation(Deps.FPhoenixCorneaE.jetpackMvvm)
     testImplementation(Deps.Test.junit)

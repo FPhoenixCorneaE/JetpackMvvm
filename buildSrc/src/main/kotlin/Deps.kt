@@ -122,6 +122,8 @@ object Deps {
     /** https://github.com/Tencent/MMKV：基于 mmap 的高性能通用 key-value 组件 */
     const val mmkv = "com.tencent:mmkv-static:1.2.13"
 
+    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
+
     /**
      * 当前时间
      */
