@@ -52,6 +52,9 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
     /** 绑定视图 */
     private var viewBinding: VB? = null
 
+    /** 内容视图 */
+    private var mContentView: ViewGroup? = null
+
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
 
@@ -78,7 +81,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
         savedInstanceState: Bundle?,
     ): View? {
         // 加载布局
-        return setContentView(inflater, container)
+        return setContentView(inflater, container).also { mContentView = it as ViewGroup? }
     }
 
     private fun setContentView(inflater: LayoutInflater, container: ViewGroup?): View = run {
@@ -202,8 +205,10 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseView<VB>, Ca
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        mContentView?.removeAllViews()
+        mContentView = null
         viewBinding = null
+        super.onDestroyView()
     }
 
     override fun showLoading(loadingMsg: String?) {

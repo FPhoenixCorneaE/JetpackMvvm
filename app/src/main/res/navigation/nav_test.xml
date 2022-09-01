@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_test"
+    app:startDestination="@id/fragmentTestFirst">
+
+    <fragment
+        android:id="@+id/fragmentTestFirst"
+        android:name="com.fphoenixcorneae.jetpackmvvm.demo.TestFirstFragment" />
+    <fragment
+        android:id="@+id/fragmentTestSecond"
+        android:name="com.fphoenixcorneae.jetpackmvvm.demo.TestSecondFragment" />
+    <fragment
+        android:id="@+id/fragmentTestThird"
+        android:name="com.fphoenixcorneae.jetpackmvvm.demo.TestThirdFragment" />
+    <fragment
+        android:id="@+id/fragmentTestFour"
+        android:name="com.fphoenixcorneae.jetpackmvvm.demo.TestFourFragment" />
+</navigation>

@@ -1,8 +1,11 @@
 package com.fphoenixcorneae.jetpackmvvm.demo
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.fphoenixcorneae.common.ext.logd
+import com.fphoenixcorneae.common.ext.navigate
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityTestFragmentBinding
 import com.fphoenixcorneae.toolbar.CommonToolbar
@@ -21,24 +24,16 @@ class TestFragmentActivity : BaseActivity<ActivityTestFragmentBinding>() {
     override fun ActivityTestFragmentBinding.initListener() {
         mViewBinding.apply {
             rbFirst.setOnClickListener {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame, TestFirstFragment.newInstance())
-                    .commit()
+                findNavController(R.id.frame).navigate(R.id.fragmentTestFirst)
             }
             rbSecond.setOnClickListener {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame, TestSecondFragment.newInstance())
-                    .commit()
+                findNavController(R.id.frame).navigate(R.id.fragmentTestSecond)
             }
             rbThird.setOnClickListener {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame, TestThirdFragment.newInstance())
-                    .commit()
+                findNavController(R.id.frame).navigate(R.id.fragmentTestThird)
             }
             rbFour.setOnClickListener {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame, TestFourFragment.newInstance())
-                    .commit()
+                findNavController(R.id.frame).navigate(R.id.fragmentTestFour)
             }
         }
     }

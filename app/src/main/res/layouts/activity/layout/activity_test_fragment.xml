@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -66,10 +67,13 @@
                 android:textSize="18sp" />
         </RadioGroup>
 
-        <FrameLayout
+        <fragment
             android:id="@+id/frame"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_test"
             android:layout_below="@id/rgTab" />
     </RelativeLayout>
 </layout>
