@@ -35,7 +35,8 @@ import kotlin.properties.Delegates
  * @desc: Dialog 基类，自动把 ViewBinding 注入 Dialog
  * @since：2021-04-09 14:12
  */
-abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>, Callback.OnReloadListener {
+abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>,
+    Callback.OnReloadListener {
 
     init {
         lifecycle.addObserver(DialogLifecycleImpl())
@@ -49,6 +50,9 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
 
     /** 绑定视图 */
     private var viewBinding: VB? = null
+
+    /** 内容视图 */
+    private var mContentView: ViewGroup? = null
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -77,7 +81,7 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
         viewBinding = getViewBinding<VB>(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        return viewBinding?.root
+        return viewBinding?.root?.also { mContentView = it as ViewGroup? }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -223,8 +227,10 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        mContentView?.removeAllViews()
+        mContentView = null
         viewBinding = null
+        super.onDestroyView()
     }
 
     override fun showLoading(loadingMsg: String?) {
