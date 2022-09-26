@@ -1,11 +1,9 @@
 package com.fphoenixcorneae.jetpackmvvm.demo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.fphoenixcorneae.common.ext.logd
-import com.fphoenixcorneae.common.ext.navigate
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityTestFragmentBinding
 import com.fphoenixcorneae.toolbar.CommonToolbar

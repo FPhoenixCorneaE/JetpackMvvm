@@ -258,12 +258,38 @@ abstract class BaseDialog<VB : ViewDataBinding> : DialogFragment(), BaseView<VB>
         t.toString().loge()
     }
 
-    fun show(activity: FragmentActivity, tag: String? = null) {
-        super.show(activity.supportFragmentManager, tag)
+    /**
+     * 显示对话框
+     */
+    fun show(activity: FragmentActivity, tag: String? = javaClass.name) {
+        if (activity.supportFragmentManager.isDestroyed) {
+            return
+        }
+        if (isAdded) {
+            return
+        }
+        runCatching {
+            super.show(activity.supportFragmentManager, tag)
+        }.onFailure {
+            it.toString().loge()
+        }
     }
 
-    fun show(fragment: Fragment, tag: String? = null) {
-        super.show(fragment.childFragmentManager, tag)
+    /**
+     * 显示对话框
+     */
+    fun show(fragment: Fragment, tag: String? = javaClass.name) {
+        if (fragment.childFragmentManager.isDestroyed) {
+            return
+        }
+        if (isAdded) {
+            return
+        }
+        runCatching {
+            super.show(fragment.childFragmentManager, tag)
+        }.onFailure {
+            it.toString().loge()
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
