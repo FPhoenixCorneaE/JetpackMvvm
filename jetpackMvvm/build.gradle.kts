@@ -50,12 +50,6 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    lint {
-        isCheckDependencies = true
-        isCheckReleaseBuilds = false
-        isAbortOnError = false
-    }
-
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -64,9 +58,10 @@ android {
     configurations.all {
         resolutionStrategy {
             force(Deps.AndroidX.appcompat)
+            force(Deps.AndroidX.recyclerView)
             force(Deps.AndroidX.activityKtx)
             force(Deps.AndroidX.fragmentKtx)
-            force(Deps.AndroidX.recyclerView)
+            force(Deps.AndroidX.coreKtx)
         }
     }
 }
@@ -74,10 +69,12 @@ android {
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // androidX
-    compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.appcompat)
+    compileOnly(Deps.AndroidX.coreKtx)
     compileOnly(Deps.AndroidX.viewpager2)
     api(Deps.AndroidX.multiDex)
+    api(Deps.AndroidX.activityKtx)
+    api(Deps.AndroidX.fragmentKtx)
     // lifecycle
     api(Deps.Lifecycle.runtimeKtx)
     api(Deps.Lifecycle.commonJava8)

@@ -1,7 +1,6 @@
 package com.fphoenixcorneae.jetpackmvvm.databinding
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.core.view.setPadding
@@ -66,6 +65,6 @@ fun ShapeableImageView.setAttrs(
             cornerSize?.Dp ?: bottomRightCornerSize?.Dp ?: 0f,
         )
     }.build()
-    strokeColor = borderColorStateList ?: ColorStateList.valueOf(borderColor ?: Color.TRANSPARENT)
-    strokeWidth = (borderSize?.Dp ?: 0f).also { setPadding(it.roundToInt()) }
+    borderColorStateList?.let { strokeColor = it } ?: borderColor?.let { strokeColor = ColorStateList.valueOf(it) }
+    borderSize?.let { strokeWidth = it.Dp.also { setPadding(it.roundToInt()) } }
 }

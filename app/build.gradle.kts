@@ -46,12 +46,6 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    lint {
-        isCheckDependencies = true
-        isCheckReleaseBuilds = false
-        isAbortOnError = false
-    }
-
     buildFeatures {
         viewBinding = true
         dataBinding = true

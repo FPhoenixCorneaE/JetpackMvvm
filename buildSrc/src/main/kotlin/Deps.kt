@@ -9,14 +9,14 @@ import java.util.*
 object Deps {
 
     object Version {
-        const val agpVersion = "7.0.4"
-        const val kotlinVersion = "1.6.10"
+        const val agpVersion = "7.2.2"
+        const val kotlinVersion = "1.7.10"
     }
 
     object FPhoenixCorneaE {
         const val common = "com.github.FPhoenixCorneaE:Common:2.0.9"
         const val coRetrofit = "com.github.FPhoenixCorneaE:CoRetrofit:1.0.5"
-        const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.0"
+        const val commonToolbar = "com.github.FPhoenixCorneaE:CommonToolbar:3.0.2"
         const val loadSir = "com.github.FPhoenixCorneaE:LoadSir:1.3.8"
         const val jetpackMvvm = "com.github.FPhoenixCorneaE:JetpackMvvm:${DefaultConfig.versionName}"
     }
@@ -30,10 +30,10 @@ object Deps {
 
     object DefaultConfig {
         const val applicationId = "com.fphoenixcorneae.jetpackmvvm.demo"
-        const val compileSdk = 32
-        const val buildToolsVersion = "32.0.0"
+        const val compileSdk = 33
+        const val buildToolsVersion = "33.0.0"
         const val minSdk = 21
-        const val targetSdk = 32
+        const val targetSdk = 33
         const val versionCode = 206
         const val versionName = "2.0.6"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -46,22 +46,24 @@ object Deps {
 
     object AndroidX {
         const val multiDex = "androidx.multidex:multidex:2.0.1"
-        const val appcompat = "androidx.appcompat:appcompat:1.4.1"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+        const val appcompat = "androidx.appcompat:appcompat:1.5.1"
+        const val coreKtx = "androidx.core:core-ktx:1.9.0"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
         const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
+
+        /** https://material.io/ */
         const val material = "com.google.android.material:material:1.5.0"
-        const val coreKtx = "androidx.core:core-ktx:1.7.0"
 
         // activity
-        const val activityKtx = "androidx.activity:activity-ktx:1.4.0"
+        const val activityKtx = "androidx.activity:activity-ktx:1.6.0"
 
         // fragment
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.4.1"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.5.2"
     }
 
     object Lifecycle {
-        private const val version = "2.4.1"
+        private const val version = "2.5.1"
         const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:$version"
         const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
@@ -73,7 +75,7 @@ object Deps {
     }
 
     object Navigation {
-        private const val version = "2.4.2"
+        private const val version = "2.5.2"
         const val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:$version"
         const val commonKtx = "androidx.navigation:navigation-common-ktx:$version"
         const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
@@ -92,10 +94,11 @@ object Deps {
     }
 
     /**
-     * Kotlin Coroutines Image Loader：https://coil-kt.github.io/coil/
+     * Kotlin Coroutines Image Loader：
+     * https://coil-kt.github.io/coil/
      */
     object Coil {
-        private const val version = "2.0.0"
+        private const val version = "2.2.1"
         const val coil = "io.coil-kt:coil:$version"
         const val gif = "io.coil-kt:coil-gif:$version"
         const val svg = "io.coil-kt:coil-svg:$version"
@@ -103,7 +106,8 @@ object Deps {
     }
 
     /**
-     * CoilTransformations：https://github.com/Commit451/coil-transformations
+     * CoilTransformations：
+     * https://github.com/Commit451/coil-transformations
      */
     object CoilTransformations {
         private const val version = "2.0.2"
@@ -115,13 +119,10 @@ object Deps {
             "com.github.Commit451.coil-transformations:transformations-face-detection:$version"
     }
 
-    /** https://github.com/CymChad/BaseRecyclerViewAdapterHelper：Powerful and flexible RecyclerAdapter */
-    const val baseRecyclerViewAdapterHelper =
-        "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
-
     /** https://github.com/Tencent/MMKV：基于 mmap 的高性能通用 key-value 组件 */
-    const val mmkv = "com.tencent:mmkv-static:1.2.13"
+    const val mmkv = "com.tencent:mmkv-static:1.2.14"
 
+    /** https://github.com/square/leakcanary */
     const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
 
     /**
