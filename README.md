@@ -34,7 +34,7 @@ dependencies {
 
 ### 三、什么是MVVM？？？
 
-> MVVM(Model-View-ViewModel)是一种软件架构设计模式，它是一种简化用户界面的事件驱动编程方式。
+> MVVM(Model-View-ViewModel)是一种软件架构设计模式，它是一种简化用户界面的事件驱动编程方式，本质上就是 MVC 的改进版。
 
 - M： Model (实体模型)
 
@@ -47,6 +47,8 @@ dependencies {
 - **DataBinding**与**LiveData**/**StateFlow**结合实现数据绑定/双向绑定
 
 ​        ![MVVM架构-数据绑定](https://github.com/FPhoenixCorneaE/JetpackMvvm/blob/main/images/pic_mvvm_databinding.png)
+
+[AndroidMVC、MVP、MVVM模式](https://github.com/FPhoenixCorneaE/SomeDevelopmentSkills/blob/master/AndroidMVC%E3%80%81MVP%E3%80%81MVVM%E6%A8%A1%E5%BC%8F.md)
 
 ### 四、为什么要使用MVVM？？？
 
@@ -72,7 +74,7 @@ dependencies {
 
 2. ##### Jetpack Data Binding：声明性将布局中的界面组件绑定到应用中的数据源
 
-3. ##### Jetpack Lifecycle：Activity、Fragment、Dialog生命周期感知
+3. ##### Jetpack Lifecycle：Activity、Fragment、Dialog、View等生命周期感知
 
 4. ##### Jetpack Navigation：Fragment、Activity之间导航
 
@@ -83,6 +85,85 @@ dependencies {
 7. ##### 多状态布局管理：Empty、Error、Loading、NoNetwork、Content
 
 ### 六、开始使用
+
+1. 自定义Application继承**BaseApplication**
+
+```kotlin
+class WanAndroidApp : BaseApplication() {
+}
+```
+
+2. Activity继承**BaseActivity<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+
+```kotlin
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    override fun ActivityMainBinding.initViewBinding() {
+    }
+}
+```
+
+3. Fragment继承**BaseFragment<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+
+```kotlin
+class MainFragment : BaseFragment<FragmentMainBinding>() {
+
+    override fun FragmentMainBinding.initViewBinding() {
+    }
+}
+```
+
+4. Dialog继承**BaseDialog<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+
+```kotlin
+class SplashDialog : BaseDialog<DialogSplashBinding>() {
+
+    override fun DialogSplashBinding.initViewBinding() {
+    }
+}
+```
+
+5. ViewModel继承**BaseViewModel**。实时数据推荐使用**StateFlow**，事件推荐使用**Channel**。
+
+```kotlin
+class SplashViewModel : BaseViewModel() {
+
+    private val _splashResult = MutableStateFlow<SplashBean?>(null)
+    val splashResult = _splashResult.asStateFlow()
+
+    private val _splashImg = MutableStateFlow<String?>(null)
+    val splashImg = _splashImg.asStateFlow()
+
+    private val _logoVisible = MutableStateFlow(true)
+    val logoVisible = _logoVisible.asStateFlow()
+
+    /**
+     * 获取每日一图
+     */
+    fun getDailyImage() {
+        requestNoCheck(
+            block = {
+                apiService.getDailyImage()
+            },
+            success = {
+                _splashResult.value = it
+            },
+            error = {
+                _splashResult.value = null
+            }
+        )
+    }
+
+    fun setSplashImg(data: String?) {
+        launch({
+            _splashImg.value = data
+            _logoVisible.value = data.isNullOrEmpty()
+        })
+    }
+}
+```
+
+1. Http网络请求
 
 1. #### live data event：SingleLiveEvent
 
