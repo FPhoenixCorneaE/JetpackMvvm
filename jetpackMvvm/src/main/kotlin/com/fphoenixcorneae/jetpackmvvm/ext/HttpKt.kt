@@ -30,19 +30,19 @@ fun <T> BaseViewModel.request(
     loadingMsg: String? = "正在努力加载中...",
 ): Job =
     launch(
-        block = {
-            if (isShowDialog) {
-                result.value = Result.onLoading(loadingMsg = loadingMsg)
-            }
-            // 请求体
-            block()
+        success = {
+            result.paresResult(it)
         },
         error = {
             it.message?.loge()
             result.paresException(it)
         }
     ) {
-        result.paresResult(it)
+        if (isShowDialog) {
+            result.value = Result.onLoading(loadingMsg = loadingMsg)
+        }
+        // 请求体
+        block()
     }
 
 
@@ -60,19 +60,19 @@ fun <T> BaseViewModel.requestNoCheck(
     loadingMsg: String? = "正在努力加载中...",
 ): Job =
     launch(
-        block = {
-            if (isShowDialog) {
-                result.value = Result.onLoading(loadingMsg = loadingMsg)
-            }
-            // 请求体
-            block()
+        success = {
+            result.paresResult(it)
         },
         error = {
             it.message?.loge()
             result.paresException(it)
         }
     ) {
-        result.paresResult(it)
+        if (isShowDialog) {
+            result.value = Result.onLoading(loadingMsg = loadingMsg)
+        }
+        // 请求体
+        block()
     }
 
 /**
@@ -91,12 +91,15 @@ fun <T> BaseViewModel.request(
     loadingMsg: String? = "正在努力加载中...",
 ): Job =
     launch(
-        block = {
-            if (isShowDialog) {
-                loadingChange.showDialog.postValue(Event(loadingMsg))
+        success = {
+            // 网络请求成功 关闭弹窗
+            loadingChange.dismissDialog.postValue(Event(true))
+            // 校验请求结果码是否正确
+            if (it.isSuccess()) {
+                success(it.getResponseData())
+            } else {
+                error(ApiException(errCode = it.getResponseCode(), error = it.getResponseMsg()))
             }
-            // 请求体
-            block()
         },
         error = { e ->
             // 网络请求异常 关闭弹窗
@@ -107,14 +110,11 @@ fun <T> BaseViewModel.request(
             error(ExceptionHandler.handleException(e))
         },
     ) {
-        // 网络请求成功 关闭弹窗
-        loadingChange.dismissDialog.postValue(Event(true))
-        // 校验请求结果码是否正确
-        if (it.isSuccess()) {
-            success(it.getResponseData())
-        } else {
-            error(ApiException(errCode = it.getResponseCode(), error = it.getResponseMsg()))
+        if (isShowDialog) {
+            loadingChange.showDialog.postValue(Event(loadingMsg))
         }
+        // 请求体
+        block()
     }
 
 
@@ -134,12 +134,11 @@ fun <T> BaseViewModel.requestNoCheck(
     loadingMsg: String? = "正在努力加载中...",
 ): Job =
     launch(
-        block = {
-            if (isShowDialog) {
-                loadingChange.showDialog.postValue(Event(loadingMsg))
-            }
-            // 请求体
-            block()
+        success = {
+            // 网络请求成功 关闭弹窗
+            loadingChange.dismissDialog.postValue(Event(true))
+            // 成功回调
+            success(it)
         },
         error = { e ->
             // 网络请求异常 关闭弹窗
@@ -150,10 +149,11 @@ fun <T> BaseViewModel.requestNoCheck(
             error(ExceptionHandler.handleException(e))
         }
     ) {
-        // 网络请求成功 关闭弹窗
-        loadingChange.dismissDialog.postValue(Event(true))
-        // 成功回调
-        success(it)
+        if (isShowDialog) {
+            loadingChange.showDialog.postValue(Event(loadingMsg))
+        }
+        // 请求体
+        block()
     }
 
 /**

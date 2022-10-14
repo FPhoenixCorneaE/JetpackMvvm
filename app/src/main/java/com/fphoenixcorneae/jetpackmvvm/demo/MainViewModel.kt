@@ -29,30 +29,30 @@ class MainViewModel : BaseViewModel() {
         img.loadData(imgData, filterColor = getRandomColor())
 
         launch(
-            block = {
-                IntArray(1000) { it * it }.toList() to System.currentTimeMillis()
+            success = {
+                "sum：${it.first.sum()}  耗时：${System.currentTimeMillis() - it.second}".logd("launch")
             },
             error = {
             }
         ) {
-            "sum：${it.first.sum()}  耗时：${System.currentTimeMillis() - it.second}".logd("launch")
+            IntArray(1000) { it * it }.toList() to System.currentTimeMillis()
         }
         launchIO(
-            block = {
-                LongRange(1, 1_000_000).step(1).toList() to System.currentTimeMillis()
+            success = {
+                "sum：${it.first.sum()}  耗时：${System.currentTimeMillis() - it.second}".logd("launchIO")
             },
             error = {
             }
         ) {
-            "sum：${it.first.sum()}  耗时：${System.currentTimeMillis() - it.second}".logd("launchIO")
+            LongRange(1, 1_000_000).step(1).toList() to System.currentTimeMillis()
         }
 
-        launch(block = {
+        launch {
             repeat(6) {
                 _timeCountDown.emit(5 - it)
                 delay(1000)
             }
-        })
+        }
     }
 
     fun onMultiClickImg() {

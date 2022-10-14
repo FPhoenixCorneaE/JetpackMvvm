@@ -3,22 +3,18 @@ package com.fphoenixcorneae.jetpackmvvm.demo
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import com.fphoenixcorneae.common.ext.logd
 import com.fphoenixcorneae.jetpackmvvm.base.activity.BaseActivity
 import com.fphoenixcorneae.jetpackmvvm.demo.databinding.ActivityMainBinding
-import com.fphoenixcorneae.jetpackmvvm.ext.collectWithLifecycle
-import com.fphoenixcorneae.jetpackmvvm.ext.launchRepeatOnLifecycle
-import com.fphoenixcorneae.jetpackmvvm.ext.networkViewModel
+import com.fphoenixcorneae.jetpackmvvm.ext.*
 import com.fphoenixcorneae.jetpackmvvm.startup.defaultMMKV
+import kotlinx.coroutines.delay
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val mHandler = Handler(Looper.getMainLooper())
     private val mViewModel by viewModels<MainViewModel>()
 
     override fun ActivityMainBinding.initViewBinding() {
@@ -56,22 +52,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     @SuppressLint("SetTextI18n")
     override fun initData(savedInstanceState: Bundle?) {
         showLoading("")
-        mHandler.postDelayed({
+        launchMain {
+            delay(2000)
             showContent()
             mViewBinding.tvTwoWayBinding.text = "two-way binding value changed"
-        }, 2000)
+        }
 
-        defaultMMKV.encode("mmkv-version", "1.2.8")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mHandler.removeCallbacksAndMessages(null)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mHandler.removeCallbacksAndMessages(null)
+        launchIO {
+            defaultMMKV.encode("mmkv-version", "1.2.8")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
