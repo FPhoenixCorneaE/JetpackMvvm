@@ -70,30 +70,30 @@ dependencies {
 
 ### 五、特性
 
-1. ##### MVVM框架设计模式基础组件：Application、Activity、Fragment、Dialog、ViewModel、Adapter
+1. ##### MVVM框架设计模式基础组件：Application、Activity、Fragment、Dialog、ViewModel、Adapter。
 
-2. ##### Jetpack Data Binding：声明性将布局中的界面组件绑定到应用中的数据源
+2. ##### Jetpack Data Binding：声明性将布局中的界面组件绑定到应用中的数据源。
 
-3. ##### Jetpack Lifecycle：Activity、Fragment、Dialog、View等生命周期感知
+3. ##### Jetpack Lifecycle：Activity、Fragment、Dialog、View等生命周期感知。
 
-4. ##### Jetpack Navigation：Fragment、Activity之间导航
+4. ##### Jetpack Navigation：Fragment、Activity之间导航。
 
-5. ##### Jetpack LiveData：Event、NetworkState
+5. ##### Jetpack LiveData：Event、NetworkState。
 
-6. ##### Jetpack Startup：应用启动时简单高效地初始化组件
+6. ##### Jetpack Startup：应用启动时简单高效地初始化组件。
 
-7. ##### 多状态布局管理：Empty、Error、Loading、NoNetwork、Content
+7. ##### 多状态布局管理：Empty、Error、Loading、NoNetwork、Content。
 
 ### 六、开始使用
 
-1. 自定义Application继承**BaseApplication**
+1. 自定义Application继承**BaseApplication**。
 
 ```kotlin
 class WanAndroidApp : BaseApplication() {
 }
 ```
 
-2. Activity继承**BaseActivity<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+2. Activity继承**BaseActivity<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法。
 
 ```kotlin
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -103,7 +103,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 }
 ```
 
-3. Fragment继承**BaseFragment<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+3. Fragment继承**BaseFragment<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法。
 
 ```kotlin
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -113,7 +113,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 }
 ```
 
-4. Dialog继承**BaseDialog<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法
+4. Dialog继承**BaseDialog<VB>**，实现抽象方法：**VB.initViewBinding()**，可重写BaseView<VB>中的其他方法。
 
 ```kotlin
 class SplashDialog : BaseDialog<DialogSplashBinding>() {
@@ -156,14 +156,14 @@ class SplashViewModel : BaseViewModel() {
 
     fun setSplashImg(data: String?) {
         launch({
-            _splashImg.value = data
-            _logoVisible.value = data.isNullOrEmpty()
+            _splashImg.emit(data)
+            _logoVisible.emit(data.isNullOrEmpty())
         })
     }
 }
 ```
 
-1. Http网络请求
+6. Http网络请求
 
 1. #### live data event：SingleLiveEvent
 
