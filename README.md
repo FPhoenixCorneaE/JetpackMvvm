@@ -123,7 +123,7 @@ class SplashDialog : BaseDialog<DialogSplashBinding>() {
 }
 ```
 
-5. ViewModel继承**BaseViewModel**。实时数据推荐使用**StateFlow**，事件推荐使用**Channel**。
+5. ViewModel继承**BaseViewModel**。<font color="#ff5200">状态（State）用 <b>StateFlow</b> ； 事件（Event）用 <b>SharedFlow</b>。</font>
 
 ```kotlin
 class SplashViewModel : BaseViewModel() {
@@ -200,4 +200,5 @@ viewModel.loadingChange.showDialog.observe(this, EventObserver {
       "collectWithLifecycle: $it".logd()
   }
   ```
+
 
