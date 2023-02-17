@@ -151,6 +151,8 @@
                 tools:ignore="Autofill,HardcodedText,LabelFor" />
 
             <androidx.recyclerview.widget.RecyclerView
+                onLoadMore="@{() -> null}"
+                pageCount="@{20}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adapter="@{null}"

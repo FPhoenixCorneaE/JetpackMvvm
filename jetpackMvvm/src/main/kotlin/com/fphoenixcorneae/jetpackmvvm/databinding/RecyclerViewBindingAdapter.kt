@@ -25,10 +25,14 @@ fun initRecycler(
     itemAnimator?.let { recyclerView.itemAnimator = it }
 }
 
-@BindingAdapter(value = ["onLoadMore"], requireAll = false)
+@BindingAdapter(value = ["onLoadMore", "pageCount"], requireAll = false)
 fun setOnLoadMoreListener(
     recyclerView: RecyclerView,
-    onLoadMoreListener: OnLoadMoreListener,
+    onLoadMoreListener: OnLoadMoreListener?,
+    pageCount: Int?,
 ) {
-    recyclerView.addOnScrollListener(OnScrollLoadMoreListener(onLoadMoreListener = onLoadMoreListener))
+    recyclerView.addOnScrollListener(OnScrollLoadMoreListener(
+        onLoadMoreListener = onLoadMoreListener,
+        pageCount = pageCount ?: OnScrollLoadMoreListener.PAGE_COUNT,
+    ))
 }

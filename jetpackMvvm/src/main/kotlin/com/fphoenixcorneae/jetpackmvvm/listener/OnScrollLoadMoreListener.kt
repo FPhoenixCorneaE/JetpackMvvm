@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
  */
 open class OnScrollLoadMoreListener(
     /** 加载更多 */
-    private val onLoadMoreListener: OnLoadMoreListener? = null
+    private val onLoadMoreListener: OnLoadMoreListener? = null,
+    private val pageCount: Int = PAGE_COUNT,
 ) : RecyclerView.OnScrollListener() {
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -23,7 +24,7 @@ open class OnScrollLoadMoreListener(
                     val itemCount = layoutManager.itemCount
 
                     // 判断是否最后一项完全显示
-                    if (lastCompletelyVisibleItemPosition == itemCount - 1) {
+                    if (itemCount >= pageCount && lastCompletelyVisibleItemPosition == itemCount - 1) {
                         // 加载更多
                         onLoadMoreListener?.onLoadMore()
                     }
@@ -31,12 +32,16 @@ open class OnScrollLoadMoreListener(
             }
         }
     }
+
+    companion object {
+        const val PAGE_COUNT = 10
+    }
 }
 
 /**
  * @desc：OnLoadMoreListener
  * @date：2022/06/06 11:33
  */
-interface OnLoadMoreListener{
+interface OnLoadMoreListener {
     fun onLoadMore()
 }
