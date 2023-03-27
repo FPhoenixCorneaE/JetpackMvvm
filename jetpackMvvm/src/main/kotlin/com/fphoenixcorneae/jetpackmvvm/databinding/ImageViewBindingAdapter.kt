@@ -40,9 +40,9 @@ import com.fphoenixcorneae.common.ext.view.setTintColor
  */
 @BindingAdapter(
     value = [
-        "imgData", "placeholderResId", "placeholderDrawable", "centerCrop", "isCircle", "roundedCornerRadius",
-        "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius", "isBlur", "blurRadius",
-        "isGrayscale", "filterColor", "lifecycleOwner",
+        "imgData", "placeholderResId", "placeholderDrawable", "errorResId", "errorDrawable", "centerCrop", "isCircle",
+        "roundedCornerRadius", "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius", "isBlur",
+        "blurRadius", "isGrayscale", "filterColor", "lifecycleOwner",
     ],
     requireAll = false
 )
@@ -50,6 +50,8 @@ fun ImageView.loadData(
     imgData: Any?,
     @DrawableRes placeholderResId: Int? = null,
     placeholderDrawable: Drawable? = null,
+    @DrawableRes errorResId: Int? = null,
+    errorDrawable: Drawable? = null,
     centerCrop: Boolean? = null,
     isCircle: Boolean? = null,
     @FloatRange(from = 0.0) roundedCornerRadius: Float? = null,
@@ -72,9 +74,13 @@ fun ImageView.loadData(
         // 占位图
         placeholderResId?.let {
             placeholder(it)
-            error(it)
         } ?: placeholderDrawable?.let {
             placeholder(it)
+        }
+        // 错误图
+        errorResId?.let {
+            error(it)
+        } ?: errorDrawable?.let {
             error(it)
         }
 

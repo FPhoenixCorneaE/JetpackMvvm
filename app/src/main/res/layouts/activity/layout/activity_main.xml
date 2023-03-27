@@ -61,14 +61,15 @@
                         android:id="@+id/image"
                         bottomRightRadius="@{30f}"
                         filterColor="@{filterColor}"
-                        imgData="@{imgData}"
+                        imgData="@{null}"
+                        errorDrawable="@{viewModel.imgError}"
                         isBlur="@{false}"
                         isCircle="@{false}"
                         isGrayscale="@{false}"
                         onSingleClick="@{() -> viewModel.onClickImg(image,imgData)}"
                         topLeftRadius="@{30f}"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         tools:ignore="ContentDescription" />
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -88,40 +89,42 @@
                         topLeftCornerSize="@{60f}"
                         topRightCornerFamily="@{CornerFamily.CUT}"
                         topRightCornerSize="@{60f}"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="centerCrop" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         borderColor="@{@android:color/holo_red_light}"
                         borderSize="@{4f}"
                         bottomLeftCornerFamily="@{CornerFamily.ROUNDED}"
-                        bottomLeftCornerSize="@{40f}"
+                        bottomLeftCornerSize="@{30f}"
                         bottomRightCornerFamily="@{CornerFamily.ROUNDED}"
-                        bottomRightCornerSize="@{30f}"
+                        bottomRightCornerSize="@{20f}"
                         cornerFamily="@{CornerFamily.CUT}"
                         imgData="@{imgData}"
                         topLeftCornerFamily="@{CornerFamily.ROUNDED}"
                         topLeftCornerSize="@{10f}"
                         topRightCornerFamily="@{CornerFamily.ROUNDED}"
-                        topRightCornerSize="@{20f}"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        topRightCornerSize="@{15f}"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/ivTestGifWebP"
                         imgData="@{R.mipmap.gif_jumping_star}"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvHelloWorld"
+                isFakeBoldText="@{true}"
                 onSingleClick="@{() -> viewModel.helloWorld(tvHelloWorld)}"
                 strikeThru="@{true}"
+                underline="@{true}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

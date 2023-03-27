@@ -1,5 +1,7 @@
 package com.fphoenixcorneae.jetpackmvvm.demo
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +19,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 
 class MainViewModel : BaseViewModel() {
+
+    val imgError = MutableStateFlow(ColorDrawable(Color.LTGRAY)).asStateFlow()
 
     val twoWayBindingText = MutableLiveData<String>()
 
